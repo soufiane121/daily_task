@@ -1,6 +1,17 @@
 class Owner < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+    validates :first_name, :last_name, :user_name, :company, presence: true
+    validates :user_name, :company, uniqueness: true
+    validates :password_digest, length: { minimum: 3 }
+
+    has_secure_password
+
+    after_create :create_tenante
+
+
+
+    private 
+
+    def create_tenante
+        Apartment::Tenant.create(company)
+    end
 end
