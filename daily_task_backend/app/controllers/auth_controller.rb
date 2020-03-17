@@ -1,11 +1,15 @@
+require 'byebug'
 class AuthController < ApplicationController
+
+
   
     def login
-       owner = Owner.find_by(user_name: params[:user_name])
-
-        if owner && owner.authenticate(params[:password])
-            token = encode_token(owner.id)
-            render json: {user: owner, token: token}
+        # debugger
+       @owner = Owner.find_by(email: params[:email])
+        if @owner && @owner.authenticate(params[:password])
+            session[:@owner_id] = @owner.id
+            token = encode_token(@owner.id)
+            render json: {owner: OwnerSerializer.new(@owner), token: token}
         else
             render json: {errors: "Username or password incorrect."}
         end
