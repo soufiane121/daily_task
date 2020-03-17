@@ -7,13 +7,15 @@ class OwnersController < ApplicationController
     end
 
     def create
-        @owner = Owner.create(filtered_params)
-        # debugger
-        if @owner.valid?
+        @owner = Owner.new(filtered_params)
+        @owner.password = params[:password]
+        if @owner.save
+            session[:owner_id] = @owner.id 
             token = encode_token(@owner.id)
             render json: { owner: OwnerSerializer.new(@owner) }, status: :created
         else 
             render json: {errors: @owner.errors.full_messages}, status: :not_created
+
         end
     end
 
@@ -21,6 +23,6 @@ class OwnersController < ApplicationController
 private
 
     def filtered_params
-        params.require(:owner).permit(:first_name, :last_name, :user_name, :company, :email, :password_digest)
+        params.require(:owner).permit(:first_name, :last_name, :user_name, :company, :email)
     end
 end

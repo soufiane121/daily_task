@@ -17,7 +17,7 @@ const SignUp=(props)=>{
             user_name: props.user_name,
             company: props.company,
             email: props.email,
-            password_digest: props.password
+            password: props.password
         })
      })
      .then(resp => resp.json())
