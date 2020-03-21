@@ -1,3 +1,3 @@
 class OwnerSerializer < ActiveModel::Serializer
-  attributes :id, :company, :user_name, :email
+  attributes :id, :subdomain, :user_name, :email, :admin
 end

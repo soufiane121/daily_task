@@ -15,6 +15,10 @@ switch (action.type) {
         return {...state, company: action.payload.company}
     case "email":
         return {...state, email: action.payload.email}
+    case 'current': 
+       return {...state, currentUser: action.payload.currentUser}
+    case 'displaylogin': 
+       return {...state, displaylogin: !state.displaylogin}
     default:
         return state
 }

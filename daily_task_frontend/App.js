@@ -1,17 +1,27 @@
 import React from 'react';
+import { View, TextInput, StyleSheet, Keyboard,  TouchableWithoutFeedback } from 'react-native';
 import {Provider} from 'react-redux'
 import store from './Redux/store' 
-import SignUp from './Components/SignUp'
-import SignIn from './Components/SignIn'
-import { StyleSheet, Text, View } from 'react-native';
+import UserSignUp from './Components/UserSignUp'
+import ParentComp from './Owner/ParentComp';
 
-export default function App() {
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
+
+ const App =()=> {
+
   return (
     <Provider store={store} >
+    <DismissKeyboard>
     <View style={styles.container}>
-      {/* <SignUp /> */}
-      <SignIn />
+      <ParentComp />
+      {/* <UserSignUp /> */}
     </View>
+    </DismissKeyboard>
     </Provider>
   );
 }
@@ -24,3 +34,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App
