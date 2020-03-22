@@ -10,7 +10,7 @@ const SignUp=(props)=>{
      
      <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset="3" stle={styles.all}>
        <ScrollView showsVerticalScrollIndicator={false}> 
-          <Text style={styles.title}>Create Your WorkSpace</Text>
+         <Text style={styles.title}>Create Your WorkSpace</Text>
         <TextInput style={styles.txt} placeholder="Company" autoCapitalize = 'none' value={props.company} onChange={props.handleCompany}/>
         <TextInput style={styles.txt} placeholder="Email" autoCapitalize = 'none' value={props.email} onChange={props.handleEmail}/>
         <TextInput style={styles.txt} placeholder="First name" autoCapitalize = 'none' value={props.first_name} onChange={props.handleFirstName} />
@@ -18,7 +18,7 @@ const SignUp=(props)=>{
         <TextInput style={styles.txt} placeholder="User name" autoCapitalize = 'none' value={props.user_name} onChange={props.handleUserName} />
         <TextInput style={styles.txt} secureTextEntry placeholder="Password" name="password" value={props.password} onChange={props.handlePassword} />
        <Button title="Sign Up" onPress={props.handleSignUp} style={styles.submit} />
-       <Text >You Do have an Account ? </Text>
+       <Text>You Do have an Account ?</Text>
        <TouchableOpacity>
            <Text onPress={props.handleDisplay} style={{color: '#d45d79', fontSize: 18}}> Log In</Text>
        </TouchableOpacity>

@@ -2,27 +2,23 @@ import React from "react";
 import {TextInput,Button,StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Text, KeyboardAvoidingView, Platform} from 'react-native'
 
 import {connect} from 'react-redux'
-import DismissKeyboardView from '../Components/DismissKeyboardView'
 
 
 const SignIn=(props)=>{
-console.log('props;;', props.displaylogin);
 
 
   return(
     <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset="3" style={styles.all}>
-
         <Text style={styles.container}>Sign In </Text>
         <TextInput style={styles.txt} placeholder="Company" autoCapitalize = 'none' value={props.company} onChange={props.handleCompany}/>
         <TextInput style={styles.txt} placeholder="Email" autoCapitalize = 'none' value={props.email} onChange={props.handleEmail}/>
         <TextInput style={styles.txt} secureTextEntry placeholder="Password" name="password" value={props.password} onChange={props.handlePassword} />
+        <Button title="submit" onPress={props.handleSignIn} style={styles.btn}/>
         <Text >You don't have an account?</Text>
         <TouchableOpacity>
-            <Text onPress={props.handleDisplay} style={styles.spn}>register</Text>
+         <Text onPress={props.handleDisplay} style={styles.spn}>register</Text>
         </TouchableOpacity>
-
-        <Button title="submit" onPress={props.handleSignIn} style={styles.btn}/>
-  </KeyboardAvoidingView>
+    </KeyboardAvoidingView>
   )
 }
 
