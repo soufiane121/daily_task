@@ -8,6 +8,7 @@ import ImageButtons from './OwnOrUser/ImageButtons'
 import ParentComp from './Owner/ParentComp';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import LandingPg from './Components/LandingPg'
 
 
 
@@ -39,6 +40,7 @@ const Stack = createStackNavigator();
         <Stack.Screen  name="ParentComp" component={ParentComp} 
         options={{title: 'Registration'}}
         />
+        <Stack.Screen name="Home" component={LandingPg} />
       </Stack.Navigator>
     )
   }
