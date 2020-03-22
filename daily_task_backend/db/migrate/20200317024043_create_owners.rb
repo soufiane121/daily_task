@@ -5,8 +5,9 @@ class CreateOwners < ActiveRecord::Migration[5.2]
       t.string :last_name
       t.string :user_name
       t.string :password_digest
-      t.string :company
+      t.string :subdomain
       t.string :email
+      t.boolean :admin, default: true
 
       t.timestamps
     end

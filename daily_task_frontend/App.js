@@ -1,18 +1,58 @@
 import React from 'react';
+import { View, TextInput, StyleSheet, Keyboard,  TouchableWithoutFeedback } from 'react-native';
 import {Provider} from 'react-redux'
-import store from './Redux/store' 
-import SignUp from './Components/SignUp'
-import SignIn from './Components/SignIn'
-import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+import store from './Redux/store' 
+import UserSignUp from './Components/UserSignUp'
+import ImageButtons from './OwnOrUser/ImageButtons'
+import ParentComp from './Owner/ParentComp';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+
+
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
+
+const Stack = createStackNavigator();
+
+ const App =()=> {
+
+  const MainNavigations=()=>{
+    return (
+      <Stack.Navigator screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen name="main" children={FullNavigation} />
+      </Stack.Navigator>
+    )
+  }
+
+  const FullNavigation=()=>{
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name={' '} component={ImageButtons} />
+        <Stack.Screen  name="ParentComp" component={ParentComp} 
+        options={{title: 'Registration'}}
+        />
+      </Stack.Navigator>
+    )
+  }
+
   return (
+  
     <Provider store={store} >
-    <View style={styles.container}>
-      {/* <SignUp /> */}
-      <SignIn />
-    </View>
+    <DismissKeyboard>
+    <NavigationContainer>
+     {MainNavigations()}
+    </NavigationContainer>
+    </DismissKeyboard>
     </Provider>
+ 
   );
 }
 
@@ -24,3 +64,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App

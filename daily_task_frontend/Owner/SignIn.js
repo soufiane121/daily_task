@@ -1,46 +1,51 @@
 import React from "react";
-import {TextInput,Button,StyleSheet} from 'react-native'
-import {connect} from 'react-redux'
+import {TextInput,Button,StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Text, KeyboardAvoidingView, Platform} from 'react-native'
 
+import {connect} from 'react-redux'
 
 
 const SignIn=(props)=>{
 
-    const handleSubmit=()=>{
-        fetch(`http://lvh.me:3000/login`,{
-            method: 'POST',
-            headers:{
-               'Content-Type': 'application/json',
-               Accept: 'application/json'
-           },
-           body: JSON.stringify({
-               company: props.company,
-               email: props.email,
-               password: props.password
-           })
-        })
-        .then(resp => resp.json())
-        .then(data => console.log('daaata',data)
-        )
-        
-    }
 
   return(
-    <>
+    <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset="3" style={styles.all}>
+        <Text style={styles.container}>Sign In </Text>
         <TextInput style={styles.txt} placeholder="Company" autoCapitalize = 'none' value={props.company} onChange={props.handleCompany}/>
         <TextInput style={styles.txt} placeholder="Email" autoCapitalize = 'none' value={props.email} onChange={props.handleEmail}/>
         <TextInput style={styles.txt} secureTextEntry placeholder="Password" name="password" value={props.password} onChange={props.handlePassword} />
-        <Button title='Submit' onPress={handleSubmit}/>
-    </>
-   )
+        <Button title="submit" onPress={props.handleSignIn} style={styles.btn}/>
+        <Text >You don't have an account?</Text>
+        <TouchableOpacity>
+         <Text onPress={props.handleDisplay} style={styles.spn}>register</Text>
+        </TouchableOpacity>
+    </KeyboardAvoidingView>
+  )
 }
 
 const styles= StyleSheet.create({
     txt: {
-        borderBottomWidth: 2,
-        width:200,
-        padding: 10
-    }
+        borderBottomWidth: 1,
+        width:300,
+        padding: 20
+    },
+    container:{
+        color: 'grey',
+        fontSize: 29,
+        alignSelf: 'center'
+    },
+    all:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+   },
+   spn: {
+       color: '#d45d79',
+       fontSize: 18
+   },
+   btn: {
+    color: 'red',
+    flex: 1
+   }
 })
 
 const mps=(state)=>{
@@ -50,7 +55,8 @@ const mps=(state)=>{
         user_name: state.user_name,
         password: state.password,
         email: state.email,
-        company: state.company
+        company: state.company,
+        displaylogin: state.displaylogin
     }
     }
 const mpss=(dispatch)=>{
@@ -74,6 +80,9 @@ return {
             payload: {email: e.nativeEvent.text}
         })
     },
+    handleDisplay: () =>{
+        dispatch({type: 'displaylogin'})
+    }
 }
 }
 

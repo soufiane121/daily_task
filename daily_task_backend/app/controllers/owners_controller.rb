@@ -14,8 +14,7 @@ class OwnersController < ApplicationController
             token = encode_token(@owner.id)
             render json: { owner: OwnerSerializer.new(@owner) }, status: :created
         else 
-            render json: {errors: @owner.errors.full_messages}, status: :not_created
-
+            render json: {errors: @owner.errors.full_messages}, status: 500
         end
     end
 
@@ -23,6 +22,7 @@ class OwnersController < ApplicationController
 private
 
     def filtered_params
-        params.require(:owner).permit(:first_name, :last_name, :user_name, :company, :email)
+        params.require(:owner).permit(:first_name, :last_name, :user_name, :subdomain, :email)
     end
+    
 end

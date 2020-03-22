@@ -1,6 +1,7 @@
 class Owner < ApplicationRecord
-    validates :first_name, :last_name, :user_name, :company, :email, presence: true
-    validates :user_name, :company, :email, uniqueness: true
+    has_many :users
+    validates :first_name, :last_name, :user_name, :subdomain, :email, presence: true
+    validates :user_name, :subdomain, :email, uniqueness: true
     validates :password_digest, length: { minimum: 3 }
     has_secure_password
     after_create :create_tenante
@@ -12,6 +13,6 @@ class Owner < ApplicationRecord
     private 
 
     def create_tenante
-        Apartment::Tenant.create(company)
+        Apartment::Tenant.create(subdomain)
     end
 end
