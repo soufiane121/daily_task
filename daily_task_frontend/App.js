@@ -3,12 +3,12 @@ import { View, TextInput, StyleSheet, Keyboard,  TouchableWithoutFeedback } from
 import {Provider} from 'react-redux'
 
 import store from './Redux/store' 
-import UserSignUp from './Components/UserSignUp'
 import ImageButtons from './OwnOrUser/ImageButtons'
 import ParentComp from './Owner/ParentComp';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LandingPg from './Components/LandingPg'
+import ParentCompForUsers from './Users/ParentCompForUsers'
 
 
 
@@ -41,6 +41,7 @@ const Stack = createStackNavigator();
         options={{title: 'Registration'}}
         />
         <Stack.Screen name="Home" component={LandingPg} />
+        <Stack.Screen name='Users' component={ParentCompForUsers} />
       </Stack.Navigator>
     )
   }

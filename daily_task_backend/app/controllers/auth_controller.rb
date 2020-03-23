@@ -15,7 +15,6 @@ class AuthController < ApplicationController
     end
 
     def auto_login  
-         
         id =request.headers["Authorization"]
         owner = Owner.find_by(id: id.to_i)
         if owner

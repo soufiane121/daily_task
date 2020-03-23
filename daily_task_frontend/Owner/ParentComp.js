@@ -41,7 +41,7 @@ const ParentComp=(props)=>{
     console.log(error);
   })
  }
-
+//  fetching data for login 
  const handleSignIn=()=>{
     fetch(`http://lvh.me:3000/login`,{
         method: 'POST',
@@ -81,7 +81,7 @@ const ParentComp=(props)=>{
 
 // fetching auto login base on localstage
  useEffect(()=>{
-    fetchAutoLogin()
+    // fetchAutoLogin()
   },[props.handleCurrentUserId]) 
 
 
@@ -106,7 +106,7 @@ const fetchAutoLogin = async () => {
       props.navigation.replace("Home")
       }
     } catch (error) {
-      alert("dont know yet")
+      alert("something went wrong")
       console.log(error);
     }
   }

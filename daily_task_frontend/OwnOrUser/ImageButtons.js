@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text,View, StyleSheet, TouchableOpacity} from 'react-native'
+import {Text,View, StyleSheet, TouchableOpacity, Platform} from 'react-native'
 import { Entypo, FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 
 const ImageButtons=({navigation})=>{
@@ -11,7 +11,7 @@ const ImageButtons=({navigation})=>{
 
     // function to navigate to user form 
     const handleUserButton=()=>{
-        console.log("yes its working")
+        navigation.replace('Users')     
     }
     
     return (
@@ -32,20 +32,19 @@ const styles= StyleSheet.create({
     groupIcon: {
         color: 'grey',
         margin: 30,
-        fontSize: 160
+        fontSize: Platform.OS === 'android' ? 130 : 160
     },
     container:{
-        // flex:2,
         justifyContent: 'center',
         alignItems: 'center'
     },
     text:{
-        fontSize: 25,
+        fontSize: Platform.OS === 'android' ? 20 : 22,
         fontWeight: '400',
         alignSelf: 'center'
     },
     userIcon:{
-        fontSize: 160,
+        fontSize: Platform.OS === 'android' ? 120 : 160,
         alignSelf: 'center',
         margin: 70,
         color: 'grey'

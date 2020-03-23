@@ -1,47 +1,65 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {View, TextInput, StyleSheet, Button} from 'react-native'
+import {Text, TextInput, StyleSheet, Button, ScrollView, 
+    KeyboardAvoidingView, Platform,TouchableOpacity, View, Keyboard, TouchableWithoutFeedback
+} from 'react-native'
+
+const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      {children}
+    </TouchableWithoutFeedback>
+  );
 
 const UserSignUp=(props)=>{
 
- const handleSubmit=()=>{
-     fetch(`http://${props.company}.lvh.me:3000/users`,{
-         method: 'POST',
-         headers:{
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-        },
-        body: JSON.stringify({
-            first_name: props.first_name,
-            last_name: props.last_name,
-            company: props.company,
-            email: props.email,
-            password: props.password
-        })
-     })
-     .then(resp => resp.json())
-     .then(data => console.log('daaata',data)
-     )
-        
-    }
+ 
 
  return (
-    <View>
+     <DismissKeyboard>
+     <KeyboardAvoidingView behavior='padding' enabled keyboardVerticalOffset="3" style={styles.container}>
+            {/* <ScrollView showsVerticalScrollIndicator={false}> */}
+        <Text style={styles.title}>Sign Up</Text>
         <TextInput style={styles.txt} placeholder="Company" autoCapitalize = 'none' value={props.company} onChange={props.handleCompany}/>
         <TextInput style={styles.txt} placeholder="Email" autoCapitalize = 'none' value={props.email} onChange={props.handleEmail}/>
         <TextInput style={styles.txt} placeholder="First name" autoCapitalize = 'none' value={props.first_name} onChange={props.handleFirstName} />
         <TextInput style={styles.txt} placeholder="Last name" autoCapitalize = 'none' value={props.last_name} onChange={props.handleLastName} />
         <TextInput style={styles.txt} secureTextEntry placeholder="Password" name="password" value={props.password} onChange={props.handlePassword} />
-        <Button title='Submit' onPress={handleSubmit}/>
-    </View>
+        <Button title='Sign Up' onPress={props.handleSignUp} style={styles.btn}/>
+        <Text style={{fontSize: 16}}>You Do have an Account ?</Text>
+       <TouchableOpacity onPress={props.handleDisplay}>
+           <Text style={styles.txt2}> Log In</Text>
+       </TouchableOpacity>
+         {/* </ScrollView> */}
+    </KeyboardAvoidingView>
+    </DismissKeyboard>
+    
     )
 }
 
 const styles= StyleSheet.create({
     txt: {
         borderBottomWidth: 2,
-        width:200,
-        padding: 10
+        width:300,
+        padding: 20
+    },
+    container:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    btn:{
+        marginBottom: 420
+    },
+    title: {
+        alignSelf: 'center',
+        fontSize: Platform.OS === 'ios' ? 23: 19 ,
+        color: 'grey',
+        // marginTop: Platform.OS === 'ios' ? 130 : 60
+    },
+    txt2: {
+        alignSelf: 'center',
+        color: 'skyblue',
+        fontSize: Platform.OS === 'ios' ? 22 : 17
     }
 })
 
@@ -86,6 +104,9 @@ return {
             payload: {email: e.nativeEvent.text}
         })
     },
+    handleDisplay:()=>{
+        dispatch({type: 'displaylogin'})
+    }
 }
 }
 
