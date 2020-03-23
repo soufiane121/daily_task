@@ -7,16 +7,18 @@ class AuthController < ApplicationController
        @owner = Owner.find_by(email: params[:email])
         if @owner && @owner.authenticate(params[:password])
             session[:@owner_id] = @owner.id
-            token = encode_token(@owner.id)
-            render json: {owner: OwnerSerializer.new(@owner), token: token}
+            tokenn = encode_token(@owner.id)
+            render json: {owner: OwnerSerializer.new(@owner), token: tokenn}
         else
             render json: {errors: "Username or password incorrect."}
         end
     end
 
     def auto_login  
-        id =request.headers["Authorization"]
-        owner = Owner.find_by(id: id.to_i)
+        # id =request.headers["Authorization"]
+        # Owner.find_by(id: decoded_token)
+
+        owner = Owner.find_by(id: decoded_token)
         if owner
             render json: {owner: OwnerSerializer.new(owner)}
         else

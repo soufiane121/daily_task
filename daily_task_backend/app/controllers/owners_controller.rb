@@ -11,8 +11,8 @@ class OwnersController < ApplicationController
         @owner.password = params[:password]
         if @owner.save
             session[:owner_id] = @owner.id 
-            token = encode_token(@owner.id)
-            render json: { owner: OwnerSerializer.new(@owner) }, status: :created
+            tokenn= encode_token(@owner.id)
+            render json: { owner: OwnerSerializer.new(@owner), token: tokenn }, status: :created
         else 
             render json: {errors: @owner.errors.full_messages}, status: 500
         end

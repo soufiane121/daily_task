@@ -11,8 +11,8 @@ class UsersController < ApplicationController
         @user.password = params[:password]
         if @user.save
             session[:user_id] = @user.id 
-            token = encode_token(@user.id)
-            render json: { user: UserSerializer.new(@user) }, status: :created
+            token = user_encode_token(@user.id)
+            render json: { user: UserSerializer.new(@user), token: token }, status: :created
         else 
             render json: {errors: @user.errors.full_messages}, status: 500
         end
