@@ -6,6 +6,7 @@ const defaultState ={
     company: null,
     currentUserId: null,
     currentUser:null,
-    displaylogin: false
+    displaylogin: false,
+    CurrentUserId: null
    }
    export default defaultState;

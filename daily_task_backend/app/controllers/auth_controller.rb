@@ -4,7 +4,6 @@ class AuthController < ApplicationController
 
   
     def login
-        # debugger
        @owner = Owner.find_by(email: params[:email])
         if @owner && @owner.authenticate(params[:password])
             session[:@owner_id] = @owner.id
@@ -15,9 +14,11 @@ class AuthController < ApplicationController
         end
     end
 
-    def auto_login   
-        if session_user
-            render json: {user: session_user}
+    def auto_login  
+        id =request.headers["Authorization"]
+        owner = Owner.find_by(id: id.to_i)
+        if owner
+            render json: {owner: OwnerSerializer.new(owner)}
         else
             render json: {errors: "User not found. Please login again. "}
         end
@@ -25,4 +26,4 @@ class AuthController < ApplicationController
   
     
   end
-  
+

@@ -1,14 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Text, StyleSheet,View} from 'react-native'
 import {connect} from 'react-redux'
-
+import {AsyncStorage} from 'react-native'
 
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 
 const ParentComp=(props)=>{
 
-
+// send post request to create new Owner with subdomain
  const handleSignUp=()=>{
  fetch(`http://lvh.me:3000/owners`,{
     method: 'POST',
@@ -23,13 +23,25 @@ const ParentComp=(props)=>{
         subdomain: props.company,
         email: props.email,
         password: props.password,
-        
     })
 })
 .then(resp => resp.json())
-.then(data => console.log('daaata',data)   )
-    
+.then(data => {
+    if (!data.hasOwnProperty("errors")) {
+        props.handleCurrentUser(data)
+        saveDataToPhone(data.owner.id)
+        props.handleCurrentUserId(data.owner.id)
+    } else {
+        console.log("After sign up",data);
+        alert(data.errors)
+    }
+   } )
+   .catch(function(error) {
+    alert("Something went wrong");
+    console.log(error);
+  })
  }
+//  fetching data for login 
  const handleSignIn=()=>{
     fetch(`http://lvh.me:3000/login`,{
         method: 'POST',
@@ -47,8 +59,10 @@ const ParentComp=(props)=>{
     .then(data => {
         if (!data.hasOwnProperty("errors")) {
             props.handleCurrentUser(data)
+            props.handleCurrentUserId(data.owner.id)
+            saveDataToPhone(data.owner.id)
         } else {
-            console.log("hahaha",data);
+            console.log("After Login",data);
             alert(data.errors)
         }
        }
@@ -58,8 +72,44 @@ const ParentComp=(props)=>{
         console.log(error);
       })
 }
+//  save Owner id tostorage phone
+ const saveDataToPhone=(id)=>{
+    let num  = id
+    let str  = num.toString()
+    AsyncStorage.setItem("owner_id", str)
+}
+
+// fetching auto login base on localstage
+ useEffect(()=>{
+    // fetchAutoLogin()
+  },[props.handleCurrentUserId]) 
 
 
+const fetchAutoLogin = async () => {
+    try {
+       value = await AsyncStorage.getItem('owner_id');
+       console.log("local storage", value);
+       
+      if (value !== null) {
+        fetch(`http://lvh.me:3000/owner_auto_login`,{
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': value
+          }
+        })
+        .then(resp=> resp.json())
+        .then(data=> {
+          props.handleCurrentUser(data)
+          props.handleCurrentUserId(data.owner.id)
+        })
+      props.navigation.replace("Home")
+      }
+    } catch (error) {
+      alert("something went wrong")
+      console.log(error);
+    }
+  }
 
 
     return (
@@ -70,7 +120,6 @@ const ParentComp=(props)=>{
         :
         <SignUp handleSignUp={handleSignUp}/>
         }
-        
         </View>
     )
 }
@@ -92,7 +141,8 @@ const mps=(state)=>{
         email: state.email,
         company: state.company,
         currentUser: state.currentUser,
-        displaylogin: state.displaylogin
+        displaylogin: state.displaylogin,
+        currentUserId: state.currentuserid
     }
     }
 
@@ -103,6 +153,12 @@ const mpds=(dispatch)=>{
             dispatch({
                 type: "current",
                 payload: {currentUser: e}
+            })
+        },
+        handleCurrentUserId:(e)=>{
+            dispatch({
+                type: 'currentuserid',
+                playload: {currentuserid: e}
             })
         }
     }

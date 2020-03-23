@@ -19,6 +19,8 @@ switch (action.type) {
        return {...state, currentUser: action.payload.currentUser}
     case 'displaylogin': 
        return {...state, displaylogin: !state.displaylogin}
+    case 'currentuserid':
+        return {...state, currentuserid: action.playload.currentuserid}
     default:
         return state
 }
