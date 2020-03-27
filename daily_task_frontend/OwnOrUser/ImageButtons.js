@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Text,View, StyleSheet, TouchableOpacity, Platform} from 'react-native'
+import {Text,View, StyleSheet, TouchableOpacity, Platform, AsyncStorage} from 'react-native'
 import { Entypo, FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 import {connect} from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
@@ -10,15 +10,40 @@ const ImageButtons=(props)=>{
     const navigation = useNavigation();
 
     // function to navigate to company login form
-    const handleGroupTeamButton=()=>{
-        props.handleTabps()
-        navigation.replace('ParentComp')     
+    const handleGroupTeamButton= async ()=>{
+        try {
+        let async = await AsyncStorage.getItem('owner_id')
+            if (async !== null) {
+                props.handleTabps()
+                navigation.replace('ParentComp')     
+            } else {
+                navigation.replace('ParentComp')     
+                
+            }
+        } catch (error) {
+           alert('Something went wrong with connection') 
+           console.log(error)
+        }
     }
 
     // function to navigate to user form 
-    const handleUserButton=()=>{
-        props.handleTabps()
-        navigation.replace('Users')     
+    const handleUserButton= async ()=>{
+
+        try {
+            let async = await AsyncStorage.getItem('user_id')
+                if (async !== null) {
+                    props.handleTabps()
+                    navigation.replace('Users')     
+                } else {
+                    navigation.replace('Users')     
+                    
+                }
+            } catch (error) {
+               alert('Something went wrong with connection') 
+               console.log(error)
+            }
+        // props.handleTabps()
+        // navigation.replace('Users')     
     }
 
   
@@ -41,7 +66,7 @@ const ImageButtons=(props)=>{
 const styles= StyleSheet.create({
     groupIcon: {
         color: 'grey',
-        margin: 30,
+        margin: 70,
         fontSize: Platform.OS === 'android' ? 130 : 160
     },
     container:{
