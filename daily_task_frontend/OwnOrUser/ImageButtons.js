@@ -1,20 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Text,View, StyleSheet, TouchableOpacity, Platform} from 'react-native'
 import { Entypo, FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
+import {connect} from 'react-redux'
+import { useNavigation } from '@react-navigation/native';
 
-const ImageButtons=({navigation})=>{
+
+const ImageButtons=(props)=>{
+
+    const navigation = useNavigation();
 
     // function to navigate to company login form
     const handleGroupTeamButton=()=>{
+        props.handleTabps()
         navigation.replace('ParentComp')     
     }
 
     // function to navigate to user form 
     const handleUserButton=()=>{
+        props.handleTabps()
         navigation.replace('Users')     
     }
+
+  
     
     return (
+        
         <>
         <TouchableOpacity style={styles.container} onPress={handleGroupTeamButton}>
         <MaterialCommunityIcons name="account-group" style={styles.groupIcon}/>
@@ -51,4 +61,18 @@ const styles= StyleSheet.create({
     }
 })
 
-export default ImageButtons;
+const mps=(state)=>{
+return {
+    tabvisible: state.tabvisible
+}
+}
+
+const mpss=(dispatch)=>{
+    return {
+        handleTabps: () =>{
+            dispatch({type: "tabvisible"})
+        }
+    }
+}
+
+export default connect(mps, mpss)(ImageButtons);

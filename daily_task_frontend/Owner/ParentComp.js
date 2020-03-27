@@ -72,7 +72,8 @@ const ParentComp=(props)=>{
         console.log(error);
       })
 }
-//  save Owner id tostorage phone
+
+//  save Owner id to storage phone
  const saveDataToPhone=(data)=>{
     // let num  = id
     // let str  = num.toString()

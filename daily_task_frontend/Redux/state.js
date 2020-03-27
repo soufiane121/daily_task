@@ -7,6 +7,7 @@ const defaultState ={
     currentUserId: null,
     currentUser:null,
     displaylogin: false,
-    CurrentUserId: null
+    CurrentUserId: null,
+    tabvisible: false,
    }
    export default defaultState;

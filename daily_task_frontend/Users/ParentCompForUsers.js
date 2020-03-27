@@ -88,8 +88,7 @@ const fetchAutoLogin = async () => {
     try {
        value = await AsyncStorage.getItem('user_id');
       subdomain = await AsyncStorage.getItem('company_name');
-       console.log("local storage", value, "subdomain", subdomain);
-      if (value !== null) {
+      if (value !== null && subdomain !== null) {
         fetch(`http://${subdomain}.lvh.me:3000/user_auto_login`,{
           headers: {
             'Content-Type': 'application/json',
@@ -98,12 +97,11 @@ const fetchAutoLogin = async () => {
           }
         })
         .then(resp=> resp.json())
-        .then(data=> { console.log('data auto login', data);
-        
+        .then(data=> { 
           props.handleCurrentUser(data)
-        //   props.handleCurrentUserId(data.user.id)
+          props.handleCurrentUserId(data.user.id)
         })
-    //   props.navigation.replace("Home")
+      props.navigation.replace("tasks")
       }
     } catch (error) {
       alert("something went wrong")

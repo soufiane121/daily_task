@@ -21,6 +21,8 @@ switch (action.type) {
        return {...state, displaylogin: !state.displaylogin}
     case 'currentuserid':
         return {...state, currentuserid: action.playload.currentuserid}
+    case 'tabvisible':
+        return {...state, tabvisible: !state.actabvisible}
     default:
         return state
 }
