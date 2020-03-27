@@ -2,7 +2,11 @@ class ApplicationController < ActionController::API
 
     def encode_token(id)
         JWT.encode({owner_id: id}, "super_secret_code")
-      end
+    end
+
+    def user_encode_token(id)
+        JWT.encode({user_id: id}, "super_secret_code")
+    end
     
     def get_auth_header
         request.headers["Authorization"]
@@ -11,6 +15,15 @@ class ApplicationController < ActionController::API
     def decoded_token
         begin
             JWT.decode(get_auth_header, "super_secret_code")[0]["owner_id"]
+        rescue
+            nil
+        end
+    end
+
+
+    def user_decoded_token
+        begin
+            JWT.decode(get_auth_header, "super_secret_code")[0]["user_id"]
         rescue
             nil
         end

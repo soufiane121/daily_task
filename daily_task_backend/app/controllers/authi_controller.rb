@@ -5,16 +5,15 @@ def login
     user = User.find_by(email: params[:email])
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
-            token = encode_token(user.id)
-            render json: {User: UserSerializer.new(user), token: token}
+            token = user_encode_token(user.id)
+            render json: {user: UserSerializer.new(user), token: token}
         else
-            render json: {errors: "Username or password incorrect."}
+            render json: {errors: "Email or password incorrect."}
         end
 end
 
 def auto_login  
-    id =request.headers["Authorization"]
-    user = User.find_by(id: id.to_i)
+    user = User.find_by(id: user_decoded_token)
     if user
         render json: {user: UserSerializer.new(user)}
     else

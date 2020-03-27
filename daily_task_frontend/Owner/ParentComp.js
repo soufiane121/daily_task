@@ -29,8 +29,8 @@ const ParentComp=(props)=>{
 .then(data => {
     if (!data.hasOwnProperty("errors")) {
         props.handleCurrentUser(data)
-        saveDataToPhone(data.owner.id)
         props.handleCurrentUserId(data.owner.id)
+        saveDataToPhone(data)
     } else {
         console.log("After sign up",data);
         alert(data.errors)
@@ -41,6 +41,7 @@ const ParentComp=(props)=>{
     console.log(error);
   })
  }
+
 //  fetching data for login 
  const handleSignIn=()=>{
     fetch(`http://lvh.me:3000/login`,{
@@ -60,9 +61,8 @@ const ParentComp=(props)=>{
         if (!data.hasOwnProperty("errors")) {
             props.handleCurrentUser(data)
             props.handleCurrentUserId(data.owner.id)
-            saveDataToPhone(data.owner.id)
+            saveDataToPhone(data)
         } else {
-            console.log("After Login",data);
             alert(data.errors)
         }
        }
@@ -72,16 +72,17 @@ const ParentComp=(props)=>{
         console.log(error);
       })
 }
-//  save Owner id tostorage phone
- const saveDataToPhone=(id)=>{
-    let num  = id
-    let str  = num.toString()
-    AsyncStorage.setItem("owner_id", str)
+
+//  save Owner id to storage phone
+ const saveDataToPhone=(data)=>{
+    // let num  = id
+    // let str  = num.toString()
+    AsyncStorage.setItem("owner_id", data.token)
 }
 
 // fetching auto login base on localstage
  useEffect(()=>{
-    // fetchAutoLogin()
+    fetchAutoLogin()
   },[props.handleCurrentUserId]) 
 
 
@@ -99,7 +100,7 @@ const fetchAutoLogin = async () => {
           }
         })
         .then(resp=> resp.json())
-        .then(data=> {
+        .then(data=> { 
           props.handleCurrentUser(data)
           props.handleCurrentUserId(data.owner.id)
         })
