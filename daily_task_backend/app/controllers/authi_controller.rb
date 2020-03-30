@@ -15,7 +15,9 @@ end
 def auto_login  
     user = User.find_by(id: user_decoded_token)
     if user
+        # render json: {user: UserSerializer.new(user)}
         render json: {user: UserSerializer.new(user)}
+
     else
         render json: {errors: "User not found. Please login again. "}
     end

@@ -7,7 +7,9 @@ const defaultState ={
     currentUserId: null,
     currentUser:null,
     displaylogin: false,
-    CurrentUserId: null,
+    // CurrentUserId: null,
     tabvisible: false,
+    overLay: false,
+    FeedContent: ''
    }
    export default defaultState;

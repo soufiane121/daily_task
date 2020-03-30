@@ -24,11 +24,15 @@ const handleSignUp=()=>{
         })
      })
     .then(resp => resp.json())
-    .then(data => {
+    .then(data => { console.log(data)
+    
         if (!data.hasOwnProperty("errors")) {
             props.handleCurrentUser(data)
-            // props.handleCurrentUserId(data.owner.id)
+            props.handleTabps()
+            props.handleCurrentUserId(data.user.id)
             saveDataToPhone(data)
+            props.navigation.replace("tasks")
+
         } else {
             console.log("After sign up",data);
             alert(data.errors)
@@ -50,12 +54,14 @@ const handleSignUp=()=>{
        })
     })
     .then(resp => resp.json())
-    .then(data =>  { console.log("login data",data)
-    
+    .then(data => {
     if (!data.hasOwnProperty("errors")) {
+        props.handleTabps()
         props.handleCurrentUser(data)
         props.handleCurrentUserId(data.user.id)
         saveDataToPhone(data)
+      props.navigation.replace("tasks")
+
     } else {
         console.log("After Login",data);
         alert(data.errors)
@@ -64,14 +70,13 @@ const handleSignUp=()=>{
     )
     .catch(function(error) {
         alert("Something went wrong");
-        console.log(error);
+        console.log('wtf',error);
       })
  }
 
 
  //  save Owner id tostorage phone
  const saveDataToPhone=(data)=>{
-
     // let num  = id
     // let str  = num.toString()
     AsyncStorage.setItem("user_id", data.token)
@@ -98,6 +103,7 @@ const fetchAutoLogin = async () => {
         })
         .then(resp=> resp.json())
         .then(data=> { 
+        
           props.handleCurrentUser(data)
           props.handleCurrentUserId(data.user.id)
         })
@@ -155,6 +161,9 @@ const mpss=(dispatch)=>{
                 type: 'currentuserid',
                 playload: {currentuserid: e}
             })
+        },
+        handleTabps: () =>{
+            dispatch({type: "tabvisible"})
         }
     }
 }

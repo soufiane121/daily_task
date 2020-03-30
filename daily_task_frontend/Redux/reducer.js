@@ -23,6 +23,10 @@ switch (action.type) {
         return {...state, currentuserid: action.playload.currentuserid}
     case 'tabvisible':
         return {...state, tabvisible: !state.actabvisible}
+    case 'overLay': 
+        return {...state, overLay: !state.overLay}
+    case 'FeedContent':
+        return {...state, FeedContent: action.playload.FeedContent}
     default:
         return state
 }
