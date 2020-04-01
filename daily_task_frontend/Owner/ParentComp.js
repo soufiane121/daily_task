@@ -29,8 +29,10 @@ const ParentComp=(props)=>{
 .then(data => {
     if (!data.hasOwnProperty("errors")) {
         props.handleCurrentUser(data)
+        props.handleTabps()
         props.handleCurrentUserId(data.owner.id)
         saveDataToPhone(data)
+        props.navigation.replace("Home")
     } else {
         console.log("After sign up",data);
         alert(data.errors)
@@ -44,7 +46,7 @@ const ParentComp=(props)=>{
 
 //  fetching data for login 
  const handleSignIn=()=>{
-    fetch(`http://lvh.me:3000/login`,{
+    fetch(`http://${props.company}.lvh.me:3000/login`,{
         method: 'POST',
         headers:{
            'Content-Type': 'application/json',
@@ -60,8 +62,10 @@ const ParentComp=(props)=>{
     .then(data => {
         if (!data.hasOwnProperty("errors")) {
             props.handleCurrentUser(data)
+            props.handleTabps()
             props.handleCurrentUserId(data.owner.id)
             saveDataToPhone(data)
+          props.navigation.replace("Home")
         } else {
             alert(data.errors)
         }
@@ -77,6 +81,7 @@ const ParentComp=(props)=>{
  const saveDataToPhone=(data)=>{
     // let num  = id
     // let str  = num.toString()
+    AsyncStorage.setItem("company_name", data.owner.subdomain)
     AsyncStorage.setItem("owner_id", data.token)
 }
 
@@ -89,10 +94,9 @@ const ParentComp=(props)=>{
 const fetchAutoLogin = async () => {
     try {
        value = await AsyncStorage.getItem('owner_id');
-       console.log("local storage", value);
-       
-      if (value !== null) {
-        fetch(`http://lvh.me:3000/owner_auto_login`,{
+      subdomain = await AsyncStorage.getItem('company_name');
+      if (value !== null && subdomain !== null) {
+        fetch(`http://${subdomain}.lvh.me:3000/owner_auto_login`,{
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -100,7 +104,7 @@ const fetchAutoLogin = async () => {
           }
         })
         .then(resp=> resp.json())
-        .then(data=> { 
+        .then(data=> {
           props.handleCurrentUser(data)
           props.handleCurrentUserId(data.owner.id)
         })
@@ -161,6 +165,9 @@ const mpds=(dispatch)=>{
                 type: 'currentuserid',
                 playload: {currentuserid: e}
             })
+        },
+        handleTabps: () =>{
+            dispatch({type: "tabvisible"})
         }
     }
 }

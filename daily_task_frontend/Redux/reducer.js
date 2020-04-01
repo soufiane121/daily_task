@@ -17,12 +17,22 @@ switch (action.type) {
         return {...state, email: action.payload.email}
     case 'current': 
        return {...state, currentUser: action.payload.currentUser}
+    case 'currentOwner':
+        return {...state, currentOwner: action.playload.currentOwner}
     case 'displaylogin': 
        return {...state, displaylogin: !state.displaylogin}
     case 'currentuserid':
         return {...state, currentuserid: action.playload.currentuserid}
     case 'tabvisible':
         return {...state, tabvisible: !state.actabvisible}
+    case 'overLay': 
+        return {...state, overLay: !state.overLay}
+    case 'FeedContent':
+        return {...state, FeedContent: action.playload.FeedContent}
+    case 'feedFetch':
+        return {...state, feedFetch: !state.feedFetch}
+    case 'showButton':
+        return {...state, showButton: action.playload.showButton}
     default:
         return state
 }

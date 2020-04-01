@@ -6,6 +6,14 @@ class OwnersController < ApplicationController
         render json: owners, status: 200
     end
 
+
+    def show
+        # byebug
+        @owner = Owner.find(params[:id])
+        render json: {owner: OwnerSerializer.new(@owner)}
+    end
+
+
     def create
         @owner = Owner.new(filtered_params)
         @owner.password = params[:password]

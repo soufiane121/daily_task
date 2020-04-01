@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, Keyboard,  TouchableWithoutFeedback, Touch
 import {Provider} from 'react-redux'
 import {connect} from 'react-redux'
 
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -38,9 +38,7 @@ const App =(props)=> {
   
   // wait couple seconds before call store to avoid showing tab in first render
 const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
-wait(3000).then(() =>  console.log(store.getState().tabvisible));
-  console.log('app just render');
-  
+wait(3000).then(() => store.getState().tabvisible);
 
 useEffect(()=>{
 
@@ -51,9 +49,7 @@ useEffect(()=>{
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
-        {/* <Stack.Screen name={'so'} component={ImageButtons} /> */}
         <Stack.Screen name='alltabs' children={BottomTaps} />
-        {/* <Stack.Screen name="main" children={FullNavigation} /> */}
       </Stack.Navigator>
     )
   }

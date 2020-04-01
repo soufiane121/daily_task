@@ -28,7 +28,7 @@ const ImageButtons=(props)=>{
 
     // function to navigate to user form 
     const handleUserButton= async ()=>{
-
+        props.handleShowButton(false)
         try {
             let async = await AsyncStorage.getItem('user_id')
                 if (async !== null) {
@@ -96,6 +96,12 @@ const mpss=(dispatch)=>{
     return {
         handleTabps: () =>{
             dispatch({type: "tabvisible"})
+        },
+        handleShowButton:(e)=>{
+            dispatch({
+                type: 'showButton',
+                playload: {showButton: e}
+            })
         }
     }
 }
