@@ -79,10 +79,8 @@ const ParentComp=(props)=>{
 
 //  save Owner id to storage phone
  const saveDataToPhone=(data)=>{
-    //  debugger
     // let num  = id
     // let str  = num.toString()
-    // console.log( 'data t save', data);
     AsyncStorage.setItem("company_name", data.owner.subdomain)
     AsyncStorage.setItem("owner_id", data.token)
 }
@@ -97,7 +95,7 @@ const fetchAutoLogin = async () => {
     try {
        value = await AsyncStorage.getItem('owner_id');
       subdomain = await AsyncStorage.getItem('company_name');
-      if (value !== null) {
+      if (value !== null && subdomain !== null) {
         fetch(`http://${subdomain}.lvh.me:3000/owner_auto_login`,{
           headers: {
             'Content-Type': 'application/json',
@@ -106,8 +104,7 @@ const fetchAutoLogin = async () => {
           }
         })
         .then(resp=> resp.json())
-        .then(data=> { console.log('autofetching', data)
-        debugger
+        .then(data=> {
           props.handleCurrentUser(data)
           props.handleCurrentUserId(data.owner.id)
         })

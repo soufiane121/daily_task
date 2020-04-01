@@ -72,15 +72,12 @@ const mps=(state)=>{
         handleOverlay:()=>{
             dispatch({type: 'overLay'})
         },
-        handleContent:(e)=>{
-          console.log('change inputs', e.nativeEvent.text);
-          
+        handleContent:(e)=>{ 
           dispatch({
             type: 'FeedContent',
             playload: {FeedContent: e.nativeEvent.text}
         })
         }
-        
     }
 }
 
