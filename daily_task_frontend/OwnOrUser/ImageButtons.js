@@ -11,14 +11,15 @@ const ImageButtons=(props)=>{
 
     // function to navigate to company login form
     const handleGroupTeamButton= async ()=>{
+        props.handleFetch()
+        props.handleshowSwipeButtons()
         try {
         let async = await AsyncStorage.getItem('owner_id')
             if (async !== null) {
                 props.handleTabps()
                 navigation.replace('ParentComp')     
             } else {
-                navigation.replace('ParentComp')     
-                
+                navigation.replace('ParentComp')
             }
         } catch (error) {
            alert('Something went wrong with connection') 
@@ -102,7 +103,13 @@ const mpss=(dispatch)=>{
                 type: 'showButton',
                 playload: {showButton: e}
             })
-        }
+        },
+        handleFetch: (e) => {
+            dispatch({ type: "feedFetch"  });
+          },
+          handleshowSwipeButtons:()=>{
+              dispatch({type: 'showSwipeButtons'})
+          }
     }
 }
 

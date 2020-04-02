@@ -33,6 +33,12 @@ switch (action.type) {
         return {...state, feedFetch: !state.feedFetch}
     case 'showButton':
         return {...state, showButton: action.playload.showButton}
+    case 'showSwipeButtons':
+        return {...state, showSwipeButtons: !state.showSwipeButtons}
+    case 'Update': 
+        return {...state, Update: !state.Update}
+    case 'FeedCommentId':
+        return {...state, FeedCommentId: action.playload.FeedCommentId}
     default:
         return state
 }

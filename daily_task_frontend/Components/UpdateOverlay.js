@@ -4,15 +4,15 @@ import { View, TextInput, StyleSheet, Platform } from "react-native";
 import { connect } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
 
-const Overlayy = props => {
+const UpdateOverlay = props => {
 
   const onClose = () => {
-    props.handleOverlay();
+    props.handleUpdate();
   };
 
   return (
     <Overlay
-      isVisible={props.overLay}
+      isVisible={props.Update}
       onBackdropPress={() => onClose()}
       height={"40%"}
       width={"87%"}
@@ -21,7 +21,7 @@ const Overlayy = props => {
     >
       <>
         <View style={styles.modal}>
-          <Text style={styles.txt}>Post Your Annocement</Text>
+          <Text style={styles.txt}>Update Your Post</Text>
           <TextInput
             multiline={true}
             numberOfLines={4}
@@ -42,8 +42,8 @@ const Overlayy = props => {
               style={{ marginRight: 7 }}
             />
           }
-          title="Post"
-          onPress={props.handleSendContent}
+          title="UPDATE"
+          onPress={props.handleSubmitUpdate}
         />
       </>
     </Overlay>
@@ -69,15 +69,15 @@ const styles = StyleSheet.create({
 
 const mps = state => {
   return {
-    overLay: state.overLay,
+    Update: state.Update,
     FeedContent: state.FeedContent
   };
 };
 
 const mpss = dispatch => {
   return {
-    handleOverlay: () => {
-      dispatch({ type: "overLay" });
+    handleUpdate: () => {
+      dispatch({ type: "Update" });
     },
     handleContent: e => {
       dispatch({
@@ -88,4 +88,4 @@ const mpss = dispatch => {
   };
 };
 
-export default connect(mps, mpss)(Overlayy);
+export default connect(mps, mpss)(UpdateOverlay);

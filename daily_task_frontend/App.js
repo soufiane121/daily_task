@@ -91,7 +91,7 @@ useEffect(()=>{
   const BottomTaps=(props)=>{
     return (
     <BottomTap.Navigator screenOptions={{tabBarVisible: store.getState().tabvisible }}   >
-      <BottomTap.Screen name=' ' children={FullNavigation}  />
+      <BottomTap.Screen name='Landing' children={FullNavigation}  />
       <BottomTap.Screen name='feed' component={Feed} />
     </BottomTap.Navigator>
     )

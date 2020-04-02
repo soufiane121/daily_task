@@ -12,6 +12,9 @@ const defaultState ={
     FeedContent: '',
     feedFetch: false,
     currentOwner: null,
-    showButton: true
+    showButton: true,
+    showSwipeButtons: false,
+    Update: false,
+    FeedCommentId: null
    }
    export default defaultState;
