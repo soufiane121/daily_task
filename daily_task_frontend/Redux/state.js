@@ -15,6 +15,9 @@ const defaultState ={
     showButton: true,
     showSwipeButtons: false,
     Update: false,
-    FeedCommentId: null
+    FeedCommentId: null,
+    createTask: '',
+    overLayTask: false,
+    itemsFetch: false
    }
    export default defaultState;

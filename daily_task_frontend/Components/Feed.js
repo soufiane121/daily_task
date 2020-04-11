@@ -29,6 +29,7 @@ let DATA = ''
 let UserObject = null
 
 const Feed = props => {
+  
 
   const handleSendContent = () => {
     props.handleOverlay();
@@ -87,61 +88,61 @@ const Feed = props => {
     props.handleContent(feed.comment)
     props.handleUpdate()
     props.handleFeedCommentId(feed.id)
- 
+
   };
- const handleSubmitUpdate=()=>{
-   let subdomain = props.currentUser.owner.subdomain
-   fetch(`http://${subdomain}.lvh.me:3000/feeds/${props.FeedCommentId}`,{
-     method: 'PATCH',
-     headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify({
-      comment: props.FeedContent,
-      owner_id: props.currentUser.owner.id
+  const handleSubmitUpdate = () => {
+    let subdomain = props.currentUser.owner.subdomain
+    fetch(`http://${subdomain}.lvh.me:3000/feeds/${props.FeedCommentId}`, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        comment: props.FeedContent,
+        owner_id: props.currentUser.owner.id
+      })
     })
-   })
-   .then(resp => resp.json())
-   .then(data=> console.log('after send update',data)
-   )
-   props.handleFetch()
-   props.handleUpdate()
-   
- }
+      .then(resp => resp.json())
+      .then(data => console.log('after send update', data)
+      )
+    props.handleFetch()
+    props.handleUpdate()
+
+  }
   const OnwerFeeds = ({ comment, DeleteAction, UpdateAction }) => {
     const LeftActions = (progress, dragX) => {
       return (
         <>
-        {props.showSwipeButtons === true 
-        ? 
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            onPress={()=> UpdateAction(comment)}
-            style={{
-              width: 90,
-              backgroundColor: "#00bdaa",
-              alignContent: "center",
-              alignItems: "center",
-              marginRight: 2
-            }}
-          >
-            <Animated.Text style={styles.txtaction}>UPDATE</Animated.Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => DeleteAction(comment)}
-            style={{
-              width: 90,
-              backgroundColor: "#d63447",
-              alignContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <Animated.Text style={styles.txtaction}>DELETE</Animated.Text>
-          </TouchableOpacity>
-          </View>
-          : 
-          <Text></Text>
+          {props.showSwipeButtons === true
+            ?
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                onPress={() => UpdateAction(comment)}
+                style={{
+                  width: 90,
+                  backgroundColor: "#00bdaa",
+                  alignContent: "center",
+                  alignItems: "center",
+                  marginRight: 2
+                }}
+              >
+                <Animated.Text style={styles.txtaction}>UPDATE</Animated.Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => DeleteAction(comment)}
+                style={{
+                  width: 90,
+                  backgroundColor: "#d63447",
+                  alignContent: "center",
+                  alignItems: "center"
+                }}
+              >
+                <Animated.Text style={styles.txtaction}>DELETE</Animated.Text>
+              </TouchableOpacity>
+            </View>
+            :
+            <Text></Text>
           }
         </>
       );
@@ -184,7 +185,7 @@ const Feed = props => {
         keyExtractor={item => item.id.toString()}
       />
       <Popup handleSendContent={handleSendContent} />
-      <UpdateOverlay handleSubmitUpdate={handleSubmitUpdate}/>
+      <UpdateOverlay handleSubmitUpdate={handleSubmitUpdate} />
       {props.showButton === true ? (
         <Button
           style={styles.btn}
@@ -318,7 +319,7 @@ const mpss = dispatch => {
       dispatch({ type: "overLay" });
     },
     handleFetch: (e) => {
-      dispatch({type: "feedFetch"});
+      dispatch({ type: "feedFetch" });
     },
     handleContent: (e) => {
       dispatch({
@@ -332,16 +333,16 @@ const mpss = dispatch => {
         payload: { currentUser: e }
       });
     },
-    handleshowSwipeButtons:(e)=> {
-      dispatch({type: 'showSwipeButtons'})
+    handleshowSwipeButtons: (e) => {
+      dispatch({ type: 'showSwipeButtons' })
     },
-    handleUpdate:()=>{
-      dispatch({type: 'Update'})
+    handleUpdate: () => {
+      dispatch({ type: 'Update' })
     },
-    handleFeedCommentId:(e)=>{
+    handleFeedCommentId: (e) => {
       dispatch({
         type: 'FeedCommentId',
-        playload: {FeedCommentId: e}
+        playload: { FeedCommentId: e }
       })
     }
   };

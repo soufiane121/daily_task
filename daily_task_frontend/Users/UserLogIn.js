@@ -13,7 +13,7 @@ const UserLogIn=(props)=>{
 
     return (
     <DismissKeyboard>
-        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset="3" style={styles.all}>
+      <KeyboardAvoidingView behavior='height' keyboardVerticalOffset="1" style={styles.all}>
         <Text style={styles.container}>Sign In </Text>
         <TextInput style={styles.txt} placeholder="Company" autoCapitalize = 'none' value={props.company} onChange={props.handleCompany}/>
         <TextInput style={styles.txt} placeholder="Email" autoCapitalize = 'none' value={props.email} onChange={props.handleEmail}/>
@@ -23,7 +23,7 @@ const UserLogIn=(props)=>{
         <TouchableOpacity>
          <Text onPress={props.handleDisplay} style={styles.spn}>register</Text>
         </TouchableOpacity>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </DismissKeyboard>
     )
 }

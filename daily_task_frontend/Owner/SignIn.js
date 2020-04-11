@@ -1,5 +1,5 @@
 import React from "react";
-import {TextInput,Button,StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Text, KeyboardAvoidingView, Platform} from 'react-native'
+import {TextInput,Button,StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Text, KeyboardAvoidingView, Platform, ScrollView} from 'react-native'
 
 import {connect} from 'react-redux'
 
@@ -8,7 +8,7 @@ const SignIn=(props)=>{
 
 
   return(
-    <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset="3" style={styles.all}>
+    <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset='-100' style={styles.all}>
         <Text style={styles.container}>Sign In </Text>
         <TextInput style={styles.txt} placeholder="Company" autoCapitalize = 'none' value={props.company} onChange={props.handleCompany}/>
         <TextInput style={styles.txt} placeholder="Email" autoCapitalize = 'none' value={props.email} onChange={props.handleEmail}/>

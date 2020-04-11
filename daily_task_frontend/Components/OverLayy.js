@@ -17,7 +17,7 @@ const Overlayy = props => {
       height={"40%"}
       width={"87%"}
       borderRadius={6}
-      overlayBackgroundColor="#f1f3f4"
+      overlayBackgroundColor="#f4f3ec"
     >
       <>
         <View style={styles.modal}>

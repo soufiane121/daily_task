@@ -39,6 +39,12 @@ switch (action.type) {
         return {...state, Update: !state.Update}
     case 'FeedCommentId':
         return {...state, FeedCommentId: action.playload.FeedCommentId}
+    case 'createTask':
+        return {...state, createTask: action.playload.createTask}
+    case 'overLayTask':
+        return {...state, overLayTask: !state.overLayTask}
+    case 'itemsFetch':
+        return {...state, itemsFetch: !state.itemsFetch}
     default:
         return state
 }
