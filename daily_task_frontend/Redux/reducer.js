@@ -45,6 +45,8 @@ switch (action.type) {
         return {...state, overLayTask: !state.overLayTask}
     case 'itemsFetch':
         return {...state, itemsFetch: !state.itemsFetch}
+    case 'loadingPg':
+        return {...state, loadingPg: !state.loadingPg}
     default:
         return state
 }

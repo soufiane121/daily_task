@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Text, TextInput, View, StyleSheet, Button, TouchableOpacity, Touchableopacity, PanResponder } from 'react-native'
+import { Modal, Text, TextInput, View, StyleSheet, Button, TouchableOpacity, Touchableopacity, PanResponder, PickerIOSComponent } from 'react-native'
 import { connect } from 'react-redux'
 import { SimpleLineIcons, EvilIcons } from "@expo/vector-icons";
 import Loading from './Loading'
@@ -8,7 +8,7 @@ import Loading from './Loading'
 const NvCreateTask = (props) => {
 
   const handlePress = async () => {
-    let subdomain = props.currentUser.owner.subdomain
+    let subdomain = await props.currentUser.owner.subdomain
 
     fetch(`http://${subdomain}.lvh.me:3000/items`, {
       method: 'POST',
@@ -22,32 +22,15 @@ const NvCreateTask = (props) => {
       })
     })
     .then(resp => resp.json())
-    // .then(data=> console.log(data) )
+    .then(data=> props.handleCurrentUser({owner: data}))
     .catch(function(errors) {
       alert('something went wrong')
-      console.log(errors);
-      
+      console.log('catch',errors);
     })
-    // {<Loading />}
     props.handleOverlay()
     props.handleCreateTask('')
-    props.handleItemsFetch()
-    props.getItems()
   }
 
-
-  const getItems = async () => {
-    //  if you want to disable yellow errors
-    props.currentUser.owner.subdomain
-    // DATA = await props.currentUser.owner.items
-
-    fetch(`http://${subdomain}.lvh.me:3000/items`)
-      .then(resp => resp.json())
-      .then(data => props.handleCurrentUser(data))
-      .catch(function (errors) {
-        console.log('something wrong', errors);
-      })
-  }
 
   return (
     <View style={styles.main} >

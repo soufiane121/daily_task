@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Button, FlatList, ActivityIndicator } from 'react-native'
 import { AntDesign } from "@expo/vector-icons";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -7,59 +7,31 @@ import { connect } from 'react-redux'
 import NvCreateTask from './NvCreateTask';
 import Loading from './Loading'
 
-const DATA = []
 
 const OwnerTask = (props) => {
-  console.log('first render', props);
+  let DATA = []
 
-  useEffect(() => {
-    getItems()
-  },[props.itemsFetch])
+  const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
-  const getItems = async () => {
-    //  if you want to disable yellow errors
-    console.disableYellowBox = true
-    let subdomain = await props.currentUser.owner.subdomain
-    // DATA = await props.currentUser.owner.items
+  const ItemsList = ({ fullObj }) => {
 
-    fetch(`http://${subdomain}.lvh.me:3000/items`)
-      .then(resp => resp.json())
-      .then(data => props.handleCurrentUser(data))
-      .catch(function (errors) {
-        console.log('something wrong', errors);
-        
-      })
-  }
-
-  const ItemsList = ({fullObj} ) => {
-    debugger 
-    // console.log('list function', fullObj);
     return (
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: 20, padding: 30, borderWidth: 4, marginBottom: 9 }}>{fullObj.recipe.task_name.toString()}</Text>
       </View>
     )
-
   }
 
-  // const Loading = () => {
-  //   return (
-  //     <View style={{ backgroundColor: 'transparent', alignContent: 'center', alignItems: 'center', flex: 1 }}>
-  //       <ActivityIndicator style={styles.loading} size="large" color="#0000ff" />
-  //     </View>
-  //   )
-  // }
 
   return (
 
     <>
       <View style={styles.container}>
-        {!props.currentUser ?
+        {!props.loadingPg ?
           <Loading />
           :
           <FlatList
-            data={props.currentUser.owner.items ===  null ? [] : props.currentUser.owner.items}
-            // data={[]}
+            data={props.currentUser.owner.items.reverse()}
             renderItem={({ item }) => <ItemsList fullObj={item} />}
             keyExtractor={item => item.id.toString()}
           />
@@ -90,10 +62,6 @@ const styles = StyleSheet.create({
     width: 65,
     marginLeft: '80%',
     borderRadius: 80,
-    // padding: 30,
-    // borderWidth: 3,
-    // position: 'absolute',
-    // marginBottom: -2
   },
   icon: {
     position: 'absolute',
@@ -116,7 +84,8 @@ const mps = state => {
     overLayTask: state.overLayTask,
     createTask: state.createTask,
     currentUser: state.currentUser,
-    itemsFetch: state.itemsFetch
+    itemsFetch: state.itemsFetch,
+    loadingPg: state.loadingPg
   };
 };
 
@@ -131,8 +100,9 @@ const mpss = dispatch => {
         payload: { currentUser: e }
       });
     },
+    handleLoadingPg:()=>{
+      dispatch({type: 'loadingPg'})
+    }
   };
 };
 export default connect(mps, mpss)(OwnerTask);
-
-{/* <Item title={item.title} /> */ }

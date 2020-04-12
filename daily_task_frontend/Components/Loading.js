@@ -1,7 +1,18 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import {connect} from 'react-redux'
 
-const Loading=()=>{
+const Loading=(props)=>{
+
+  useEffect(()=>{
+    props.handleItemsFetch()
+    // transfer()
+  },[])
+
+
+  const transfer=()=>{
+    setTimeout(function(){ props.navigation.replace('Home')}, 300);
+  }
 
     return (
         <View style={{ backgroundColor: 'transparent', alignContent: 'center', alignItems: 'center', flex: 1 }}>
@@ -21,4 +32,19 @@ const styles = StyleSheet.create({
         color: 'red',
       }
 })
-export default Loading;
+
+const mps = state => {
+  return {
+    itemsFetch: state.itemsFetch
+  };
+};
+
+const mpss = dispatch => {
+  return {
+    handleItemsFetch:()=>{
+      dispatch({type: 'itemsFetch'})
+    },
+  };
+};
+
+export default connect(mps,mpss)(Loading);

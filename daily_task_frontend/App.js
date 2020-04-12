@@ -19,6 +19,7 @@ import ParentCompForUsers from './Users/ParentCompForUsers'
 import UserTasks from './Components/UsersTasks'
 import Feed from './Components/Feed'
 import CreateTask from './Components/CreateTask';
+import Loading from './Components/Loading';
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -65,6 +66,7 @@ useEffect(()=>{
         <Stack.Screen name="Home" component={LandingPg} />
         <Stack.Screen name='Users' component={ParentCompForUsers} />
         <Stack.Screen name='tasks' component={UserTasks} options={{title: "Tasks"}} />
+        <Stack.Screen name='loading' component={Loading} />
         {/* <Stack.Screen name='createtask' component={CreateTask} /> */}
       </Stack.Navigator>
     )

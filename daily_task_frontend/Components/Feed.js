@@ -350,18 +350,3 @@ const mpss = dispatch => {
 
 export default connect(mps, mpss)(Feed);
 
-{
-  /* <AntDesign name='pluscircleo' size={70}/> */
-}
-
-// const Logout= async ()=>{
-// try {
-//      let value = await AsyncStorage.removeItem('owner_id');
-//      props.handleTabps()
-//      props.navigation.replace('alltabs')
-//     return true;
-//     } catch (error) {
-//         alert('Did not clear storage')
-//         console.log(error);
-//     }
-// }
