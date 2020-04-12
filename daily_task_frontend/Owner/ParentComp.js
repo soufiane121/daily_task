@@ -92,6 +92,7 @@ const ParentComp=(props)=>{
 
 
 const fetchAutoLogin = async () => {
+   
     try {
        value = await AsyncStorage.getItem('owner_id');
       subdomain = await AsyncStorage.getItem('company_name');
@@ -107,8 +108,10 @@ const fetchAutoLogin = async () => {
         .then(data=> {
           props.handleCurrentUser(data)
           props.handleCurrentUserId(data.owner.id)
+          props.navigation.replace("Home",{subdomain: data.owner.subdomain})
         })
-      props.navigation.replace("Home")
+    //   props.navigation.replace("Home")
+
       }
     } catch (error) {
       alert("something went wrong")

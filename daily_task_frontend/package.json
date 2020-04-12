@@ -15,6 +15,7 @@
     "@react-navigation/stack": "^5.2.3",
     "expo": "~36.0.0",
     "expo-font": "~8.0.0",
+    "expo-linear-gradient": "~8.0.0",
     "mem": ">=4.0.0",
     "native-base": "^2.13.12",
     "react": "~16.9.0",

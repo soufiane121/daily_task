@@ -9,17 +9,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native'
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 import store from './Redux/store' 
 import ImageButtons from './OwnOrUser/ImageButtons'
 import ParentComp from './Owner/ParentComp';
-import LandingPg from './Components/LandingPg'
+import LandingPg from './Components/OwnerTask'
 import ParentCompForUsers from './Users/ParentCompForUsers'
 import UserTasks from './Components/UsersTasks'
 import Feed from './Components/Feed'
-import { render } from 'react-dom';
-
+import CreateTask from './Components/CreateTask';
+import Loading from './Components/Loading';
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -66,17 +66,19 @@ useEffect(()=>{
         <Stack.Screen name="Home" component={LandingPg} />
         <Stack.Screen name='Users' component={ParentCompForUsers} />
         <Stack.Screen name='tasks' component={UserTasks} options={{title: "Tasks"}} />
+        <Stack.Screen name='loading' component={Loading} />
+        {/* <Stack.Screen name='createtask' component={CreateTask} /> */}
       </Stack.Navigator>
     )
   }
 
-  const MenuButton = (props) => (
-    <View>
-      <TouchableOpacity onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}>
-        <Ionicons name="md-menu" style={{color: 'grey', marginLeft:7, fontSize: 30, height: 24}}/>
-      </TouchableOpacity>
-    </View>
-  );
+  // const MenuButton = (props) => (
+  //   <View>
+  //     <TouchableOpacity onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}>
+  //       <Ionicons name="md-menu" style={{color: 'grey', marginLeft:7, fontSize: 30, height: 24}}/>
+  //     </TouchableOpacity>
+  //   </View>
+  // );
 
 
   const DrawerComp=(props)=>{
@@ -90,9 +92,25 @@ useEffect(()=>{
   
   const BottomTaps=(props)=>{
     return (
-    <BottomTap.Navigator screenOptions={{tabBarVisible: store.getState().tabvisible }}   >
-      <BottomTap.Screen name='Landing' children={FullNavigation}  />
-      <BottomTap.Screen name='feed' component={Feed} />
+    <BottomTap.Navigator screenOptions={{tabBarVisible: store.getState().tabvisible}}  tabBarOptions={{
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
+    }} >
+      <BottomTap.Screen name='landing' children={FullNavigation} 
+      options={{title: 'Tasks',
+      tabBarIcon:({color})=> 
+      <FontAwesome name="tasks" focused={true} size={20} color={color}/>
+      }} />
+      <BottomTap.Screen name='feed' component={Feed} 
+      options={{
+        tabBarIcon: ({color}) => 
+          <FontAwesome name="feed" focused={true} size={20} color={color }/>
+        ,
+        title: 'Feed',
+        // showIcon: false
+      }}
+      
+      />
     </BottomTap.Navigator>
     )
   }

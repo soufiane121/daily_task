@@ -16,7 +16,7 @@ const UserSignUp=(props)=>{
 
  return (
      <DismissKeyboard>
-     <KeyboardAvoidingView behavior='padding' enabled keyboardVerticalOffset="3" style={styles.container}>
+     <KeyboardAvoidingView behavior='height' enabled keyboardVerticalOffset="3" style={styles.container}>
             {/* <ScrollView showsVerticalScrollIndicator={false}> */}
         <Text style={styles.title}>Sign Up</Text>
         <TextInput style={styles.txt} placeholder="Company" autoCapitalize = 'none' value={props.company} onChange={props.handleCompany}/>

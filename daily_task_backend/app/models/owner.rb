@@ -1,6 +1,7 @@
 class Owner < ApplicationRecord
     has_many :users
     has_many :feeds
+    has_many :items
 
     validates :first_name, :last_name, :user_name, :subdomain, :email, presence: true
     validates :user_name, :subdomain, :email, uniqueness: true
