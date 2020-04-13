@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Overlay, Text, Button } from "react-native-elements";
-import { View, TextInput, StyleSheet, Platform } from "react-native";
+import { View, TextInput, StyleSheet, Platform, TouchableOpacity, Keyboard } from "react-native";
 import { connect } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -18,8 +18,11 @@ const UpdateOverlay = props => {
       width={"87%"}
       borderRadius={6}
       overlayBackgroundColor="#f1f3f4"
+      overlayStyle={{marginBottom: 150}}
+
     >
       <>
+      <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
         <View style={styles.modal}>
           <Text style={styles.txt}>Update Your Post</Text>
           <TextInput
@@ -45,6 +48,7 @@ const UpdateOverlay = props => {
           title="UPDATE"
           onPress={props.handleSubmitUpdate}
         />
+        </TouchableOpacity>
       </>
     </Overlay>
   );

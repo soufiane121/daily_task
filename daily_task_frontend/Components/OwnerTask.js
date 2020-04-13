@@ -11,14 +11,11 @@ const OwnerTask = (props) => {
   let DATA = [...props.currentUser.owner.items]
 
   // costume function to filter hashes
+
   // Object.filter = (obj, predicate) =>
-  //   Object.assign(...Object.keys(obj)
+  //   Object.keys(obj)
   //     .filter(key => predicate(obj[key]))
-  //     .map(key => ({ [key]: obj[key] })));
-  Object.filter = (obj, predicate) => 
-  Object.keys(obj)
-        .filter( key => predicate(obj[key]) )
-        .reduce( (res, key) => Object.assign(res, { [key]: obj[key] }), {} );
+  //     .reduce((res, key) => Object.assign(res, { [key]: obj[key] }), {});
 
 
   if (props.searching.length !== 0) {

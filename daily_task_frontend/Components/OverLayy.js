@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { Overlay, Text, Button } from "react-native-elements";
-import { View, TextInput, StyleSheet, Platform } from "react-native";
+import { View, TextInput, StyleSheet, Platform, TouchableWithoutFeedback, Keyboard, TouchableOpacity} from "react-native";
 import { connect } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {/* {children} */}
+  </TouchableWithoutFeedback>
+)
+
 
 const Overlayy = props => {
 
@@ -18,8 +25,11 @@ const Overlayy = props => {
       width={"87%"}
       borderRadius={6}
       overlayBackgroundColor="#f4f3ec"
+      overlayStyle={{marginBottom: 150}}
     >
       <>
+  <View>
+          <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
         <View style={styles.modal}>
           <Text style={styles.txt}>Post Your Annocement</Text>
           <TextInput
@@ -45,6 +55,8 @@ const Overlayy = props => {
           title="Post"
           onPress={props.handleSendContent}
         />
+          </TouchableOpacity>
+</View>
       </>
     </Overlay>
   );
@@ -54,7 +66,7 @@ const styles = StyleSheet.create({
   modal: {
     alignSelf: "center",
     width: "100%",
-    opacity: 0.8
+    opacity: 0.8,
   },
   txt: {
     height: "30%",
