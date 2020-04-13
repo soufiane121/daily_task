@@ -26,6 +26,7 @@ const NvCreateTask = (props) => {
     .catch(function(errors) {
       alert('something went wrong')
       console.log('catch',errors);
+      
     })
     props.handleOverlay()
     props.handleCreateTask('')

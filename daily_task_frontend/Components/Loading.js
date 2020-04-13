@@ -4,15 +4,6 @@ import {connect} from 'react-redux'
 
 const Loading=(props)=>{
 
-  useEffect(()=>{
-    props.handleItemsFetch()
-    // transfer()
-  },[])
-
-
-  const transfer=()=>{
-    setTimeout(function(){ props.navigation.replace('Home')}, 300);
-  }
 
     return (
         <View style={{ backgroundColor: 'transparent', alignContent: 'center', alignItems: 'center', flex: 1 }}>

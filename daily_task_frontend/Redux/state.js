@@ -18,7 +18,7 @@ const defaultState ={
     FeedCommentId: null,
     createTask: '',
     overLayTask: false,
-    itemsFetch: false,
-    loadingPg: true
+    loadingPg: true,
+    searching: ''
    }
    export default defaultState;
