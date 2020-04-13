@@ -19,31 +19,40 @@ const OwnerTask = (props) => {
 
 
   if (props.searching.length !== 0) {
-    let answer = props.currentUser.owner.items.filter(ele => Object.values(ele.recipe).includes(props.searching))
-    DATA = [...answer]
+    let arr = []
+     props.currentUser.owner.items.forEach(ele => {
+     let check =  Object.values(ele.recipe).toString().includes(props.searching)
+      if (check === true) {
+        arr.push(ele)
+      }
+    })
+    DATA = [...arr]
   }
 
 
   const ItemsList = ({ fullObj }) => {
+    let name = props.currentUser.owner.user_name
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={styles.cardContainer}>
         <Text style={styles.card1}>{fullObj.recipe.task_name.toString()}</Text>
+        <View style={{marginTop: 35, padding: 7, marginLeft:8, marginRight:8, borderRadius: 9, backgroundColor: '#b2ebf2'}}>
+          <Text style={{marginLeft: 190, fontSize: 15}}>Created By {name.charAt(0).toUpperCase() + name.slice(1)}</Text>
+        </View>
       </View>
     )
   }
-
+  
 
   return (
     <>
       <View style={styles.container}>
-        <View style={{ height: 60, backgroundColor: 'green' }}>
+        <View style={{ height: 70,}}>
           <TextInput style={styles.search} placeholder='Search For Recipe' value={props.searching} onChangeText={props.handleSearch} />
         </View>
         {!props.loadingPg ?
           <Loading />
           :
           <FlatList
-            // data={props.currentUser.owner.items.reverse()}
             data={DATA.reverse()}
             renderItem={({ item }) => <ItemsList fullObj={item} />}
             keyExtractor={item => item.id.toString()}
@@ -64,7 +73,7 @@ const OwnerTask = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#f5f5f5',
   },
   touch: {
     backgroundColor: '#b53389',
@@ -80,20 +89,27 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   card1: {
-    fontSize: 20,
-    padding: 30,
-    borderWidth: 4,
-    marginBottom: 9,
-    backgroundColor: 'red'
+    fontSize: 24,
+    margin: 3,
+    marginLeft: 20
   },
   search: {
-    // borderWidth: 1,
     height: '85%',
     margin: 6,
     backgroundColor: '#d4d7dd',
     borderRadius: 23,
     width: '94%',
     padding: 9,
+  },
+  cardContainer:{
+    flex: 1, 
+    backgroundColor: '#eeeeee', 
+    margin: 5, 
+    borderRadius: 20 ,
+    borderLeftColor: '#d7385e',
+    borderLeftWidth: 4,
+    marginBottom: 7,
+    height: 110
   }
 })
 
