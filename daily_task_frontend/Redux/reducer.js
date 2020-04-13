@@ -1,5 +1,6 @@
 
 import defaultState from './state'
+import { TextInput } from 'react-native'
 
 function reducer(state=defaultState, action){
 switch (action.type) {
@@ -43,10 +44,10 @@ switch (action.type) {
         return {...state, createTask: action.playload.createTask}
     case 'overLayTask':
         return {...state, overLayTask: !state.overLayTask}
-    case 'itemsFetch':
-        return {...state, itemsFetch: !state.itemsFetch}
     case 'loadingPg':
         return {...state, loadingPg: !state.loadingPg}
+    case 'searching':
+        return {...state, searching: action.payload.searching }
     default:
         return state
 }
