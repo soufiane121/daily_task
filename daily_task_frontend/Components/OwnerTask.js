@@ -4,8 +4,6 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import * as Animatable from 'react-native-animatable';
-import Collapsible from 'react-native-collapsible';
-import Accordion from 'react-native-collapsible/Accordion';
 import Collapse from './Collapse'
 
 import NvCreateTask from './NvCreateTask';
@@ -15,10 +13,28 @@ let idx = null
 
 const OwnerTask = (props) => {
   let DATA = [...props.currentUser.owner.items]
-
   const [focus, setFocus] = useState(false)
-  const [add, setAdd] = useState(true)
-  const [addInput, setAddInput] = useState('')
+  const [dispaly, setDisplay] = useState(true)
+  const [selected, setSelected] = React.useState(new Map());
+  const [secondSelected, setSecondSelected] = React.useState(new Map());
+
+
+  const onSelect = React.useCallback(id => {
+    const newSelected = new Map(selected);
+    newSelected.set(id, !selected.get(id));
+    setSelected(newSelected);
+  },
+    [selected]
+  )
+
+
+  const onSecondSelect = React.useCallback(id => {
+    const newSelected = new Map(secondSelected);
+    newSelected.set(id, !secondSelected.get(id));
+    setSecondSelected(newSelected);
+  },
+    [secondSelected]
+  );
 
 
   if (props.searching.length !== 0) {
@@ -31,7 +47,6 @@ const OwnerTask = (props) => {
     })
     DATA = [...arr]
   }
-
 
   const handleCancel = () => {
     setFocus(true)
@@ -46,74 +61,58 @@ const OwnerTask = (props) => {
   const handleLongPress = () => {
     alert('needs implementation')
   }
-  const handleInputButt = (e, id) => {
-    let event = e.nativeEvent.contentSize.width
-    if (event != 91.33333333333333 && event != 4) {
-      console.log('helllo', e.nativeEvent.contentSize.width);
-      onSecondSelect(id)
-      setAdd(true)
 
-    }
+  _handlePostItem = (item) => {
+    let subdomain = props.currentUser.owner.subdomain
+    fetch(`http://${subdomain}.lvh.me:3000/items/${item.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        ingredientItem: props.addIngredient,
+        owner_id: props.currentUser.owner.id
+      })
+    })
+      .then(resp => resp.json())
+      .then(data =>  props.handleCurrentUser({owner: data}))
 
-    // e.stopPropagation()
+      .catch((errors) => {
+        alert(wrong)
+        console.log(errors);
+      })
+    props.handleAddIngredient('')
   }
 
-  const handleAddInput = (e) => {
-    setAddInput(e)
-  }
-
-  const handleButtonshow = (event, id) => {
-    console.log(id);
-
-    event.preventDefault()
-    onSecondSelect(id)
-  }
 
 
-  const [selected, setSelected] = React.useState(new Map());
-
-  const onSelect = React.useCallback(id => {
-    const newSelected = new Map(selected);
-    newSelected.set(id, !selected.get(id));
-
-    setSelected(newSelected);
-  },
-    [selected]
-  );
-
-  const [secondSelected, setSecondSelected] = React.useState(new Map());
-
-  const onSecondSelect = React.useCallback(id => {
-    const newSelected = new Map(secondSelected);
-    newSelected.set(id, !secondSelected.get(id));
-
-    setSecondSelected(newSelected);
-  },
-    [secondSelected]
-  );
 
 
   const ItemsList = ({ fullObj, index, selected, onSelect, onSecondSelect, secondSelected }) => {
-
     let name = props.currentUser.owner.user_name
     return (
       <TouchableWithoutFeedback onPress={() => props.navigation.navigate('details', { objPass: fullObj })} onLongPress={handleLongPress}>
         <View style={selected ? styles.cardContainer : styles.cardContainerExtand}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.card1}>{fullObj.recipe.task_name.toString()}</Text>
-            {/* <MaterialIcons name='add-alert' style={styles.icconAdd} onPress={handleAdd}/> */}
             <Ionicons name={selected !== true ? 'ios-arrow-down' : 'ios-arrow-up'} style={styles.iconArrow} onPress={() => onSelect(fullObj.id)} />
           </View>
-          <Collapse selected={selected} />
-          { !secondSelected &&
-            <TouchableOpacity style={{ marginVertical: 26, paddingHorizontal: 9 }} onPress={() => onSecondSelect(fullObj.id)}>
+          <Collapse selected={selected} fullObj={fullObj} />
+          {!secondSelected &&
+            <TouchableOpacity style={{ marginVertical: 26, paddingHorizontal: 9, }} onPress={() => onSecondSelect(fullObj.id)} opacity={1}>
               <Text style={{ color: '#0779e4', }}>Add Ingredients</Text>
             </TouchableOpacity>
           }
           {secondSelected &&
-            <View style={styles.ingredienInput} animation='pulse' iterationCount={!add ? 1 : 'infinite'}>
-              <TextInput style={styles.inputOfIngred} placeholder='second input' placeholderTextColor='#0779e4' autoFocus={secondSelected}/>
-              <Button title='Add' style={styles.btn} />
+            <View style={selected ? styles.ingredienInputExtand : styles.ingredienInput} >
+              <TextInput style={selected ? styles.inputOfIngredExtand: styles.inputOfIngred} placeholder='Add Ingredients' placeholderTextColor='#0779e4'
+                autoFocus={dispaly}
+                onFocus={() => setDisplay(true)}
+                value={props.addIngredient}
+                onChangeText={props.handleAddIngredient}
+              />
+              <Button title='Add' style={selected ? styles.btnExtand : styles.btn} onPress={() => _handlePostItem(fullObj)} />
             </View>
           }
           <View style={!selected ? styles.createBy : styles.createByExtand}>
@@ -158,7 +157,7 @@ const OwnerTask = (props) => {
           />
         }
         <View style={{ height: 71, marginTop: 2 }}>
-          <TouchableOpacity style={styles.touch} onPress={props.handleOverlay}>
+          <TouchableOpacity style={styles.touch} onPress={props.handleOverlay} onPressOut={() => setDisplay(false)}>
             <AntDesign name='plus' size={50} style={styles.icon} />
           </TouchableOpacity>
         </View>
@@ -255,16 +254,33 @@ const styles = StyleSheet.create({
     width: '87%',
     marginLeft: 6,
     height: 44,
+    // borderWidth:4
+  },
+  ingredienInputExtand: {
+    flexDirection: 'row',
+    width: '87%',
+    marginTop: '20%',
   },
   btn: {
     borderRadius: 50,
     width: 50,
+  },
+  btnExtand:{
+    height: 50,
+    borderRadius: 50,
   },
   inputOfIngred: {
     fontSize: 15,
     padding: 10,
     fontWeight: '500',
     width: '94%'
+  },
+  inputOfIngredExtand:{
+    padding: 10,
+    fontSize: 15,
+    fontWeight: '500',
+    width: '94%',
+    height: 40
   },
   createBy: {
     marginTop: 10,
@@ -275,12 +291,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#b2ebf2'
   },
   createByExtand: {
-    marginTop: 186,
+    // marginTop: 186,
     padding: 7,
     marginLeft: 8,
     marginRight: 8,
     borderRadius: 9,
-    backgroundColor: '#b2ebf2'
+    backgroundColor: '#b2ebf2',
+    marginTop: 30,
+    marginBottom: 3
   },
   line: {
     borderWidth: 1,
@@ -328,11 +346,9 @@ const mpss = dispatch => {
       })
     },
     handleAddIngredient: (e) => {
-      // console.log(e.nativeEvent.text);
-
       dispatch({
         type: 'addIngredient',
-        payload: { addIngredient: e.nativeEvent.text }
+        payload: { addIngredient: e }
       })
     }
   };
