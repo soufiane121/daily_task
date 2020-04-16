@@ -44,7 +44,7 @@ const NvCreateTask = (props) => {
         <TouchableOpacity style={styles.main} onPress={props.handleOverlay} activeOpacity={1}>
           <View style={styles.modalView} >
             <Text style={styles.txt}>Create Task</Text>
-            <TextInput  autoCapitalize={'words'} style={styles.inpt} placeholder='Task Name' value={props.createTask} onChangeText={props.handleCreateTask} />
+            <TextInput autoFocus={true} autoCapitalize={'words'} style={styles.inpt} placeholder='Task Name' value={props.createTask} onChangeText={props.handleCreateTask} />
             <EvilIcons name='paperclip' style={styles.icon} />
             <View style={{ height: 1, marginTop: 120 }}>
               <TouchableOpacity onPress={handlePress}>

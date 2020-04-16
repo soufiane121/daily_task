@@ -1,24 +1,58 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, PickerIOSComponent } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import * as Animatable from 'react-native-animatable';
+import { connect } from 'react-redux'
 
 
 
 const Collapse = (props) => {
+let DATA = [...props.fullObj.recipe.ingredients]
 
-    return (
-        <Collapsible collapsed={!props.selected} expandMultiple={false} >
+  
 
-        <Animatable.Text style={{ fontSize: 17, padding: -6, marginTop: 20, marginLeft: 5 }}
-          animation='bounceIn'
-          easing='ease'
-          delay={400}
-        >
-          comming....</Animatable.Text>
-      </Collapsible>
-    )
+  _AllIngredients = () => {
+    
+    return DATA.map(ele => {
+      return (
+        <View key={ele.ingredientName.length + Math.random()}>
+          <Animatable.Text style={{ fontSize: 17, padding: -6, marginTop: 20, marginLeft: 5 }}
+            animation='bounceIn'
+            easing='ease'
+            delay={400}
+            
+          >
+            {ele.ingredientName}</Animatable.Text>
+        </View>
+      )
+    })
+
+  }
+
+  return (
+    <Collapsible collapsed={!props.selected} expandMultiple={false} >
+      <_AllIngredients />
+    </Collapsible>
+  )
 
 }
 
-export default Collapse;
+const mps = state => {
+  return {
+    currentUser: state.currentUser,
+    loadingPg: state.loadingPg,
+  };
+};
+
+const mpss = dispatch => {
+  return {
+    handleCurrentUser: e => {
+      dispatch({
+        type: "current",
+        payload: { currentUser: e }
+      });
+    },
+  }
+}
+
+export default connect(mps, mpss)(Collapse);

@@ -3,8 +3,6 @@ import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import {connect} from 'react-redux'
 
 const Loading=(props)=>{
-
-
     return (
         <View style={{ backgroundColor: 'transparent', alignContent: 'center', alignItems: 'center', flex: 1 }}>
         <ActivityIndicator style={styles.loading} size="large" color="#0000ff" />
