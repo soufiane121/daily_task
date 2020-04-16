@@ -6,33 +6,19 @@ import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import * as Animatable from 'react-native-animatable';
 import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
+import Collapse from './Collapse'
 
 import NvCreateTask from './NvCreateTask';
 import Loading from './Loading'
 
 let idx = null
 
-
-// function usePrevious(value) {
-//   const ref = useRef();
-//   useEffect(() => {
-//     ref.current = value;
-//   });
-//   return ref.current;
-// }
-
 const OwnerTask = (props) => {
   let DATA = [...props.currentUser.owner.items]
 
-  const [thruly, setThruly] = useState(true)
   const [focus, setFocus] = useState(false)
   const [add, setAdd] = useState(true)
   const [addInput, setAddInput] = useState('')
-  const [arrow, setArrow] = useState(null)
-
-
-
-
 
 
   if (props.searching.length !== 0) {
@@ -47,22 +33,11 @@ const OwnerTask = (props) => {
   }
 
 
-  const truly = () => {
-    console.log('before', thruly);
-
-    return setThruly(prevS => !prevS)
-
-    console.log('before', thruly);
-
-
-  }
-
   const handleCancel = () => {
     setFocus(true)
   }
 
   const handleCancelBack = () => {
-
     setFocus(false)
     props.handleSearch('')
     Keyboard.dismiss()
@@ -71,61 +46,55 @@ const OwnerTask = (props) => {
   const handleLongPress = () => {
     alert('needs implementation')
   }
-  const handleInputButt = () => {
-    setAdd(!add)
+  const handleInputButt = (e, id) => {
+    let event = e.nativeEvent.contentSize.width
+    if (event != 91.33333333333333 && event != 4) {
+      console.log('helllo', e.nativeEvent.contentSize.width);
+      onSecondSelect(id)
+      setAdd(true)
+
+    }
+
+    // e.stopPropagation()
   }
 
   const handleAddInput = (e) => {
     setAddInput(e)
   }
 
-  _colapsing = () => {
-    return (
-      <Collapsible >
+  const handleButtonshow = (event, id) => {
+    console.log(id);
 
-        <Animatable.Text style={{ fontSize: 17, padding: -6, marginTop: 20, marginLeft: 5 }}
-          animation='bounceIn'
-          easing='ease'
-          delay={400}
-        >
-          comming....</Animatable.Text>
-      </Collapsible>
-    )
-  }
-
-  _Acording = (index) => {
-
-    return (
-      <Accordion
-        activeSections={[0]}
-        sections={['one', 'two', 'tree']}
-        renderSectionTitle={'title'}
-        renderHeader={'header'}
-      >
-
-        <Animatable.Text style={{ fontSize: 17, padding: -6, marginTop: 20, marginLeft: 5 }}
-          animation='bounceIn'
-          easing='ease'
-          delay={400}
-        >
-          comming....</Animatable.Text>
-      </Accordion>
-    )
+    event.preventDefault()
+    onSecondSelect(id)
   }
 
 
   const [selected, setSelected] = React.useState(new Map());
 
   const onSelect = React.useCallback(id => {
-      const newSelected = new Map(selected);
-      newSelected.set(id, !selected.get(id));
+    const newSelected = new Map(selected);
+    newSelected.set(id, !selected.get(id));
 
-      setSelected(newSelected);
-    },
+    setSelected(newSelected);
+  },
     [selected]
   );
-  const ItemsList = ({ fullObj, index ,selected, onSelect, id }) => {
-    
+
+  const [secondSelected, setSecondSelected] = React.useState(new Map());
+
+  const onSecondSelect = React.useCallback(id => {
+    const newSelected = new Map(secondSelected);
+    newSelected.set(id, !secondSelected.get(id));
+
+    setSecondSelected(newSelected);
+  },
+    [secondSelected]
+  );
+
+
+  const ItemsList = ({ fullObj, index, selected, onSelect, onSecondSelect, secondSelected }) => {
+
     let name = props.currentUser.owner.user_name
     return (
       <TouchableWithoutFeedback onPress={() => props.navigation.navigate('details', { objPass: fullObj })} onLongPress={handleLongPress}>
@@ -133,27 +102,21 @@ const OwnerTask = (props) => {
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.card1}>{fullObj.recipe.task_name.toString()}</Text>
             {/* <MaterialIcons name='add-alert' style={styles.icconAdd} onPress={handleAdd}/> */}
-            <Ionicons name={selected !== true ? 'ios-arrow-down' : 'ios-arrow-up'} style={styles.iconArrow} onPress={()=> onSelect(id)} />
+            <Ionicons name={selected !== true ? 'ios-arrow-down' : 'ios-arrow-up'} style={styles.iconArrow} onPress={() => onSelect(fullObj.id)} />
           </View>
-          <Collapsible collapsed={!selected} expandMultiple={false} >
-
-            <Animatable.Text style={{ fontSize: 17, padding: -6, marginTop: 20, marginLeft: 5 }}
-              animation='bounceIn'
-              easing='ease'
-              delay={400}
-            >
-              comming....</Animatable.Text>
-          </Collapsible>
-        {/* {selected && _colapsing()} */}
-          <View style={styles.ingredienInput} animation='pulse' iterationCount={!add ? 1 : 'infinite'}>
-            <TextInput style={styles.inputOfIngred} placeholderTextColor='#0779e4' placeholder='Add Ingredients'
-              onFocus={handleInputButt}
-            // value={props.addIngredient}
-            // onChange={props.handleAddIngredient}
-            />
-            {add && <Button title='Add' style={styles.btn} />}
-          </View>
-          <View style={thruly ? styles.createBy : styles.createByExtand}>
+          <Collapse selected={selected} />
+          { !secondSelected &&
+            <TouchableOpacity style={{ marginVertical: 26, paddingHorizontal: 9 }} onPress={() => onSecondSelect(fullObj.id)}>
+              <Text style={{ color: '#0779e4', }}>Add Ingredients</Text>
+            </TouchableOpacity>
+          }
+          {secondSelected &&
+            <View style={styles.ingredienInput} animation='pulse' iterationCount={!add ? 1 : 'infinite'}>
+              <TextInput style={styles.inputOfIngred} placeholder='second input' placeholderTextColor='#0779e4' autoFocus={secondSelected}/>
+              <Button title='Add' style={styles.btn} />
+            </View>
+          }
+          <View style={!selected ? styles.createBy : styles.createByExtand}>
             <Text style={{ marginLeft: 190, fontSize: 15, position: 'relative' }}>Created By {name.charAt(0).toUpperCase() + name.slice(1)}</Text>
           </View>
         </View>
@@ -182,7 +145,15 @@ const OwnerTask = (props) => {
           :
           <FlatList
             data={DATA.reverse()}
-            renderItem={({ item, index }) => <ItemsList fullObj={item}id={item.id} index={index} selected={!!selected.get(item.id)} onSelect={onSelect}/>}
+            renderItem={({ item, index }) =>
+              <ItemsList fullObj={item} id={item.id}
+                index={index}
+                selected={!!selected.get(item.id)}
+                onSelect={onSelect}
+                secondSelected={!!secondSelected.get(item.id)}
+                onSecondSelect={onSecondSelect}
+              />
+            }
             keyExtractor={item => item.id.toString()}
           />
         }
