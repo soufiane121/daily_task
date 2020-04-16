@@ -19,6 +19,7 @@ const defaultState ={
     createTask: '',
     overLayTask: false,
     loadingPg: true,
-    searching: ''
+    searching: '',
+    addIngredient: ''
    }
    export default defaultState;

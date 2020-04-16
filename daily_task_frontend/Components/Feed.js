@@ -84,7 +84,6 @@ const Feed = props => {
   };
 
   const UpdateAction = (feed) => {
-    console.log("update aCTION", feed);
     props.handleContent(feed.comment)
     props.handleUpdate()
     props.handleFeedCommentId(feed.id)
