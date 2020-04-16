@@ -1,7 +1,7 @@
-import React,{useEffect} from 'react';
-import { View, TextInput, StyleSheet, Keyboard,  TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
-import {Provider} from 'react-redux'
-import {connect} from 'react-redux'
+import React, { useEffect } from 'react';
+import { View, TextInput, StyleSheet, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
 
 // import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,7 +11,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native'
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
-import store from './Redux/store' 
+import store from './Redux/store'
 import ImageButtons from './OwnOrUser/ImageButtons'
 import ParentComp from './Owner/ParentComp';
 import LandingPg from './Components/OwnerTask'
@@ -20,6 +20,7 @@ import UserTasks from './Components/UsersTasks'
 import Feed from './Components/Feed'
 import CreateTask from './Components/CreateTask';
 import Loading from './Components/Loading';
+import DetailsTasks from './Components/DetailsTasks'
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -34,17 +35,17 @@ const Drawer = createDrawerNavigator()
 
 
 
-const App =(props)=> {
-  
+const App = (props) => {
+
   // wait couple seconds before call store to avoid showing tab in first render
-const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
-wait(3000).then(() => store.getState().tabvisible);
+  const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
+  wait(3000).then(() => store.getState().tabvisible);
 
-useEffect(()=>{
+  useEffect(() => {
 
-},[store.getState().tabvisible])
+  }, [store.getState().tabvisible])
 
-  const MainNavigations=()=>{
+  const MainNavigations = () => {
     return (
       <Stack.Navigator screenOptions={{
         headerShown: false
@@ -54,20 +55,22 @@ useEffect(()=>{
     )
   }
 
-  const FullNavigation=({navigation})=>{
+  const FullNavigation = ({ navigation }) => {
     return (
       <Stack.Navigator screenOptions={{
         headerShown: store.getState().tabvisible
       }}>
         <Stack.Screen name={' '} component={ImageButtons} />
-        <Stack.Screen  name="ParentComp" component={ParentComp} 
-        options={{title: 'Registration'}}
+        <Stack.Screen name="ParentComp" component={ParentComp}
+          options={{ title: 'Registration' }}
         />
         <Stack.Screen name="Home" component={LandingPg} />
         <Stack.Screen name='Users' component={ParentCompForUsers} />
-        <Stack.Screen name='tasks' component={UserTasks} options={{title: "Tasks"}} />
+        <Stack.Screen name='tasks' component={UserTasks} 
+        options={{ title: "Tasks" }} />
         <Stack.Screen name='loading' component={Loading} />
-        {/* <Stack.Screen name='createtask' component={CreateTask} /> */}
+        <Stack.Screen name='details' component={DetailsTasks} 
+        options={{title: 'Add Items'}} />
       </Stack.Navigator>
     )
   }
@@ -81,37 +84,38 @@ useEffect(()=>{
   // );
 
 
-  const DrawerComp=(props)=>{
-    return(
-    <Drawer.Navigator >
-      <Drawer.Screen name='tabs' component={BottomTaps}/>
-    </Drawer.Navigator>
+  const DrawerComp = (props) => {
+    return (
+      <Drawer.Navigator >
+        <Drawer.Screen name='tabs' component={BottomTaps} />
+      </Drawer.Navigator>
     )
   }
 
-  
-  const BottomTaps=(props)=>{
+
+  const BottomTaps = (props) => {
     return (
-    <BottomTap.Navigator screenOptions={{tabBarVisible: store.getState().tabvisible}}  tabBarOptions={{
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
-    }} >
-      <BottomTap.Screen name='landing' children={FullNavigation} 
-      options={{title: 'Tasks',
-      tabBarIcon:({color})=> 
-      <FontAwesome name="tasks" focused={true} size={20} color={color}/>
-      }} />
-      <BottomTap.Screen name='feed' component={Feed} 
-      options={{
-        tabBarIcon: ({color}) => 
-          <FontAwesome name="feed" focused={true} size={20} color={color }/>
-        ,
-        title: 'Feed',
-        // showIcon: false
-      }}
-      
-      />
-    </BottomTap.Navigator>
+      <BottomTap.Navigator screenOptions={{ tabBarVisible: store.getState().tabvisible }} tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+      }} >
+        <BottomTap.Screen name='landing' children={FullNavigation}
+          options={{
+            title: 'Tasks',
+            tabBarIcon: ({ color }) =>
+              <FontAwesome name="tasks" focused={true} size={20} color={color} />
+          }} />
+        <BottomTap.Screen name='feed' component={Feed}
+          options={{
+            tabBarIcon: ({ color }) =>
+              <FontAwesome name="feed" focused={true} size={20} color={color} />
+            ,
+            title: 'Feed',
+            // showIcon: false
+          }}
+
+        />
+      </BottomTap.Navigator>
     )
   }
 
@@ -119,13 +123,13 @@ useEffect(()=>{
 
   return (
     <Provider store={store} >
-    <DismissKeyboard>
-    <NavigationContainer>
-     {MainNavigations()}
-    </NavigationContainer>
-    </DismissKeyboard>
+      <DismissKeyboard>
+        <NavigationContainer>
+          {MainNavigations()}
+        </NavigationContainer>
+      </DismissKeyboard>
     </Provider>
- 
+
   );
 }
 

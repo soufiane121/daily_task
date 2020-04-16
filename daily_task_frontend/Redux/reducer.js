@@ -48,6 +48,8 @@ switch (action.type) {
         return {...state, loadingPg: !state.loadingPg}
     case 'searching':
         return {...state, searching: action.payload.searching }
+    case 'addIngredient':
+        return {...state, addIngredient: action.payload.addIngredient}
     default:
         return state
 }
