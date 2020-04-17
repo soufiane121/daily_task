@@ -9,7 +9,6 @@ import Collapse from './Collapse'
 import NvCreateTask from './NvCreateTask';
 import Loading from './Loading'
 
-let idx = null
 
 const OwnerTask = (props) => {
   let DATA = [...props.currentUser.owner.items]
@@ -92,7 +91,8 @@ const OwnerTask = (props) => {
   const ItemsList = ({ fullObj, index, selected, onSelect, onSecondSelect, secondSelected }) => {
     let name = props.currentUser.owner.user_name
     return (
-      <TouchableWithoutFeedback onPress={() => props.navigation.navigate('details', { objPass: fullObj })} onLongPress={handleLongPress}>
+      // <TouchableWithoutFeedback onPress={() => props.navigation.navigate('details', { objPass: fullObj })} onLongPress={handleLongPress}>
+      <View style={{flex: 1}}>
         <View style={selected ? styles.cardContainer : styles.cardContainerExtand}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.card1}>{fullObj.recipe.task_name.toString()}</Text>
@@ -119,7 +119,7 @@ const OwnerTask = (props) => {
             <Text style={{ marginLeft: 190, fontSize: 15, position: 'relative' }}>Created By {name.charAt(0).toUpperCase() + name.slice(1)}</Text>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     )
   }
 
@@ -139,11 +139,14 @@ const OwnerTask = (props) => {
             </TouchableOpacity>
           }
         </View>
+        <View styles={{flex: 1}}>
         {!props.loadingPg ?
           <Loading />
           :
           <FlatList
             data={DATA.reverse()}
+            scrollEnabled={true}
+            contentContainerStyle={{ flexGrow: 1}}
             renderItem={({ item, index }) =>
               <ItemsList fullObj={item} id={item.id}
                 index={index}
@@ -156,6 +159,7 @@ const OwnerTask = (props) => {
             keyExtractor={item => item.id.toString()}
           />
         }
+        </View>
         <View style={{ height: 71, marginTop: 2 }}>
           <TouchableOpacity style={styles.touch} onPress={props.handleOverlay} onPressOut={() => setDisplay(false)}>
             <AntDesign name='plus' size={50} style={styles.icon} />
@@ -196,7 +200,8 @@ const styles = StyleSheet.create({
   iconArrow: {
     fontSize: 25,
     color: '#00bdaa',
-    marginLeft: 22
+    marginLeft: 22,
+    
   },
   icconAdd: {
     fontSize: 19,
@@ -237,7 +242,7 @@ const styles = StyleSheet.create({
     borderLeftColor: '#d7385e',
     borderLeftWidth: 4,
     marginBottom: 7,
-    // height: 143  //127
+    // height: 300 , //127,
   },
   cardContainerExtand: {
     flex: 1,
@@ -247,6 +252,7 @@ const styles = StyleSheet.create({
     borderLeftColor: '#d7385e',
     borderLeftWidth: 4,
     marginBottom: 4,
+    
   },
   ingredienInput: {
     marginTop: 26,
@@ -260,6 +266,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '87%',
     marginTop: '20%',
+    position: 'relative'
   },
   btn: {
     borderRadius: 50,
