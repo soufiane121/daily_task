@@ -9,7 +9,6 @@ import Collapse from './Collapse'
 import NvCreateTask from './NvCreateTask';
 import Loading from './Loading'
 
-let idx = null
 
 const OwnerTask = (props) => {
   let DATA = [...props.currentUser.owner.items]

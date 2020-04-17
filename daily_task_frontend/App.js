@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, TextInput, StyleSheet, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import { Provider } from 'react-redux'
-import { connect } from 'react-redux'
 
 // import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
