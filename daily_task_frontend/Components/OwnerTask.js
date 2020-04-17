@@ -196,7 +196,8 @@ const styles = StyleSheet.create({
   iconArrow: {
     fontSize: 25,
     color: '#00bdaa',
-    marginLeft: 22
+    marginLeft: 22,
+    
   },
   icconAdd: {
     fontSize: 19,
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
     borderLeftColor: '#d7385e',
     borderLeftWidth: 4,
     marginBottom: 7,
-    // height: 143  //127
+    // height: 300 , //127,
   },
   cardContainerExtand: {
     flex: 1,
@@ -247,6 +248,7 @@ const styles = StyleSheet.create({
     borderLeftColor: '#d7385e',
     borderLeftWidth: 4,
     marginBottom: 4,
+    
   },
   ingredienInput: {
     marginTop: 26,
@@ -260,6 +262,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '87%',
     marginTop: '20%',
+    position: 'relative'
   },
   btn: {
     borderRadius: 50,
