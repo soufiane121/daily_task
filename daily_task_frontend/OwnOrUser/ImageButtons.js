@@ -3,7 +3,7 @@ import {Text,View, StyleSheet, TouchableOpacity, Platform, AsyncStorage} from 'r
 import { Entypo, FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 import {connect} from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
-
+import ScrollList from '../Components/ScrollList'
 
 const ImageButtons=(props)=>{
 
@@ -62,6 +62,8 @@ const ImageButtons=(props)=>{
         </TouchableOpacity>
         </>
     )
+
+    // return <ScrollList />
 }
 
 const styles= StyleSheet.create({
