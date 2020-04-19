@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, } from 'react-native';
+import { Text, View, StyleSheet,Keyboard } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux'
@@ -12,6 +12,7 @@ const Collapse = (props) => {
   let DATA = [...props.fullObj.recipe.ingredients]
 
   _AllIngredients = () => {
+    Keyboard.dismiss()
     return DATA.map(ele => {
       return (
         <View key={ele.ingredientName.length + Math.random()} style={{ flexDirection: 'row' }} >
