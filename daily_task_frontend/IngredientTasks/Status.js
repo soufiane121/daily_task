@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Tooltip } from 'react-native-elements'
+import Datee from '../IngredientTasks/Datee'
+
+
+
 
 const Status = () => {
+    console.disableYellowBox = true
     const [working, setWorking] = useState(false)
     const [stucking, setStucking] = useState(false)
     const [done, setDone] = useState(false)
@@ -18,7 +23,6 @@ const Status = () => {
         setStucking(true)
         setWorking(false)
         setDone(false)
-
     }
 
     const handleDone = () => {
@@ -63,10 +67,12 @@ const Status = () => {
                 width={200}
                 height={140}
                 containerStyle={styles.toptip}
-                pointerColor='black'
+                pointerColor='#f2f2f2'
                 overlayColor="transparent"
             >
                 {handlSingle()}
+                <Datee />
+                
             </Tooltip>
         </View>
     )
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     toptip: {
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#f4f9f4',
     },
     working: {
         width: 190,
@@ -137,7 +143,7 @@ const styles = StyleSheet.create({
         paddingVertical: 9,
         marginBottom: 2
     },
-    txtDone:{
+    txtDone: {
         backgroundColor: 'green',
         height: 40,
         color: '#ecfcff',
@@ -147,4 +153,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 22
     }
 });
-export default Status;
+
+
+
+
+export default Status

@@ -20,6 +20,8 @@ const defaultState ={
     overLayTask: false,
     loadingPg: true,
     searching: '',
-    addIngredient: ''
+    addIngredient: '',
+    displayDate: false,
+    dateTime: 0
    }
    export default defaultState;
