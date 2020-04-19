@@ -5,6 +5,7 @@ import Status from '../IngredientTasks/Status'
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux'
 import Datee from '../IngredientTasks/Datee';
+import Quantity from '../IngredientTasks/Quantity';
 
 const ScrollList = (props) => {
 
@@ -15,7 +16,8 @@ const ScrollList = (props) => {
             <ScrollView style={styles.scrollView} horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
                 <Status />
                 <Datee />
-                <Text style={styles.text}>hola</Text>
+                <Quantity />
+                <Text style={styles.text}></Text>
                 <Text style={styles.text}>salut</Text>
                 <Text style={styles.text}>marhaba</Text>
                 <Text style={styles.text}>voila</Text>

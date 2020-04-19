@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   date: {
     backgroundColor: '#dee3e2',
-    width: 95,
+    width: 105,
     height: 44,
     paddingHorizontal: 29,
     paddingVertical: 12,

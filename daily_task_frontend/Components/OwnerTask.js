@@ -11,6 +11,8 @@ import Loading from './Loading'
 
 
 const OwnerTask = (props) => {
+  Keyboard.dismiss()
+
   let DATA = [...props.currentUser.owner.items]
   const [focus, setFocus] = useState(false)
   const [dispaly, setDisplay] = useState(true)
@@ -19,6 +21,7 @@ const OwnerTask = (props) => {
 
 
   const onSelect = React.useCallback(id => {
+    Keyboard.dismiss()
     const newSelected = new Map(selected);
     newSelected.set(id, !selected.get(id));
     setSelected(newSelected);
@@ -28,6 +31,7 @@ const OwnerTask = (props) => {
 
 
   const onSecondSelect = React.useCallback(id => {
+    Keyboard.dismiss()
     const newSelected = new Map(secondSelected);
     newSelected.set(id, !secondSelected.get(id));
     setSecondSelected(newSelected);
@@ -48,6 +52,7 @@ const OwnerTask = (props) => {
   }
 
   const handleCancel = () => {
+    Keyboard.dismiss()
     setFocus(true)
   }
 
