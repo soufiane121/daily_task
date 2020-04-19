@@ -6,7 +6,8 @@ import Datee from '../IngredientTasks/Datee'
 
 
 
-const Status = () => {
+const Status = (props) => {
+    
     console.disableYellowBox = true
     const [working, setWorking] = useState(false)
     const [stucking, setStucking] = useState(false)
@@ -17,18 +18,21 @@ const Status = () => {
         setWorking(true)
         setStucking(false)
         setDone(false)
+        props.handleStatus('Working on it')
     }
 
     const handleStucking = () => {
         setStucking(true)
         setWorking(false)
         setDone(false)
+        props.handleStatus('Stuck')
     }
 
     const handleDone = () => {
         setDone(true)
         setWorking(false)
         setStucking(false)
+        props.handleStatus('Done')
     }
 
     const handlSingle = () => {

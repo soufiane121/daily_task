@@ -15,6 +15,8 @@ const Datee = (props) => {
     // setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
+  
+  props.handleDateTime(date)
 
   // console.log('daaaaaaaate first render',date);
   let time = date.toLocaleString().split(',')[1]

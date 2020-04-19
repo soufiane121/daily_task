@@ -22,6 +22,8 @@ const defaultState ={
     searching: '',
     addIngredient: '',
     displayDate: false,
-    dateTime: 0
+    dateTime: 0,
+    status: '',
+    quantity: ''
    }
    export default defaultState;
