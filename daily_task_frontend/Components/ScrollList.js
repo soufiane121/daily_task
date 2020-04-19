@@ -4,6 +4,7 @@ import * as Animatable from 'react-native-animatable';
 import Status from '../IngredientTasks/Status'
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux'
+import Datee from '../IngredientTasks/Datee';
 
 const ScrollList = (props) => {
 
@@ -13,18 +14,7 @@ const ScrollList = (props) => {
         <Animatable.View animation={'slideInRight'} >
             <ScrollView style={styles.scrollView} horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
                 <Status />
-                <TouchableOpacity onPress={() => props.handleDisplayDate()}>
-                    {!props.displayDate && props.dateTime === 0
-                        ?
-                        <Text style={styles.date}>Date</Text>
-                        :
-                        <Text style={styles.dateExtand}>
-                            {props.dateTime === 0
-                                ?
-                                'Date'
-                                :
-                                props.dateTime.toDateString()+ " " + 'AT'+ ' ' + props.dateTime.toLocaleString().split(',')[1]}</Text>}
-                </TouchableOpacity>
+                <Datee />
                 <Text style={styles.text}>hola</Text>
                 <Text style={styles.text}>salut</Text>
                 <Text style={styles.text}>marhaba</Text>

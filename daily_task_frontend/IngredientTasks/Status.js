@@ -71,7 +71,6 @@ const Status = () => {
                 overlayColor="transparent"
             >
                 {handlSingle()}
-                <Datee />
                 
             </Tooltip>
         </View>
