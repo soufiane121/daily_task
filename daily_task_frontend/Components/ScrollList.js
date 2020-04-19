@@ -1,29 +1,35 @@
 import React from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, } from 'react-native';
+import { Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import Status from '../IngredientTasks/Status'
-import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux'
 import Datee from '../IngredientTasks/Datee';
 import Quantity from '../IngredientTasks/Quantity';
 
 const ScrollList = (props) => {
-
-    const navigation = useNavigation()
+    
+    _PostInfp = () => {
+        console.log('Scroll view comp', props.quantity);
+        console.log('Scroll view comp', props.dateTime);
+        console.log('Scroll view comp', props.status);
+    }
 
     return (
         <Animatable.View animation={'slideInRight'} >
             <ScrollView style={styles.scrollView} horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
-                <Status />
-                <Datee />
-                <Quantity />
-                <Text style={styles.text}></Text>
-                <Text style={styles.text}>salut</Text>
-                <Text style={styles.text}>marhaba</Text>
-                <Text style={styles.text}>voila</Text>
-                <Text style={styles.text}>horizontal</Text>
-                <Text style={styles.text}>horizontal</Text>
-                <Text style={styles.text}>horizontal</Text>
+                <Status handleStatus={props.handleStatus} />
+                <Datee handleDateTime={props.handleDateTime} />
+                <Quantity handleQuantity={props.handleQuantity} />
+                <View style={{ width: 120, }}>
+                    <Button 
+                    buttonStyle={{ backgroundColor: 'red', height: 44 }} 
+                    title='Save' 
+                    onPress={_PostInfp}
+                    />
+                </View>
+                <Text style={styles.empty}></Text>
+                <Text style={styles.empty}></Text>
             </ScrollView>
         </Animatable.View>
     )
@@ -58,22 +64,43 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         backgroundColor: '#dee3e2',
         marginLeft: 1,
-       paddingHorizontal: 13
+        paddingHorizontal: 13
+    },
+    empty: {
+        fontSize: 17,
+        backgroundColor: '#dee3e2',
+        width: 70
     }
 });
 
 
 const mps = (state) => {
     return {
-        displayDate: state.displayDate,
-        dateTime: state.dateTime
+        dateTime: state.dateTime,
+        status: state.status,
+        quantity: state.quantity
     }
 }
 
 const mpss = (dispatch) => {
     return {
-        handleDisplayDate: () => {
-            dispatch({ type: 'displayDate' })
+        handleDateTime: (e) => {
+            dispatch({
+                type: 'displayDate',
+                payload: { dateTime: e }
+            })
+        },
+        handleStatus: (e) => {
+            dispatch({
+                type: 'status',
+                payload: { status: e }
+            })
+        },
+        handleQuantity: (e) => {
+            dispatch({
+                type: 'quantity',
+                payload: { quantity: e }
+            })
         },
     }
 }

@@ -2,17 +2,14 @@ import React, {useState} from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import QuantitySc from './QuantitySc'
 
-const Quantity = () => {
+const Quantity = (props) => {
 const [show, setShow] = useState(false)
-const [textInp, setTextInp]= useState('')
-
-// console.log('from parent quantiny', textInp);
 
     return (
         <View>
             {show 
             ?
-            <QuantitySc setTextInp={setTextInp} setShow={setShow}/>
+            <QuantitySc setTextInp={props.handleQuantity} setShow={setShow}/>
             :
             <TouchableOpacity onPress={()=> setShow(true)}>
             <Text style={styles.quantity}>Quantity</Text>
@@ -32,7 +29,8 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         fontSize: 14,
         color: 'grey',
-        marginLeft: 1
+        marginLeft: 1,
+        marginRight: 1
     }
 });
 

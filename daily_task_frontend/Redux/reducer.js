@@ -54,6 +54,10 @@ switch (action.type) {
         return {...state, displayDate: !state.displayDate}
     case 'dateTime':
         return {...state, dateTime: action.payload.dateTime}
+    case 'status':
+        return {...state, status: action.payload.status}
+    case 'quantity':
+        return {...state, quantity: action.payload.quantity}
     default:
         return state
 }
