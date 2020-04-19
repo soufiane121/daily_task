@@ -50,6 +50,10 @@ switch (action.type) {
         return {...state, searching: action.payload.searching }
     case 'addIngredient':
         return {...state, addIngredient: action.payload.addIngredient}
+    case 'displayDate':
+        return {...state, displayDate: !state.displayDate}
+    case 'dateTime':
+        return {...state, dateTime: action.payload.dateTime}
     default:
         return state
 }

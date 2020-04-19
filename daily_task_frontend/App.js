@@ -20,6 +20,7 @@ import Feed from './Components/Feed'
 import CreateTask from './Components/CreateTask';
 import Loading from './Components/Loading';
 import DetailsTasks from './Components/DetailsTasks'
+import Datee from './IngredientTasks/Datee'
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -70,6 +71,7 @@ const App = (props) => {
         <Stack.Screen name='loading' component={Loading} />
         <Stack.Screen name='details' component={DetailsTasks} 
         options={{title: 'Add Items'}} />
+        <Stack.Screen  name='datee' component={Datee} options={{title: 'Calendar'}} />
       </Stack.Navigator>
     )
   }

@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
 
     def update
         item = Item.find(params[:id])
-        item.recipe['ingredients']<< {ingredientName: params[:ingredientItem]}
+        item.recipe['ingredients'] << {ingredientName: params[:ingredientItem]}
         owner_items = Owner.find_by(id: params[:owner_id])
         if item.save
             # render json: item, status: :ok
