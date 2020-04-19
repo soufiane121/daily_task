@@ -12,7 +12,6 @@ const Collapse = (props) => {
   let DATA = [...props.fullObj.recipe.ingredients]
 
   _AllIngredients = () => {
-    Keyboard.dismiss()
     return DATA.map(ele => {
       return (
         <View key={ele.ingredientName.length + Math.random()} style={{ flexDirection: 'row' }} >
