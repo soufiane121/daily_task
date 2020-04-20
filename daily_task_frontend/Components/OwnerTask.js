@@ -11,7 +11,6 @@ import Loading from './Loading'
 
 
 const OwnerTask = (props) => {
-  Keyboard.dismiss()
 
   let DATA = [...props.currentUser.owner.items]
   const [focus, setFocus] = useState(false)
@@ -52,7 +51,7 @@ const OwnerTask = (props) => {
   }
 
   const handleCancel = () => {
-    Keyboard.dismiss()
+    setDisplay(false)
     setFocus(true)
   }
 
@@ -98,6 +97,7 @@ const OwnerTask = (props) => {
     return (
       // <TouchableWithoutFeedback onPress={() => props.navigation.navigate('details', { objPass: fullObj })} onLongPress={handleLongPress}>
       <View style={{flex: 1}}>
+        <TouchableWithoutFeedback onPress={()=> setDisplay(false)}>
         <View style={selected ? styles.cardContainer : styles.cardContainerExtand}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.card1}>{fullObj.recipe.task_name.toString()}</Text>
@@ -124,6 +124,7 @@ const OwnerTask = (props) => {
             <Text style={{ marginLeft: 190, fontSize: 15, position: 'relative' }}>Created By {name.charAt(0).toUpperCase() + name.slice(1)}</Text>
           </View>
         </View>
+        </TouchableWithoutFeedback>
       </View>
     )
   }
@@ -133,7 +134,10 @@ const OwnerTask = (props) => {
     <>
       <View style={styles.container}>
         <View style={{ height: 70, flexDirection: 'row', }}>
-          <TextInput style={focus ? styles.searchExtand : styles.search} placeholder='Search For Recipe' value={props.searching} cancelable={false} onChangeText={props.handleSearch} onFocus={handleCancel} />
+          <TextInput style={focus ? styles.searchExtand : styles.search} 
+          placeholder='Search For Recipe' value={props.searching} 
+          cancelable={false} onChangeText={props.handleSearch} 
+          onFocus={handleCancel} />
           {focus &&
             <TouchableOpacity onPress={handleCancelBack}>
               <Animatable.Text style={styles.cancel}
@@ -144,6 +148,7 @@ const OwnerTask = (props) => {
             </TouchableOpacity>
           }
         </View>
+        
         <View styles={{flex: 1}}>
         {!props.loadingPg ?
           <Loading />
@@ -171,6 +176,7 @@ const OwnerTask = (props) => {
           </TouchableOpacity>
         </View>
         <NvCreateTask />
+      
       </View>
     </>
   )

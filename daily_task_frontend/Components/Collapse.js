@@ -12,8 +12,7 @@ const Collapse = (props) => {
   let DATA = [...props.fullObj.recipe.ingredients]
 
   _AllIngredients = () => {
-    Keyboard.dismiss()
-    return DATA.map(ele => {
+    return DATA.map((ele, index) => {
       return (
         <View key={ele.ingredientName.length + Math.random()} style={{ flexDirection: 'row' }} >
           <View style={styles.itembox}>
@@ -24,7 +23,7 @@ const Collapse = (props) => {
             >
               {ele.ingredientName}</Animatable.Text>
           </View>
-          <ScrollList />
+          <ScrollList objcId={props.fullObj.id} index={index}/>
         </View>
       )
     })

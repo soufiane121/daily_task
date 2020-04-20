@@ -10,9 +10,35 @@ import Quantity from '../IngredientTasks/Quantity';
 const ScrollList = (props) => {
     
     _PostInfp = () => {
-        console.log('Scroll view comp', props.quantity);
-        console.log('Scroll view comp', props.dateTime);
-        console.log('Scroll view comp', props.status);
+        // console.log('Scroll view comp', props.quantity);
+        // console.log('Scroll view comp', props.dateTime);
+        // console.log('Scroll view comp', props.status);
+
+        let subdomain = props.currentUser.owner.subdomain
+        fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                status: props.status,
+                quantity: props.quantity,
+                dateTime: props.dateTime,
+                itemId: props.index,
+                owner_id: props.currentUser.owner.id
+            })
+        })
+        .then(resp => resp.json())
+        .then(data=> console.log(data)
+        
+        )
+        .catch((errors)=> {
+            alert('Sorry our fault')
+            console.log(errors);
+            
+        })
+
     }
 
     return (
@@ -78,7 +104,8 @@ const mps = (state) => {
     return {
         dateTime: state.dateTime,
         status: state.status,
-        quantity: state.quantity
+        quantity: state.quantity,
+        currentUser: state.currentUser
     }
 }
 
@@ -102,6 +129,12 @@ const mpss = (dispatch) => {
                 payload: { quantity: e }
             })
         },
+        handleCurrentUser: e => {
+            dispatch({
+              type: "current",
+              payload: { currentUser: e }
+            });
+          },
     }
 }
 
