@@ -5,15 +5,32 @@ import QuantitySc from './QuantitySc'
 const Quantity = (props) => {
 const [show, setShow] = useState(false)
 
+const conditionRender=()=>{
+    if (props.elementQuantity !== undefined) {
+        return (
+            <TouchableOpacity onPress={()=> setShow(true)}>
+            <Text style={styles.quantityExtand}>{props.elementQuantity}</Text>
+            </TouchableOpacity>
+        ) 
+    } else {
+        return (
+            <TouchableOpacity onPress={()=> setShow(true)}>
+            <Text style={styles.quantity}>Quantity</Text>
+            </TouchableOpacity>
+        )
+    }
+}
+
     return (
         <View>
             {show 
             ?
             <QuantitySc setTextInp={props.handleQuantity} setShow={setShow}/>
             :
-            <TouchableOpacity onPress={()=> setShow(true)}>
-            <Text style={styles.quantity}>Quantity</Text>
-            </TouchableOpacity>
+            // <TouchableOpacity onPress={()=> setShow(true)}>
+            // <Text style={styles.quantity}>Quantity</Text>
+            // </TouchableOpacity>
+            (conditionRender())
              }
         </View>
     );
@@ -31,6 +48,17 @@ const styles = StyleSheet.create({
         color: 'grey',
         marginLeft: 1,
         marginRight: 1
+    },
+    quantityExtand:{
+        backgroundColor: '#dee3e2',
+        width: 125,
+        height: 44,
+        paddingHorizontal: 38,
+        paddingVertical: 10,
+        fontWeight: '600',
+        fontSize: 16,
+        color: 'tomato',
+        marginLeft: 1
     }
 });
 

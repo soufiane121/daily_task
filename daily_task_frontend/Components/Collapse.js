@@ -6,17 +6,19 @@ import { connect } from 'react-redux'
 import ScrollList from './ScrollList'
 import Status from '../IngredientTasks/Status'
 import Daate from '../IngredientTasks/Datee'
+import Quantity from '../IngredientTasks/Quantity'
 
 let colors = ['#8f71ff', '#13abc4', '#1e2a78', '#ff9f68', '#355c7d']
 let fontColor = ['#4a304d', '#001f52', '#360982', '#160f30']
 
 
 const Collapse = (props) => {
+  console.log(props.fullObj.id);
+  
   let DATA = [...props.fullObj.recipe.ingredients]
 
   _AllIngredients = () => {
     return DATA.map((ele, index) => {
-      console.log(ele);
       
       return (
         <View key={ele.ingredientName.length + Math.random()} style={{ flexDirection: 'row' }} >
@@ -31,7 +33,7 @@ const Collapse = (props) => {
                 <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
                   <Status elementStatus={ele.status}/>
                   <Daate elementDate={ele.dateTime} />
-                  <Status />
+                  <Quantity  elementQuantity={ele.quantity}/>
                   <Status />
                   <Status />
                   <Status />
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
 
 const mps = state => {
   return {
-    currentUser: state.currentUser,
+    // currentUser: state.currentUser,
     loadingPg: state.loadingPg,
   };
 };
