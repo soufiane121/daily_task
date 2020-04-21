@@ -17,7 +17,7 @@ const Datee = (props) => {
     setDate(currentDate);
   };
   
-  props.handleDateTime(date)
+  // props.handleDateTime(date)
 
   // console.log('daaaaaaaate first render',date);
   let time = date.toLocaleString().split(',')[1]
@@ -43,14 +43,15 @@ const Datee = (props) => {
   _SetDate = () => {
     setShow(false)
     setToggle(true)
+    props.fetchDatePost(date)
   }
 
 
+  
   let newDate = new Date(moment(props.elementDate))
-  let strDate = moment(props.elementDate).format("ddd MMM YYYY")
+let strDate = moment(props.elementDate).format("ddd MMM YYYY")
 
   const formatAMPM = (date) => {
-
     var hours = date.getHours();
     var minutes = date.getMinutes();
     var ampm = hours >= 12 ? 'pm' : 'am';
@@ -62,7 +63,8 @@ const Datee = (props) => {
   }
 
   _Toggling = () => {
-    if (!toggle && props.elementDate === undefined) {
+
+    if (!toggle && props.elementDate === undefined || props.elementDate === null ) {
       return <Text style={styles.date}>Date</Text>
     } else if (props.elementDate && !toggle) {
       return <Text style={styles.dateExtand}>{strDate + " " + "AT" + " " + formatAMPM(newDate)}</Text>

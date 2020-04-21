@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, FlatList, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, FlatList, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform} from 'react-native'
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -66,6 +66,7 @@ const OwnerTask = (props) => {
   }
 
   _handlePostItem = (item) => {
+    Keyboard.dismiss()
     let subdomain = props.currentUser.owner.subdomain
     fetch(`http://${subdomain}.lvh.me:3000/items/${item.id}`, {
       method: 'PATCH',
@@ -97,6 +98,7 @@ const OwnerTask = (props) => {
     return (
       // <TouchableWithoutFeedback onPress={() => props.navigation.navigate('details', { objPass: fullObj })} onLongPress={handleLongPress}>
       <View style={{flex: 1}}>
+        <KeyboardAvoidingView enabled={Platform.OS == "ios" ? "padding" : "height"}>
         <TouchableWithoutFeedback onPress={()=> setDisplay(false)}>
         <View style={selected ? styles.cardContainer : styles.cardContainerExtand}>
           <View style={{ flexDirection: 'row' }}>
@@ -111,12 +113,14 @@ const OwnerTask = (props) => {
           }
           {secondSelected &&
             <View style={selected ? styles.ingredienInputExtand : styles.ingredienInput} >
+                {/* <KeyboardAvoidingView enabled behavior='height'> */}
               <TextInput style={selected ? styles.inputOfIngredExtand: styles.inputOfIngred} placeholder='Add Ingredients' placeholderTextColor='#0779e4'
                 autoFocus={dispaly}
                 onFocus={() => setDisplay(true)}
                 value={props.addIngredient}
                 onChangeText={props.handleAddIngredient}
               />
+              {/* </KeyboardAvoidingView> */}
               <Button title='Add' style={selected ? styles.btnExtand : styles.btn} onPress={() => _handlePostItem(fullObj)} />
             </View>
           }
@@ -125,6 +129,7 @@ const OwnerTask = (props) => {
           </View>
         </View>
         </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
       </View>
     )
   }
@@ -153,10 +158,11 @@ const OwnerTask = (props) => {
         {!props.loadingPg ?
           <Loading />
           :
+          
           <FlatList
             data={DATA}
             scrollEnabled={true}
-            contentContainerStyle={{ flexGrow: 1}}
+            contentContainerStyle={{ flexGrow: 1,paddingBottom: 320}}
             renderItem={({ item, index }) =>
               <ItemsList fullObj={item} id={item.id}
                 index={index}
@@ -170,7 +176,7 @@ const OwnerTask = (props) => {
           />
         }
         </View>
-        <View style={{ height: 71, marginTop: 2 }}>
+        <View style={{ height: 71, marginTop: 560, position: 'absolute' }}>
           <TouchableOpacity style={styles.touch} onPress={props.handleOverlay} onPressOut={() => setDisplay(false)}>
             <AntDesign name='plus' size={50} style={styles.icon} />
           </TouchableOpacity>
@@ -195,9 +201,11 @@ const styles = StyleSheet.create({
     width: 65,
     marginLeft: '80%',
     borderRadius: 80,
+    position: 'relative',
+    // borderWidth: 3
   },
   icon: {
-    position: 'absolute',
+    position: 'relative',
     alignItems: 'center',
     padding: 7,
   },

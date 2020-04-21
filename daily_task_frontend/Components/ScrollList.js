@@ -62,48 +62,48 @@ const ScrollList = (props) => {
     }
 
 
-
-    _PostInfp = () => {
-        // console.log('Scroll view comp', props.quantity);
-        // console.log('Scroll view comp', props.dateTime);
-        // console.log('Scroll view comp', props.status);
-        let subdomain = props.currentUser.owner.subdomain
-        fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
+const fetchDatePost= async(value)=>{
+    let subdomain = props.currentUser.owner.subdomain
+        await fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json"
             },
             body: JSON.stringify({
-                status: props.status,
-                quantity: props.quantity,
-                dateTime: props.dateTime,
+                status: props.ele.status,
+                quantity: props.ele.quantity,
+                dateTime: value,
                 itemId: props.index,
                 owner_id: props.currentUser.owner.id
             })
         })
             .then(resp => resp.json())
-            .then(data => console.log(data)
-
+            .then(data => props.handleCurrentUser({ owner: data })
             )
             .catch((errors) => {
                 alert('Sorry our fault')
                 console.log(errors);
-
             })
-    }
+}
+
+
+
+
+
+    
 
     return (
         <Animatable.View animation={'slideInRight'} >
             <ScrollView style={styles.scrollView} horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
                 <Status handleStatus={props.handleStatus} elementStatus={props.ele.status} fetchStatus={fetchStatus} />
-                <Datee handleDateTime={props.handleDateTime} elementDate={props.ele.dateTime} />
+                <Datee handleDateTime={props.handleDateTime} elementDate={props.ele.dateTime} fetchDatePost={fetchDatePost}/>
                 <Quantity handleQuantity={props.handleQuantity} elementQuantity={props.ele.quantity} fetchQuantity={fetchQuantity} />
                 <View style={{ width: 120, }}>
                     <Button
                         buttonStyle={{ backgroundColor: 'red', height: 44 }}
                         title='Save'
-                        onPress={_PostInfp}
+                        onPress={()=>{}}
                     />
                 </View>
                 <Text style={styles.empty}></Text>

@@ -6,7 +6,7 @@ const Quantity = (props) => {
 const [show, setShow] = useState(false)
 
 const conditionRender=()=>{
-    if (props.elementQuantity === undefined || props.elementQuantity.length === 0) {
+    if (props.elementQuantity === undefined || props.elementQuantity?.length === 0 || props.elementQuantity === null) {
         return (
             <TouchableOpacity onPress={()=> setShow(true)}>
             <Text style={styles.quantity}>Quantity</Text>

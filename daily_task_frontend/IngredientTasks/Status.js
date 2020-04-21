@@ -47,7 +47,7 @@ const Status = (props) => {
     const handlSingle = () => {  
         if (!stucking && !working && !done ) {
             return (
-                props.elementStatus === undefined || props.elementStatus.length === 0
+                props.elementStatus === undefined || props.elementStatus?.length === 0 || props.elementStatus === null
                     ?
                     <Text style={styles.txt}>Status</Text>
                     :
