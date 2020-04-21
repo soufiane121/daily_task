@@ -6,16 +6,16 @@ const Quantity = (props) => {
 const [show, setShow] = useState(false)
 
 const conditionRender=()=>{
-    if (props.elementQuantity !== undefined) {
+    if (props.elementQuantity === undefined || props.elementQuantity.length === 0) {
         return (
             <TouchableOpacity onPress={()=> setShow(true)}>
-            <Text style={styles.quantityExtand}>{props.elementQuantity}</Text>
+            <Text style={styles.quantity}>Quantity</Text>
             </TouchableOpacity>
         ) 
     } else {
         return (
             <TouchableOpacity onPress={()=> setShow(true)}>
-            <Text style={styles.quantity}>Quantity</Text>
+            <Text style={styles.quantityExtand}>{props.elementQuantity}</Text>
             </TouchableOpacity>
         )
     }
@@ -25,7 +25,7 @@ const conditionRender=()=>{
         <View>
             {show 
             ?
-            <QuantitySc setTextInp={props.handleQuantity} setShow={setShow}/>
+            <QuantitySc setTextInp={props.handleQuantity} setShow={setShow} fetchQuantity={props.fetchQuantity}/>
             :
             // <TouchableOpacity onPress={()=> setShow(true)}>
             // <Text style={styles.quantity}>Quantity</Text>
