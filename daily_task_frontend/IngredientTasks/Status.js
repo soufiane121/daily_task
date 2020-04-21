@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Tooltip } from 'react-native-elements'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 
 
@@ -37,22 +37,22 @@ const Status = (props) => {
             return styles.txtDone
         } else if (props.elementStatus === 'Stuck') {
             return styles.txtStuck
-        } else if (props.elementStatus === 'Working on it'){
+        } else if (props.elementStatus === 'Working on it') {
             return styles.txtWork
         } else {
             return styles.txt
         }
     }
 
-    const handlSingle = () => {  
-        if (!stucking && !working && !done ) {
+    const handlSingle = () => {
+        if (!stucking && !working && !done) {
             return (
                 props.elementStatus === undefined || props.elementStatus?.length === 0 || props.elementStatus === null
                     ?
                     <Text style={styles.txt}>Status</Text>
                     :
                     <Text style={styling()}>{props.elementStatus}</Text>
-                   )
+            )
         } else if (stucking) {
             return <Text style={styles.txtStuck}>Stuck</Text>
         } else if (working && !stucking) {
@@ -60,7 +60,7 @@ const Status = (props) => {
         } else if (done && !stucking && !working) {
             return <Text style={styles.txtDone}>Done</Text>
         } else {
-           return <Text style={styling()}>Status</Text>
+            return <Text style={styling()}>Status</Text>
         }
     }
 
@@ -91,7 +91,7 @@ const Status = (props) => {
                 pointerColor='#f2f2f2'
                 overlayColor="transparent"
             >
-            {handlSingle()}
+                {handlSingle()}
             </Tooltip>
         </View>
     )
@@ -104,13 +104,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#dee3e2',
         width: 99,
         marginLeft: 2,
-        marginRight: 1
+        marginRight: 1,
+        // borderWidth: 2
     },
     txt: {
         alignSelf: 'center',
-        marginTop: 11,
         color: 'grey',
-        fontWeight: '500'
+        fontWeight: '500',
+        paddingHorizontal: 24,
+        paddingBottom: 14,
+        paddingTop: 13
     },
     toptip: {
         backgroundColor: '#f4f9f4',
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
 
 const mpts = (state) => {
     return {
-    status: state.status
+        status: state.status
     }
 }
 
