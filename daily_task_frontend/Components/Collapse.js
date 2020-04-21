@@ -5,11 +5,12 @@ import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux'
 import ScrollList from './ScrollList'
 import Status from '../IngredientTasks/Status'
-
-
+import Daate from '../IngredientTasks/Datee'
 
 let colors = ['#8f71ff', '#13abc4', '#1e2a78', '#ff9f68', '#355c7d']
 let fontColor = ['#4a304d', '#001f52', '#360982', '#160f30']
+
+
 const Collapse = (props) => {
   let DATA = [...props.fullObj.recipe.ingredients]
 
@@ -29,7 +30,7 @@ const Collapse = (props) => {
               <View style={{width: 300,}}>
                 <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
                   <Status elementStatus={ele.status}/>
-                  <Status />
+                  <Daate elementDate={ele.dateTime} />
                   <Status />
                   <Status />
                   <Status />
