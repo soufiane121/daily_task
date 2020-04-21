@@ -1,49 +1,66 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Tooltip } from 'react-native-elements'
-import Datee from '../IngredientTasks/Datee'
-
+import {connect} from 'react-redux'
 
 
 
 const Status = (props) => {
-    
     console.disableYellowBox = true
     const [working, setWorking] = useState(false)
     const [stucking, setStucking] = useState(false)
     const [done, setDone] = useState(false)
 
-
     const handleWorking = () => {
         setWorking(true)
         setStucking(false)
         setDone(false)
-        props.handleStatus('Working on it')
+        props.fetchStatus('Working on it')
     }
 
     const handleStucking = () => {
         setStucking(true)
         setWorking(false)
         setDone(false)
-        props.handleStatus('Stuck')
+        props.fetchStatus('Stuck')
     }
 
     const handleDone = () => {
         setDone(true)
         setWorking(false)
         setStucking(false)
-        props.handleStatus('Done')
+        props.fetchStatus('Done')
     }
 
-    const handlSingle = () => {
-        if (!stucking && !working && !done) {
-            return <Text style={styles.txt}>Status</Text>
+    const styling = () => {
+        if (props.elementStatus === 'Done') {
+            return styles.txtDone
+        } else if (props.elementStatus === 'Stuck') {
+            return styles.txtStuck
+        } else if (props.elementStatus === 'Working on it'){
+            return styles.txtWork
+        } else {
+            return styles.txt
+        }
+    }
+
+    const handlSingle = () => {  
+        if (!stucking && !working && !done ) {
+            return (
+                props.elementStatus === undefined || props.elementStatus.length === 0
+                    ?
+                    <Text style={styles.txt}>Status</Text>
+                    :
+                    <Text style={styling()}>{props.elementStatus}</Text>
+                   )
         } else if (stucking) {
             return <Text style={styles.txtStuck}>Stuck</Text>
         } else if (working && !stucking) {
             return <Text style={styles.txtWork}>Working on it</Text>
         } else if (done && !stucking && !working) {
             return <Text style={styles.txtDone}>Done</Text>
+        } else {
+           return <Text style={styling()}>Status</Text>
         }
     }
 
@@ -74,8 +91,7 @@ const Status = (props) => {
                 pointerColor='#f2f2f2'
                 overlayColor="transparent"
             >
-                {handlSingle()}
-                
+            {handlSingle()}
             </Tooltip>
         </View>
     )
@@ -84,9 +100,11 @@ const Status = (props) => {
 const styles = StyleSheet.create({
     container: {
         fontSize: 17,
-        margin: 1,
+        // margin: 1,
         backgroundColor: '#dee3e2',
-        width: 95,
+        width: 99,
+        marginLeft: 2,
+        marginRight: 1
     },
     txt: {
         alignSelf: 'center',
@@ -129,7 +147,7 @@ const styles = StyleSheet.create({
     },
     txtStuck: {
         backgroundColor: '#c70039',
-        height: 40,
+        height: 44,
         color: '#ecfcff',
         fontSize: 17,
         fontWeight: '600',
@@ -148,7 +166,7 @@ const styles = StyleSheet.create({
     },
     txtDone: {
         backgroundColor: 'green',
-        height: 40,
+        height: 44,
         color: '#ecfcff',
         fontSize: 17,
         fontWeight: '600',
@@ -157,7 +175,57 @@ const styles = StyleSheet.create({
     }
 });
 
+const mpts = (state) => {
+    return {
+    status: state.status
+    }
+}
+
+const mstd = (dispatch) => {
+    return {
+        handleStatus: (e) => {
+            dispatch({
+                type: 'status',
+                payload: { status: e }
+            })
+        }
+    }
+}
 
 
 
-export default Status
+export default connect(mpts, mstd)(Status)
+// export default Status
+
+
+// const styling = () => {
+//     if (props.elementStatus === 'Done') {
+//         return styles.txtDone
+//     } else if (props.elementStatus === 'Stuck') {
+//         return styles.txtStuck
+//     } else {
+//         return styles.txtWork
+//     }
+// }
+
+// const handlSingle = () => {
+//     console.log('Done', done, 'working', working, 'stuck', stucking);
+//     // console.log('props.elementStatus',props.status);
+
+//     if (!stucking && !working && !done) {
+//         return (
+//             props.elementStatus === undefined
+//                 ?
+//                 <Text style={styles.txt}>Status</Text>
+//                 :
+//                 <Text style={styling()}>{props.elementStatus}</Text>
+
+
+//         )
+//     } else if (stucking) {
+//         return <Text style={styles.txtStuck}>Stuck</Text>
+//     } else if (working && !stucking) {
+//         return <Text style={styles.txtWork}>Working on it</Text>
+//     } else if (done && !stucking && !working) {
+//         return <Text style={styles.txtDone}>Done</Text>
+//     }

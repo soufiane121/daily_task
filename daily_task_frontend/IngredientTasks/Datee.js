@@ -3,6 +3,7 @@ import { View, Button, Platform, Text, StyleSheet, TouchableOpacity } from 'reac
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Overlay } from "react-native-elements";
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 
 const Datee = (props) => {
@@ -44,6 +45,32 @@ const Datee = (props) => {
     setToggle(true)
   }
 
+
+  let newDate = new Date(moment(props.elementDate))
+  let strDate = moment(props.elementDate).format("ddd MMM YYYY")
+
+  const formatAMPM = (date) => {
+
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+
+  _Toggling = () => {
+    if (!toggle && props.elementDate === undefined) {
+      return <Text style={styles.date}>Date</Text>
+    } else if (props.elementDate && !toggle) {
+      return <Text style={styles.dateExtand}>{strDate + " " + "AT" + " " + formatAMPM(newDate)}</Text>
+    } else {
+      return <Text style={styles.dateExtand}> {date.toDateString() + " " + 'AT' + ' ' + date.toLocaleString().split(',')[1]}</Text>
+    }
+  }
+
   return (
     <>
       <Overlay
@@ -58,12 +85,7 @@ const Datee = (props) => {
         <_DisplayCalneder />
       </Overlay>
       <TouchableOpacity onPress={() => setShow(true)}>
-        {!toggle
-          ?
-          <Text style={styles.date}>date</Text>
-          :
-          <Text style={styles.dateExtand}> {date.toDateString() + " " + 'AT' + ' ' + date.toLocaleString().split(',')[1]}</Text>
-        }
+        {_Toggling()}
       </TouchableOpacity>
     </>
   );
