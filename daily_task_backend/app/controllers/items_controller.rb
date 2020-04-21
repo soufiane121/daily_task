@@ -23,7 +23,6 @@ class ItemsController < ApplicationController
     end
 
     def updating
-        # byebug
         owner_items = Owner.find_by(id: params[:owner_id])
         item = Item.find_by(id: params[:id])
         item_id = params[:itemId]
@@ -36,7 +35,8 @@ class ItemsController < ApplicationController
                 :items => {:only => [:id, :recipe]}
               }, :except => [:updated_at, :created_at, :password_digest])
         else
-        render json: {errors: item.errors.full_messages}, status: 404        
+        render json: {errors: item.errors.full_messages}, status: 404 
+        byebug       
         end
     end
     def create

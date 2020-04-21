@@ -154,7 +154,7 @@ const OwnerTask = (props) => {
           <Loading />
           :
           <FlatList
-            data={DATA.reverse()}
+            data={DATA}
             scrollEnabled={true}
             contentContainerStyle={{ flexGrow: 1}}
             renderItem={({ item, index }) =>

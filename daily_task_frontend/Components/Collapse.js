@@ -1,21 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Text, View, StyleSheet,Keyboard, ScrollView } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import * as Animatable from 'react-native-animatable';
-import { connect } from 'react-redux'
+import { connect} from 'react-redux'
 import ScrollList from './ScrollList'
 import Status from '../IngredientTasks/Status'
 import Daate from '../IngredientTasks/Datee'
 import Quantity from '../IngredientTasks/Quantity'
+
 
 let colors = ['#8f71ff', '#13abc4', '#1e2a78', '#ff9f68', '#355c7d']
 let fontColor = ['#4a304d', '#001f52', '#360982', '#160f30']
 
 
 const Collapse = (props) => {
-  console.log(props.fullObj.id);
-  
+const [status, setStatus]= useState('')
+// console.log(status);
   let DATA = [...props.fullObj.recipe.ingredients]
+
+
+
 
   _AllIngredients = () => {
     return DATA.map((ele, index) => {
@@ -30,8 +34,8 @@ const Collapse = (props) => {
             >
               {ele.ingredientName}</Animatable.Text>
               <View style={{width: 300,}}>
-                <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
-                  <Status elementStatus={ele.status}/>
+                {/* <ScrollView horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
+                  <Status elementStatus={ele.status} setStatus={setStatus} status={status} index={index}/>
                   <Daate elementDate={ele.dateTime} />
                   <Quantity  elementQuantity={ele.quantity}/>
                   <Status />
@@ -39,10 +43,10 @@ const Collapse = (props) => {
                   <Status />
                   <Status />
                   <Status />
-                </ScrollView>
+                </ScrollView> */}
+          <ScrollList objcId={props.fullObj.id} index={index} ele={ele}/>
               </View>
           </View>
-          {/* <ScrollList objcId={props.fullObj.id} index={index}/> */}
         </View>
       )
     })
@@ -79,8 +83,9 @@ const styles = StyleSheet.create({
 
 const mps = state => {
   return {
-    // currentUser: state.currentUser,
+    currentUser: state.currentUser,
     loadingPg: state.loadingPg,
+    status: state.status
   };
 };
 
