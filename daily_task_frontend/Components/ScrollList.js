@@ -99,15 +99,15 @@ const fetchDatePost= async(value)=>{
                 <Status handleStatus={props.handleStatus} elementStatus={props.ele.status} fetchStatus={fetchStatus} />
                 <Datee handleDateTime={props.handleDateTime} elementDate={props.ele.dateTime} fetchDatePost={fetchDatePost}/>
                 <Quantity handleQuantity={props.handleQuantity} elementQuantity={props.ele.quantity} fetchQuantity={fetchQuantity} />
-                <View style={{ width: 120, }}>
-                    <Button
+                {/* <View style={{ width: 120, }}>
+                    {/* <Button
                         buttonStyle={{ backgroundColor: 'red', height: 44 }}
                         title='Save'
                         onPress={()=>{}}
-                    />
-                </View>
+                    /> */}
+                {/* </View> */} 
                 <Text style={styles.empty}></Text>
-                <Text style={styles.empty}></Text>
+                {/* <Text style={styles.empty}></Text> */}
             </ScrollView>
         </Animatable.View>
     )
@@ -116,8 +116,8 @@ const fetchDatePost= async(value)=>{
 const styles = StyleSheet.create({
 
     scrollView: {
-        marginVertical: 3,
         marginHorizontal: 3,
+        // borderWidth: 1
     },
     text: {
         fontSize: 17,
