@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View, StyleSheet, ScrollView, } from 'react-native';
-import { Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import Status from '../IngredientTasks/Status'
 import { connect } from 'react-redux'
 import Datee from '../IngredientTasks/Datee';
 import Quantity from '../IngredientTasks/Quantity';
+import PickUser from '../IngredientTasks/PickUser'
 
 const ScrollList = (props) => {
 
@@ -62,8 +62,8 @@ const ScrollList = (props) => {
     }
 
 
-const fetchDatePost= async(value)=>{
-    let subdomain = props.currentUser.owner.subdomain
+    const fetchDatePost = async (value) => {
+        let subdomain = props.currentUser.owner.subdomain
         await fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
             method: 'PATCH',
             headers: {
@@ -85,27 +85,16 @@ const fetchDatePost= async(value)=>{
                 alert('Sorry our fault')
                 console.log(errors);
             })
-}
+    }
 
-
-
-
-
-    
 
     return (
         <Animatable.View animation={'slideInRight'} >
             <ScrollView style={styles.scrollView} horizontal={true} scrollEnabled={true} showsHorizontalScrollIndicator={false}>
                 <Status handleStatus={props.handleStatus} elementStatus={props.ele.status} fetchStatus={fetchStatus} />
-                <Datee handleDateTime={props.handleDateTime} elementDate={props.ele.dateTime} fetchDatePost={fetchDatePost}/>
+                <Datee handleDateTime={props.handleDateTime} elementDate={props.ele.dateTime} fetchDatePost={fetchDatePost} />
                 <Quantity handleQuantity={props.handleQuantity} elementQuantity={props.ele.quantity} fetchQuantity={fetchQuantity} />
-                {/* <View style={{ width: 120, }}>
-                    {/* <Button
-                        buttonStyle={{ backgroundColor: 'red', height: 44 }}
-                        title='Save'
-                        onPress={()=>{}}
-                    /> */}
-                {/* </View> */} 
+                <PickUser />
                 <Text style={styles.empty}></Text>
                 {/* <Text style={styles.empty}></Text> */}
             </ScrollView>

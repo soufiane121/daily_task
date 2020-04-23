@@ -28,6 +28,7 @@ const handleSignUp=()=>{
     
         if (!data.hasOwnProperty("errors")) {
             props.handleCurrentUser(data)
+            fetchingOwner()
             props.handleTabps()
             props.handleCurrentUserId(data.user.id)
             saveDataToPhone(data)
@@ -57,6 +58,7 @@ const handleSignUp=()=>{
     .then(data => {
     if (!data.hasOwnProperty("errors")) {
         props.handleTabps()
+        fetchingOwner()
         props.handleCurrentUser(data)
         props.handleCurrentUserId(data.user.id)
         saveDataToPhone(data)
@@ -79,6 +81,7 @@ const handleSignUp=()=>{
  const saveDataToPhone=(data)=>{
     // let num  = id
     // let str  = num.toString()
+    AsyncStorage.setItem("ownerId", data.user.owner.id.toString())
     AsyncStorage.setItem("user_id", data.token)
     AsyncStorage.setItem("company_name", data.user.owner.subdomain)
 }
@@ -103,8 +106,8 @@ const fetchAutoLogin = async () => {
         })
         .then(resp=> resp.json())
         .then(data=> { 
-        
           props.handleCurrentUser(data)
+          fetchingOwner()
           props.handleCurrentUserId(data.user.id)
         })
       props.navigation.replace("tasks")
@@ -114,6 +117,18 @@ const fetchAutoLogin = async () => {
       console.log(error);
     }
   }
+  const fetchingOwner= async ()=>{
+    try {
+    let ownerId=  await AsyncStorage.getItem('ownerId')
+    let subdomain = await AsyncStorage.getItem('company_name')
+     await fetch(`http://${subdomain}.lvh.me:3000/owners/${ownerId}`)
+     .then(resp=> resp.json())
+     .then(data => {props.handleCurrentUser(data) }
+     )
+    } catch (error) {
+        console.log('fetching owner', error);
+    }
+}
 
 
 
@@ -158,8 +173,8 @@ const mpss=(dispatch)=>{
         },
         handleCurrentUserId:(e)=>{
             dispatch({
-                type: 'currentuserid',
-                playload: {currentuserid: e}
+                type: 'currentUserId',
+                playload: {currentUserId: e}
             })
         },
         handleTabps: () =>{
