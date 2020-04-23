@@ -24,6 +24,7 @@ const defaultState ={
     displayDate: false,
     dateTime: 0,
     status: '',
-    quantity: ''
+    quantity: '',
+    currentUserObj: null
    }
    export default defaultState;

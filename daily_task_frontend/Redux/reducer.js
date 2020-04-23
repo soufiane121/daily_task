@@ -1,6 +1,4 @@
-
 import defaultState from './state'
-import { TextInput } from 'react-native'
 
 function reducer(state=defaultState, action){
 switch (action.type) {
@@ -22,8 +20,8 @@ switch (action.type) {
         return {...state, currentOwner: action.playload.currentOwner}
     case 'displaylogin': 
        return {...state, displaylogin: !state.displaylogin}
-    case 'currentuserid':
-        return {...state, currentuserid: action.playload.currentuserid}
+    case 'currentUserId':
+        return {...state, currentUserId: action.playload.currentUserId}
     case 'tabvisible':
         return {...state, tabvisible: !state.actabvisible}
     case 'overLay': 
@@ -58,6 +56,8 @@ switch (action.type) {
         return {...state, status: action.payload.status}
     case 'quantity':
         return {...state, quantity: action.payload.quantity}
+    case 'currentUserObj':
+        return {...state, currentUserObj: action.payload.currentUserObj}
     default:
         return state
 }

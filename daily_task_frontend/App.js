@@ -21,7 +21,7 @@ import CreateTask from './Components/CreateTask';
 import Loading from './Components/Loading';
 import DetailsTasks from './Components/DetailsTasks'
 import Datee from './IngredientTasks/Datee'
-
+import LogOut from './LogOut/LogOut'
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
@@ -114,8 +114,8 @@ const App = (props) => {
             title: 'Feed',
             // showIcon: false
           }}
-
-        />
+          />
+          <BottomTap.Screen name='logout' component={LogOut}    />
       </BottomTap.Navigator>
     )
   }

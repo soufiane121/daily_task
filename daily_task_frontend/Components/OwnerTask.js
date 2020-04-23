@@ -158,7 +158,6 @@ const OwnerTask = (props) => {
         {!props.loadingPg ?
           <Loading />
           :
-          
           <FlatList
             data={DATA}
             scrollEnabled={true}
@@ -176,7 +175,7 @@ const OwnerTask = (props) => {
           />
         }
         </View>
-        <View style={{ height: 71, marginTop: 560, position: 'absolute' }}>
+        <View style={{ height: 71, marginTop: 550, position: 'absolute' }}>
           <TouchableOpacity style={styles.touch} onPress={props.handleOverlay} onPressOut={() => setDisplay(false)}>
             <AntDesign name='plus' size={50} style={styles.icon} />
           </TouchableOpacity>
