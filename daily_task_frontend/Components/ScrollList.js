@@ -87,6 +87,7 @@ const ScrollList = (props) => {
     }
 
     const fetchUserInfo = async (user) => {
+
         console.log('props.objcId', props.index);
         let subdomain = props.currentUser.owner.subdomain
         await fetch(`http://${subdomain}.lvh.me:3000/assigning_user/${props.objcId}`, {
@@ -103,7 +104,11 @@ const ScrollList = (props) => {
             })
         })
             .then(resp => resp.json())
-            .then(data => props.handleCurrentUser({ owner: data })
+            .then(data => {
+                props.handleCurrentUser({ owner: data })
+                // setTimeout(function () { postIdxToUser(user) }, 3000);
+                postIdxToUser(user)
+            }
             )
             .catch((errors) => {
                 alert('Sorry our fault')
@@ -112,28 +117,30 @@ const ScrollList = (props) => {
     }
 
 
-    // const postIdxToUser= async(user)=>{
-    //     let subdomain = props.currentUser.owner.subdomain
-    //     await fetch(`http://${subdomain}.lvh.me:3000/assigning_ids/${user.id}`, {
-    //         method: 'PATCH',
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             Accept: "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             taskId: props.objcId,
-    //             itemId: props.index,
-    //             // owner_id: props.currentUser.owner.id,
-    //         })
-    //     })
-    //         .then(resp => resp.json())
-    //         .then(data => props.handleCurrentUser({ owner: data })
-    //         )
-    //         .catch((errors) => {
-    //             alert('Sorry our fault')
-    //             console.log(errors);
-    //         })
-    // }
+    const postIdxToUser = async (user) => {
+        let subdomain = props.currentUser.owner.subdomain
+        await fetch(`http://${subdomain}.lvh.me:3000/assigning_ids`, {
+            method: 'post',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                taskId: props.objcId,
+                ingredientIdx: props.index,
+                id: user.id
+                // owner_id: props.currentUser.owner.id,
+            })
+        })
+            .then(resp => resp.json())
+            .then(data =>console.log(data)
+            
+            )
+            .catch((errors) => {
+                alert('Sorry our fault')
+                console.log(errors);
+            })
+    }
 
     return (
         <Animatable.View animation={'slideInRight'} >

@@ -19,11 +19,12 @@ class UsersController < ApplicationController
     end
 
     def assigning_ids
-        byebug
+        # byebug
         user = User.find_by(id: params[:id])
-        user[:tasksId] << {"taskId"=> params[:taskId], "ingredientIdx"=> params[:ingredientsIdx]}
+        user[:tasksId] << {"taskId"=> params[:taskId], "ingredientIdx"=> params[:ingredientIdx]}
         if user.save
-            render json: { user: UserSerializer.new(@user), token: token }, status: :created
+            # render json: { user: UserSerializer.new(@user)}, status: :ok
+            render json: user, status: :ok
         else
             render json: {errors: @user.errors.full_messages}, status: 500
         end

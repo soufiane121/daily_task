@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     belongs_to :owner
-    
+    # attribute :variables, :variable_array, default: []
     validates :first_name, :last_name, :email, presence: true
     validates :email, uniqueness: true
     validates :password_digest, length: { minimum: 2}
