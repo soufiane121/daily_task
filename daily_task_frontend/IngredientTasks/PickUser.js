@@ -14,27 +14,47 @@ const PickUser = (props) => {
     const renderUsersList = () => {
         setDisplay(!display)
     }
-
+    
     const getUserName = () => {
-        let init = fLname.first_name[0].toUpperCase() + fLname.last_name[0].toUpperCase()
-        setTimeout(function(){ props.fetchUserInfo(fLname)}, 3000);
+        // console.log(fLname);
+        // setTimeout(function(){ props.fetchUserInfo(fLname)}, 3000);
         // props.fetchUserInfo(fLname)
-        return (
-            <View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
-                <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}
-                >{init}</Text>
-            </View>
-        )
+      if (props.elementUser.first_name !== null ) {
+            return (
+                <View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
+                    <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}>
+                        {props.elementUser.first_name.toUpperCase() + props.elementUser.last_name[0].toUpperCase()}
+                    </Text>
+                </View>
+            )
+        } else if (fLname ) {
+            return (<View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
+                    <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}>
+                    {fLname.first_name[0].toUpperCase() + fLname.last_name[0].toUpperCase()}
+                    </Text>
+                </View>)
+        }else if(fLname.length === 0 && props.elementUser.first_name === null){
+            return <EvilIcons name='user' style={styles.icon} />
+        }
+        // return (
+        //     { 
+        //     <View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
+        //         <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}
+        //         >{init}</Text>
+        //     </View>
+        //     }
+        // )
     }
 
     return (
         <>
             <TouchableOpacity style={styles.container} onPress={renderUsersList}>
-                {disIcon ?
+                {/* {disIcon ?
                     <EvilIcons name='user' style={styles.icon} />
                     :
                     (getUserName())
-                }
+                } */}
+                {getUserName()}
             </TouchableOpacity>
             {display && <UsersList setDisplay={setDisplay} display={display} setFLname={setFLname} setDisIcon={setDisIcon} />}
         </>

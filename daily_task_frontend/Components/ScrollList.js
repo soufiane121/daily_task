@@ -148,7 +148,7 @@ const ScrollList = (props) => {
                 <Status handleStatus={props.handleStatus} elementStatus={props.ele.status} fetchStatus={fetchStatus} />
                 <Datee handleDateTime={props.handleDateTime} elementDate={props.ele.dateTime} fetchDatePost={fetchDatePost} />
                 <Quantity handleQuantity={props.handleQuantity} elementQuantity={props.ele.quantity} fetchQuantity={fetchQuantity} />
-                <PickUser fetchUserInfo={fetchUserInfo} />
+                <PickUser fetchUserInfo={fetchUserInfo} elementUser={props.ele}/>
                 <Text style={styles.empty}></Text>
                 {/* <Text style={styles.empty}></Text> */}
             </ScrollView>
