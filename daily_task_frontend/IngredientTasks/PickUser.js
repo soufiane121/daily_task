@@ -19,15 +19,17 @@ const PickUser = (props) => {
         // console.log(fLname);
         // setTimeout(function(){ props.fetchUserInfo(fLname)}, 3000);
         // props.fetchUserInfo(fLname)
-      if (props.elementUser.first_name !== null ) {
+      if (props.elementUser.first_name !== null && !fLname ) {
             return (
                 <View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
                     <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}>
-                        {props.elementUser.first_name.toUpperCase() + props.elementUser.last_name[0].toUpperCase()}
+                        {props.elementUser.first_name[0].toUpperCase() + props.elementUser.last_name[0].toUpperCase()}
                     </Text>
                 </View>
             )
+            
         } else if (fLname ) {
+        props.fetchUserInfo(fLname)
             return (<View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
                     <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}>
                     {fLname.first_name[0].toUpperCase() + fLname.last_name[0].toUpperCase()}
