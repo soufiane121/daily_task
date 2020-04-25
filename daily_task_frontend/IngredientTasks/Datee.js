@@ -49,7 +49,7 @@ const Datee = (props) => {
 
   
   let newDate = new Date(moment(props.elementDate))
-let strDate = moment(props.elementDate).format("ddd MMM YYYY")
+let strDate = moment(props.elementDate).format("d MMM YYYY")
 
   const formatAMPM = (date) => {
     var hours = date.getHours();

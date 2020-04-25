@@ -12,7 +12,6 @@ const ScrollList = (props) => {
 
     const fetchStatus = async (value) => {
         let subdomain = props.currentUser.owner.subdomain
-        console.log('now you can fetch');
         await fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
             method: 'PATCH',
             headers: {
@@ -87,6 +86,61 @@ const ScrollList = (props) => {
             })
     }
 
+    const fetchUserInfo = async (user) => {
+
+        console.log('props.objcId', props.index);
+        let subdomain = props.currentUser.owner.subdomain
+        await fetch(`http://${subdomain}.lvh.me:3000/assigning_user/${props.objcId}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                userInfo: { firstName: user.first_name, lastName: user.last_name },
+                itemId: props.index,
+                owner_id: props.currentUser.owner.id,
+                user_id: user.id
+            })
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                props.handleCurrentUser({ owner: data })
+                // setTimeout(function () { postIdxToUser(user) }, 3000);
+                postIdxToUser(user)
+            }
+            )
+            .catch((errors) => {
+                alert('Sorry our fault')
+                console.log(errors);
+            })
+    }
+
+
+    const postIdxToUser = async (user) => {
+        let subdomain = props.currentUser.owner.subdomain
+        await fetch(`http://${subdomain}.lvh.me:3000/assigning_ids`, {
+            method: 'post',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                taskId: props.objcId,
+                ingredientIdx: props.index,
+                id: user.id
+                // owner_id: props.currentUser.owner.id,
+            })
+        })
+            .then(resp => resp.json())
+            .then(data =>console.log(data)
+            
+            )
+            .catch((errors) => {
+                alert('Sorry our fault')
+                console.log(errors);
+            })
+    }
 
     return (
         <Animatable.View animation={'slideInRight'} >
@@ -94,7 +148,7 @@ const ScrollList = (props) => {
                 <Status handleStatus={props.handleStatus} elementStatus={props.ele.status} fetchStatus={fetchStatus} />
                 <Datee handleDateTime={props.handleDateTime} elementDate={props.ele.dateTime} fetchDatePost={fetchDatePost} />
                 <Quantity handleQuantity={props.handleQuantity} elementQuantity={props.ele.quantity} fetchQuantity={fetchQuantity} />
-                <PickUser />
+                <PickUser fetchUserInfo={fetchUserInfo} elementUser={props.ele}/>
                 <Text style={styles.empty}></Text>
                 {/* <Text style={styles.empty}></Text> */}
             </ScrollView>

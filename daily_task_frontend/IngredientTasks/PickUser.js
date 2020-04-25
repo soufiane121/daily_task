@@ -1,40 +1,64 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, ShadowPropTypesIOS } from 'react-native';
 import { EvilIcons } from "@expo/vector-icons";
 import UsersList from './UsersList'
 
 
-const PickUser = () => {
+const PickUser = (props) => {
     const [display, setDisplay] = useState(false)
-    const [disIcon, setDisIcon]= useState(true)
-    const [fLname, setFLname]= useState('')
+    const [disIcon, setDisIcon] = useState(true)
+    const [fLname, setFLname] = useState('')
+
+
 
     const renderUsersList = () => {
-        
         setDisplay(!display)
     }
-
-    const getUserName=()=>{
-        
-        return (
-        <View style={{height: 36,borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft:11, marginTop: 3}}>
-            <Text style={{color: 'white', marginHorizontal:6 , position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500'}}
-            >{fLname}</Text>
-        </View>
-        )
+    
+    const getUserName = () => {
+        // console.log(fLname);
+        // setTimeout(function(){ props.fetchUserInfo(fLname)}, 3000);
+        // props.fetchUserInfo(fLname)
+      if (props.elementUser.first_name !== null && !fLname ) {
+            return (
+                <View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
+                    <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}>
+                        {props.elementUser.first_name[0].toUpperCase() + props.elementUser.last_name[0].toUpperCase()}
+                    </Text>
+                </View>
+            )
+            
+        } else if (fLname ) {
+        props.fetchUserInfo(fLname)
+            return (<View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
+                    <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}>
+                    {fLname.first_name[0].toUpperCase() + fLname.last_name[0].toUpperCase()}
+                    </Text>
+                </View>)
+        }else if(fLname.length === 0 && props.elementUser.first_name === null){
+            return <EvilIcons name='user' style={styles.icon} />
+        }
+        // return (
+        //     { 
+        //     <View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
+        //         <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}
+        //         >{init}</Text>
+        //     </View>
+        //     }
+        // )
     }
 
     return (
         <>
             <TouchableOpacity style={styles.container} onPress={renderUsersList}>
-                {disIcon ? 
-                <EvilIcons name='user' style={styles.icon} />
-                :
-                (getUserName())
-
-}
+                {/* {disIcon ?
+                    <EvilIcons name='user' style={styles.icon} />
+                    :
+                    (getUserName())
+                } */}
+                {getUserName()}
             </TouchableOpacity>
-            {display && <UsersList setDisplay={setDisplay} display={display} setFLname={setFLname} setDisIcon={setDisIcon}/>}
+            {display && <UsersList setDisplay={setDisplay} display={display} setFLname={setFLname} setDisIcon={setDisIcon} />}
         </>
     );
 }

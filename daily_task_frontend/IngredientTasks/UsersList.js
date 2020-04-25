@@ -19,10 +19,10 @@ const UsersList = (props) => {
         DATA = arr
     }
 
-    const assignUserItem=(index, item)=>{
+    const assignUserItem=(item)=>{
         props.setDisplay(false)
         props.setDisIcon(false)
-        props.setFLname(`${item.first_name[0].toUpperCase()}${item.last_name[0].toUpperCase()}`)
+        props.setFLname(item)
     }
 
     return (
@@ -42,8 +42,8 @@ const UsersList = (props) => {
                 />
                 <FlatList 
                 data={DATA}
-                renderItem={({item, index})=> 
-                <TouchableOpacity onPress={()=>assignUserItem(index, item)}>
+                renderItem={({item})=> 
+                <TouchableOpacity onPress={()=>assignUserItem(item)}>
                     <Text>{`${item.first_name} ${item.last_name}`}</Text>
                     
                 </TouchableOpacity>
