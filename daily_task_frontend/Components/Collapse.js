@@ -14,6 +14,7 @@ let fontColor = ['#4a304d', '#001f52', '#360982', '#160f30']
 
 
 const Collapse = (props) => {
+  // debugger
 const [status, setStatus]= useState('')
 // console.log(status);
   let DATA = [...props.fullObj.recipe.ingredients]

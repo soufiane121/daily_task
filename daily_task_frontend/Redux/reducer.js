@@ -17,7 +17,7 @@ switch (action.type) {
     case 'current': 
        return {...state, currentUser: action.payload.currentUser}
     case 'currentOwner':
-        return {...state, currentOwner: action.playload.currentOwner}
+        return {...state, currentOwner: action.payload.currentOwner}
     case 'displaylogin': 
        return {...state, displaylogin: !state.displaylogin}
     case 'currentUserId':

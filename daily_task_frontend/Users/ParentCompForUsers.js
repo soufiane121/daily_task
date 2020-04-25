@@ -111,19 +111,22 @@ const fetchAutoLogin = async () => {
           props.handleCurrentUserId(data.user.id)
         })
       props.navigation.replace("tasks")
+    //   props.navigation.replace("Home")
+
       }
     } catch (error) {
       alert("something went wrong")
       console.log(error);
     }
   }
+
   const fetchingOwner= async ()=>{
     try {
     let ownerId=  await AsyncStorage.getItem('ownerId')
     let subdomain = await AsyncStorage.getItem('company_name')
      await fetch(`http://${subdomain}.lvh.me:3000/owners/${ownerId}`)
      .then(resp=> resp.json())
-     .then(data => {props.handleCurrentUser(data) }
+     .then(data => {props.handleCurrentOwner(data) }
      )
     } catch (error) {
         console.log('fetching owner', error);
@@ -179,6 +182,12 @@ const mpss=(dispatch)=>{
         },
         handleTabps: () =>{
             dispatch({type: "tabvisible"})
+        },
+        handleCurrentOwner:(e)=>{
+            dispatch({
+                type:'currentOwner',
+                payload: {currentOwner: e}
+            })
         }
     }
 }
