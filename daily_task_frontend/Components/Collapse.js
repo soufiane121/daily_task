@@ -14,7 +14,6 @@ let fontColor = ['#4a304d', '#001f52', '#360982', '#160f30']
 
 
 const Collapse = (props) => {
-  // debugger
 const [status, setStatus]= useState('')
 // console.log(status);
   let DATA = [...props.fullObj.recipe.ingredients]
@@ -45,7 +44,7 @@ const [status, setStatus]= useState('')
                   <Status />
                   <Status />
                 </ScrollView> */}
-          <ScrollList objcId={props.fullObj.id} index={index} ele={ele}/>
+          <ScrollList objcId={props.currentUser.owner ? props.fullObj.id : props.fullObj.recipe.id} index={index} ele={ele}/>
               </View>
           </View>
         </View>

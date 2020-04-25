@@ -51,7 +51,7 @@ const UsersTasks = (props) => {
         arr?.forEach((ele) => {
             // debugger 
             // DATA.push(ele.recipe.ingredients[user.ingredientIdx])
-            DATA.push({recipe: {task_name: ele.recipe.task_name, ingredients: [ele.recipe.ingredients[user.ingredientIdx]]}})
+            DATA.push({recipe: {task_name: ele.recipe.task_name, ingredients: [ele.recipe.ingredients[user.ingredientIdx]],id: user.taskId}})
         })
     })
 
@@ -60,14 +60,14 @@ const UsersTasks = (props) => {
             t.recipe.ingredients.ingredientName === task.recipe.ingredients.ingredientName 
         ))
     )
-// console.log(final[0].recipe.task_name);
+// console.log(final[0].recipe.id);
 
 
 
     const ItemsList = ({ fullObj, index, selected, onSelect, onSecondSelect, secondSelected }) => {
     let name = props.currentOwner.owner.user_name
     // console.log(fullObj);
-    
+    // debugger
     // fullObj.recipe.task_name.toString()
 
         return (
