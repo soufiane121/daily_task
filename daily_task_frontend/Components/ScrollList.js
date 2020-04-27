@@ -15,27 +15,26 @@ const ScrollList = (props) => {
         let subdomain;
         if (props.currentUser.hasOwnProperty('owner')) {
             subdomain = props.currentUser.owner.subdomain
-             // await fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
-        //     method: 'PATCH',
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         Accept: "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         status: value,
-        //         quantity: props.ele.quantity,
-        //         dateTime: props.ele.dateTime,
-        //         itemId: props.index,
-        //         owner_id: props.currentUser.user.owner.id
-        //     })
-        // })
-        //     .then(resp => resp.json())
-        //     .then(data => console.log(data)
-        //     )
-        //     .catch((errors) => {
-        //         alert('Sorry our fault')
-        //         console.log(errors);
-        //     })
+             await fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                status: value,
+                quantity: props.ele.quantity,
+                dateTime: props.ele.dateTime,
+                itemId: props.index,
+                owner_id: props.currentUser.user.owner.id
+            })
+        })
+            .then(resp => resp.json())
+            // .then(data => console.log(data))
+            .catch((errors) => {
+                alert('Sorry our fault')
+                console.log(errors);
+            })
         } else if (props.currentUser.hasOwnProperty('user')) {
             subdomain = props.currentUser.user.owner.subdomain
              await fetch(`http://${subdomain}.lvh.me:3000/items_update_from_user/${props.objcId}`, {
@@ -54,8 +53,7 @@ const ScrollList = (props) => {
             })
         })
             .then(resp => resp.json())
-            .then(data => console.log(data)
-            )
+            // .then(data => console.log(data))
             .catch((errors) => {
                 alert('Sorry our fault')
                 console.log(errors);
@@ -196,7 +194,7 @@ const ScrollList = (props) => {
                 <Status handleStatus={props.handleStatus} elementStatus={props.ele.status} fetchStatus={fetchStatus} />
                 <Datee handleDateTime={props.handleDateTime} elementDate={props.ele.dateTime} fetchDatePost={fetchDatePost} />
                 <Quantity handleQuantity={props.handleQuantity} elementQuantity={props.ele.quantity} fetchQuantity={fetchQuantity} />
-                {props.currentUser?.owner &&
+                {props.currentUser.hasOwnProperty('owner') &&
                     <PickUser fetchUserInfo={fetchUserInfo} elementUser={props.ele} />
                 }
                 <Text style={styles.empty}></Text>

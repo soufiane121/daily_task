@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 
 
 const Status = (props) => {
-    console.log(props);
     
     console.disableYellowBox = true
     const [working, setWorking] = useState(false)

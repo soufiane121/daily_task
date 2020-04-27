@@ -111,9 +111,10 @@ const UsersTasks = (props) => {
 
     const ItemsList = ({ fullObj, index, selected, onSelect, onSecondSelect, secondSelected }) => {
         let name = props.currentOwner.owner.user_name
+        // onPress={() => setDisplay(false)}
         return (
             <View style={{ flex: 1 }}>
-                <TouchableWithoutFeedback onPress={() => setDisplay(false)}>
+                <TouchableWithoutFeedback >
                     <View style={selected ? styles.cardContainer : styles.cardContainerExtand}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={styles.card1}>{fullObj.recipe.task_name}</Text>
