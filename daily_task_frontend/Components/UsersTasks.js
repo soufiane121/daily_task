@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, StyleSheet, View, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { Ionicons, } from "@expo/vector-icons";
@@ -13,8 +13,7 @@ let arr2 = []
 
 
 const UsersTasks = (props) => {
-    
-    
+
     const [selected, setSelected] = React.useState(new Map());
     const [secondSelected, setSecondSelected] = React.useState(new Map());
     const [refresh, setRefresh] = useState(false)
@@ -41,49 +40,71 @@ const UsersTasks = (props) => {
 
 
 
-   
-    
+
+
     const uniqueness = () => {
         //first
-        let array =  props.currentUser?.user?.tasksId.filter((task, index, self) =>
-            index === self.findIndex((t) => (
-                t.taskId === task.taskId && t.ingredientIdx === task.ingredientIdx
-            ))
-        )
+        let array;
+        if (props.currentUser?.user?.tasksId.length === 1) {
+            array = props.currentUser?.user.tasksId
+        } else if (props.currentUser?.user.tasksId.length > 0 && props.currentUser?.user.tasksId.length !== 1) {
+            array = props.currentUser?.user?.tasksId.filter((task, index, self) =>
+                index === self.findIndex((t) => (
+                    t.taskId === task.taskId && t.ingredientIdx === task.ingredientIdx
+                ))
+            )
+        }
+
 
         //second
         array?.forEach(user => {
             props.currentOwner?.owner.items.filter(ele => {
                 if (user.taskId === ele.id) {
-                     arr.push(ele)
+                    arr.push(ele)
                 }
             });
         });
 
         //third//
 
-        let obj = {recipe: {task_name: '', ingredients: [],id: ''}}
+        let obj = { recipe: { task_name: '', ingredients: [], id: '' } }
 
-        if (arr.length > 0) {
+        if (arr.length > 0 && array.length > 1  ) {
             array?.forEach((user, idx) => {
                 arr?.forEach((ele, idx2) => {
-                    if (idx2 !== idx ) {
-                        obj.recipe.task_name= ele.recipe.task_name
+                    // debugger
+                    if (idx2 !== idx) {
+                        obj.recipe.task_name = ele.recipe.task_name
                         obj.recipe.ingredients.push(ele.recipe.ingredients[user.ingredientIdx])
-                        obj.recipe.id =user.taskId
+                        obj.recipe.id = user.taskId
                     }
                 })
-             DATA.push(obj)
+                DATA.push(obj)
+            })
+        } else if (arr.length > 0 && array.length === 1 && array.length !== 0 ) {
+            array?.forEach((user, idx) => {
+                arr?.forEach((ele, idx2) => {
+
+                        obj.recipe.task_name = ele.recipe.task_name
+                        obj.recipe.ingredients.push(ele.recipe.ingredients[user.ingredientIdx])
+                        obj.recipe.id = user.taskId
+                })
+                DATA.push(obj)
             })
         }
-        
-        //forth
 
-       return DATA?.filter((task, index, self) =>
-        index === self.findIndex((t) => (
-            t.recipe.ingredients.ingredientName === task.recipe.ingredients.ingredientName 
-            )),
+
+        //forth
+        if (DATA.length > 0) {
+            let final;
+            final = DATA?.filter((task, index, self) =>
+                index === self.findIndex((t) => (
+                    t.recipe.ingredients.ingredientName === task.recipe.ingredients.ingredientName
+                )),
             )
+            return final
+        }
+
     }
 
 
@@ -112,6 +133,7 @@ const UsersTasks = (props) => {
 
 
 
+
     return (
         <View>
             <View>
@@ -131,7 +153,7 @@ const UsersTasks = (props) => {
                     }
                     keyExtractor={item => item.recipe.task_name.length.toString() + Math.floor(Math.random() * 1000)}
                     ListEmptyComponent={
-                        <Button title='Refresh'/>
+                        <Button title='Refresh' />
                     }
                 />
             </View>
