@@ -44,7 +44,7 @@ const [status, setStatus]= useState('')
                   <Status />
                   <Status />
                 </ScrollView> */}
-          <ScrollList objcId={props.fullObj.id} index={index} ele={ele}/>
+          <ScrollList objcId={props.currentUser.owner ? props.fullObj.id : props.fullObj.recipe.id} index={index} ele={ele}/>
               </View>
           </View>
         </View>

@@ -22,6 +22,7 @@ class UsersController < ApplicationController
         # byebug
         user = User.find_by(id: params[:id])
         user[:tasksId] << {"taskId"=> params[:taskId], "ingredientIdx"=> params[:ingredientIdx]}
+        user[:tasksId].uniq!
         if user.save
             # render json: { user: UserSerializer.new(@user)}, status: :ok
             render json: user, status: :ok

@@ -17,7 +17,7 @@ switch (action.type) {
     case 'current': 
        return {...state, currentUser: action.payload.currentUser}
     case 'currentOwner':
-        return {...state, currentOwner: action.playload.currentOwner}
+        return {...state, currentOwner: action.payload.currentOwner}
     case 'displaylogin': 
        return {...state, displaylogin: !state.displaylogin}
     case 'currentUserId':
@@ -58,6 +58,8 @@ switch (action.type) {
         return {...state, quantity: action.payload.quantity}
     case 'currentUserObj':
         return {...state, currentUserObj: action.payload.currentUserObj}
+    case 'tasksArray':
+        return {...state, tasksArray: action.payload.tasksArray}
     default:
         return state
 }

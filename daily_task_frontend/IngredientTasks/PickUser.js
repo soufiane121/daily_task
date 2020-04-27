@@ -16,9 +16,6 @@ const PickUser = (props) => {
     }
     
     const getUserName = () => {
-        // console.log(fLname);
-        // setTimeout(function(){ props.fetchUserInfo(fLname)}, 3000);
-        // props.fetchUserInfo(fLname)
       if (props.elementUser.first_name !== null && !fLname ) {
             return (
                 <View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
@@ -27,7 +24,6 @@ const PickUser = (props) => {
                     </Text>
                 </View>
             )
-            
         } else if (fLname ) {
         props.fetchUserInfo(fLname)
             return (<View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>

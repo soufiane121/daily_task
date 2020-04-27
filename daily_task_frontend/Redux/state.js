@@ -25,6 +25,7 @@ const defaultState ={
     dateTime: 0,
     status: '',
     quantity: '',
-    currentUserObj: null
+    currentUserObj: null,
+    tasksArray:[]
    }
    export default defaultState;

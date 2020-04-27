@@ -11,10 +11,9 @@ const LogOout =  (props) => {
         } else {
             key =  'user_id'
         }
-        //  await AsyncStorage.removeItem('user_object')
+         await AsyncStorage.removeItem(key)
         let ss = await AsyncStorage.getAllKeys()
         console.log(ss);
-        
         return; 
     }
     return (
