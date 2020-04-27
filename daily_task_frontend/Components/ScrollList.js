@@ -11,13 +11,34 @@ const ScrollList = (props) => {
 
 
     const fetchStatus = async (value) => {
+        // debugger
         let subdomain;
         if (props.currentUser.hasOwnProperty('owner')) {
             subdomain = props.currentUser.owner.subdomain
+             // await fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
+        //     method: 'PATCH',
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         Accept: "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         status: value,
+        //         quantity: props.ele.quantity,
+        //         dateTime: props.ele.dateTime,
+        //         itemId: props.index,
+        //         owner_id: props.currentUser.user.owner.id
+        //     })
+        // })
+        //     .then(resp => resp.json())
+        //     .then(data => console.log(data)
+        //     )
+        //     .catch((errors) => {
+        //         alert('Sorry our fault')
+        //         console.log(errors);
+        //     })
         } else if (props.currentUser.hasOwnProperty('user')) {
             subdomain = props.currentUser.user.owner.subdomain
-        }
-        await fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
+             await fetch(`http://${subdomain}.lvh.me:3000/items_update_from_user/${props.objcId}`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
@@ -28,7 +49,8 @@ const ScrollList = (props) => {
                 quantity: props.ele.quantity,
                 dateTime: props.ele.dateTime,
                 itemId: props.index,
-                owner_id: props.currentUser.user.owner.id
+                owner_id: props.currentUser.user.owner.id,
+                ingredientName: props.ele.ingredientName
             })
         })
             .then(resp => resp.json())
@@ -38,6 +60,28 @@ const ScrollList = (props) => {
                 alert('Sorry our fault')
                 console.log(errors);
             })
+        }
+        // await fetch(`http://${subdomain}.lvh.me:3000/items_updat/${props.objcId}`, {
+        //     method: 'PATCH',
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         Accept: "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         status: value,
+        //         quantity: props.ele.quantity,
+        //         dateTime: props.ele.dateTime,
+        //         itemId: props.index,
+        //         owner_id: props.currentUser.user.owner.id
+        //     })
+        // })
+        //     .then(resp => resp.json())
+        //     .then(data => console.log(data)
+        //     )
+        //     .catch((errors) => {
+        //         alert('Sorry our fault')
+        //         console.log(errors);
+        //     })
     }
 
     const fetchQuantity = async (value) => {

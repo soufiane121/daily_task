@@ -58,6 +58,8 @@ switch (action.type) {
         return {...state, quantity: action.payload.quantity}
     case 'currentUserObj':
         return {...state, currentUserObj: action.payload.currentUserObj}
+    case 'tasksArray':
+        return {...state, tasksArray: action.payload.tasksArray}
     default:
         return state
 }

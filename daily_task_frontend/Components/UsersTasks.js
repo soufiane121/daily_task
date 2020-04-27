@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
-import { Text, StyleSheet, View, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard} from 'react-native'
+import React, { useState,useEffect } from 'react'
+import { Text, StyleSheet, View, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Button } from 'react-native'
 import { connect } from 'react-redux'
-import {Ionicons, } from "@expo/vector-icons";
+import { Ionicons, } from "@expo/vector-icons";
 import * as Animatable from 'react-native-animatable';
 import Collapse from './Collapse'
+import * as _ from 'underscore'
 
-let DATA = []
+let DATA = new Array
+let ANSWER
+let arr = []
+let arr2 = []
+
+
 const UsersTasks = (props) => {
-    let arr = []
+    
+    
     const [selected, setSelected] = React.useState(new Map());
     const [secondSelected, setSecondSelected] = React.useState(new Map());
-
+    const [refresh, setRefresh] = useState(false)
 
     const onSelect = React.useCallback(id => {
         Keyboard.dismiss()
@@ -20,7 +27,6 @@ const UsersTasks = (props) => {
     },
         [selected]
     )
-
 
     const onSecondSelect = React.useCallback(id => {
         Keyboard.dismiss()
@@ -33,69 +39,76 @@ const UsersTasks = (props) => {
 
 
 
-    let array = props.currentUser?.user?.tasksId?.filter((task, index, self) =>
-        index === self.findIndex((t) => (
-            t.taskId === task.taskId && t.ingredientIdx === task.ingredientIdx
-        ))
-    )
 
-    array?.forEach(user => {
-        props.currentOwner?.owner.items.forEach(ele => {
-            if (user.taskId === ele.id) {
-                arr.push(ele)
-            }
+
+   
+    
+    const uniqueness = () => {
+        //first
+        let array =  props.currentUser?.user?.tasksId.filter((task, index, self) =>
+            index === self.findIndex((t) => (
+                t.taskId === task.taskId && t.ingredientIdx === task.ingredientIdx
+            ))
+        )
+
+        //second
+        array?.forEach(user => {
+            props.currentOwner?.owner.items.filter(ele => {
+                if (user.taskId === ele.id) {
+                     arr.push(ele)
+                }
+            });
         });
-    });
 
-    array?.forEach(user => {
-        arr?.forEach((ele) => {
-            // debugger 
-            // DATA.push(ele.recipe.ingredients[user.ingredientIdx])
-            DATA.push({recipe: {task_name: ele.recipe.task_name, ingredients: [ele.recipe.ingredients[user.ingredientIdx]],id: user.taskId}})
-        })
-    })
+        //third//
 
-    let final = DATA?.filter((task, index, self) =>
+        let obj = {recipe: {task_name: '', ingredients: [],id: ''}}
+
+        if (arr.length > 0) {
+            array?.forEach((user, idx) => {
+                arr?.forEach((ele, idx2) => {
+                    if (idx2 !== idx ) {
+                        obj.recipe.task_name= ele.recipe.task_name
+                        obj.recipe.ingredients.push(ele.recipe.ingredients[user.ingredientIdx])
+                        obj.recipe.id =user.taskId
+                    }
+                })
+             DATA.push(obj)
+            })
+        }
+        
+        //forth
+
+       return DATA?.filter((task, index, self) =>
         index === self.findIndex((t) => (
             t.recipe.ingredients.ingredientName === task.recipe.ingredients.ingredientName 
-        ))
-    )
-// console.log(final[0].recipe.id);
-
-
-
-    const ItemsList = ({ fullObj, index, selected, onSelect, onSecondSelect, secondSelected }) => {
-    let name = props.currentOwner.owner.user_name
-    // console.log(fullObj);
-    // debugger
-    // fullObj.recipe.task_name.toString()
-
-        return (
-            <View style={{flex: 1}}>
-            <TouchableWithoutFeedback onPress={()=> setDisplay(false)}>
-            <View style={selected ? styles.cardContainer : styles.cardContainerExtand}>
-              <View style={{ flexDirection: 'row' }}>
-        <Text style={styles.card1}>{fullObj.recipe.task_name}</Text>
-                <Ionicons name={selected !== true ? 'ios-arrow-down' : 'ios-arrow-up'} style={styles.iconArrow} onPress={() => onSelect(fullObj.id)} />
-              </View>
-              <Collapse selected={selected} fullObj={fullObj} />
-
-              <View style={!selected ? styles.createBy : styles.createByExtand}>
-                <Text style={{ marginLeft: 190, fontSize: 15, position: 'relative' }}>Created By {name.charAt(0).toUpperCase() + name.slice(1)}</Text>
-              </View>
-            </View>
-            </TouchableWithoutFeedback>
-
-          </View>
-        )
+            )),
+            )
     }
 
 
 
+    const ItemsList = ({ fullObj, index, selected, onSelect, onSecondSelect, secondSelected }) => {
+        let name = props.currentOwner.owner.user_name
+        return (
+            <View style={{ flex: 1 }}>
+                <TouchableWithoutFeedback onPress={() => setDisplay(false)}>
+                    <View style={selected ? styles.cardContainer : styles.cardContainerExtand}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.card1}>{fullObj.recipe.task_name}</Text>
+                            <Ionicons name={selected !== true ? 'ios-arrow-down' : 'ios-arrow-up'} style={styles.iconArrow} onPress={() => onSelect(fullObj.id)} />
+                        </View>
+                        <Collapse selected={selected} fullObj={fullObj} />
 
+                        <View style={!selected ? styles.createBy : styles.createByExtand}>
+                            <Text style={{ marginLeft: 190, fontSize: 15, position: 'relative' }}>Created By {name.charAt(0).toUpperCase() + name.slice(1)}</Text>
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
 
-
-
+            </View>
+        )
+    }
 
 
 
@@ -103,7 +116,8 @@ const UsersTasks = (props) => {
         <View>
             <View>
                 <FlatList
-                    data={final}
+                    data={uniqueness()}
+                    // extraData={}
                     scrollEnabled={true}
                     contentContainerStyle={{ flexGrow: 1, paddingBottom: 320 }}
                     renderItem={({ item, index }) =>
@@ -115,12 +129,13 @@ const UsersTasks = (props) => {
                             onSecondSelect={onSecondSelect}
                         />
                     }
-                keyExtractor={item => item.recipe.task_name.length.toString()+ Math.floor(Math.random()* 1000)}
+                    keyExtractor={item => item.recipe.task_name.length.toString() + Math.floor(Math.random() * 1000)}
+                    ListEmptyComponent={
+                        <Button title='Refresh'/>
+                    }
                 />
             </View>
-
         </View >
-
     )
 }
 
@@ -278,15 +293,22 @@ const styles = StyleSheet.create({
 
 
 
-
-
-
-
 const mps = (state) => {
     return {
         currentUser: state.currentUser,
-        currentOwner: state.currentOwner
+        currentOwner: state.currentOwner,
+        tasksArray: state.tasksArray
+    }
+}
+const mpss = (dispatch) => {
+    return {
+        handleTasksArray: (e) => {
+            dispatch({
+                type: 'tasksArray',
+                payload: { tasksArray: e }
+            })
+        }
     }
 }
 
-export default connect(mps)(UsersTasks);
+export default connect(mps, mpss)(UsersTasks);

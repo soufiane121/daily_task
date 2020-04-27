@@ -1,8 +1,15 @@
 import React,{useEffect} from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import {connect} from 'react-redux'
+import { useNavigation } from '@react-navigation/native';
 
+let DATA= []
+let arr = []
 const Loading=(props)=>{
+
+
+
+
     return (
         <View style={{ backgroundColor: 'transparent', alignContent: 'center', alignItems: 'center', flex: 1 }}>
         <ActivityIndicator style={styles.loading} size="large" color="#0000ff" />
@@ -24,7 +31,9 @@ const styles = StyleSheet.create({
 
 const mps = state => {
   return {
-    itemsFetch: state.itemsFetch
+    itemsFetch: state.itemsFetch,
+    currentOwner: state.currentOwner,
+    currentUser: state.c
   };
 };
 
@@ -33,6 +42,12 @@ const mpss = dispatch => {
     handleItemsFetch:()=>{
       dispatch({type: 'itemsFetch'})
     },
+    handleTasksArray: (e) => {
+      dispatch({
+          type: 'tasksArray',
+          payload: { tasksArray: e }
+      })
+  }
   };
 };
 
