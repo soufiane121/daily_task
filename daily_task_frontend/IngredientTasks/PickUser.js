@@ -16,11 +16,13 @@ const PickUser = (props) => {
     }
     
     const getUserName = () => {
-      if (props.elementUser.first_name !== null && !fLname ) {
+        
+      if ( props.elementUser.first_name !== undefined && !fLname ) {
             return (
                 <View style={{ height: 36, borderRadius: 50, width: 36, backgroundColor: '#d7385e', marginLeft: 11, marginTop: 3 }}>
                     <Text style={{ color: 'white', marginHorizontal: 6, position: 'relative', marginVertical: 6, fontSize: 18, fontWeight: '500' }}>
-                        {props.elementUser.first_name[0].toUpperCase() + props.elementUser.last_name[0].toUpperCase()}
+                        {props.elementUser?.first_name[0].toUpperCase() + props.elementUser?.last_name[0].toUpperCase()}
+
                     </Text>
                 </View>
             )
