@@ -45,9 +45,9 @@ const UsersTasks = (props) => {
     const uniqueness = () => {
         //first
         let array;
-        if (props.currentUser?.user?.tasksId.length === 1) {
-            array = props.currentUser?.user.tasksId
-        } else if (props.currentUser?.user.tasksId.length > 0 && props.currentUser?.user.tasksId.length !== 1) {
+        if (props.currentUser?.user?.tasksId?.length === 1) {
+            array = props.currentUser?.user?.tasksId
+        } else if (props.currentUser?.user?.tasksId.length > 0 && props.currentUser?.user.tasksId.length !== 1) {
             array = props.currentUser?.user?.tasksId.filter((task, index, self) =>
                 index === self.findIndex((t) => (
                     t.taskId === task.taskId && t.ingredientIdx === task.ingredientIdx
@@ -69,7 +69,7 @@ const UsersTasks = (props) => {
 
         let obj = { recipe: { task_name: '', ingredients: [], id: '' } }
 
-        if (arr.length > 0 && array.length > 1  ) {
+        if (arr.length > 0 && array?.length > 1  ) {
             array?.forEach((user, idx) => {
                 arr?.forEach((ele, idx2) => {
                     // debugger
@@ -81,7 +81,7 @@ const UsersTasks = (props) => {
                 })
                 DATA.push(obj)
             })
-        } else if (arr.length > 0 && array.length === 1 && array.length !== 0 ) {
+        } else if (arr.length > 0 && array?.length === 1 && array?.length !== 0 ) {
             array?.forEach((user, idx) => {
                 arr?.forEach((ele, idx2) => {
 

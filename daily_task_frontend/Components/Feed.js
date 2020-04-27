@@ -53,10 +53,10 @@ const Feed = props => {
   };
 
   useEffect(() => {
-    if (props.currentUser.hasOwnProperty("owner")) {
+    if (props.currentUser?.hasOwnProperty("owner")) {
       id = props.currentUser.owner.id;
       company = props.currentUser.owner.subdomain;
-    } else if (props.currentUser.hasOwnProperty("user")) {
+    } else if (props.currentUser?.hasOwnProperty("user")) {
       UserObject = props.currentUser
       id = props.currentUser.user.owner.id;
       company = props.currentUser.user.owner.subdomain;
