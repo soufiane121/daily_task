@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native'
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import store from './Redux/store'
 import ImageButtons from './OwnOrUser/ImageButtons'
@@ -40,7 +40,6 @@ const Drawer = createDrawerNavigator()
 
 
 const App = (props) => {
-  const [display, setDisplay] = useState(false)
 
   // wait couple seconds before call store to avoid showing tab in first render
   const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
@@ -123,7 +122,12 @@ const App = (props) => {
         <BottomTap.Screen name='logout' component={LogOut} />
         { store.getState().displayAdmin &&
           <BottomTap.Screen name='admin' children={Admin}
-            options={{ title: 'hi', tabBarVisible: false }} />
+            options={{ 
+              title: 'Admin',
+              tabBarIcon: ({ color }) =>
+              <MaterialCommunityIcons name="monitor-dashboard" focused={true} size={20} color={color} />
+            
+            }} />
         }
       </BottomTap.Navigator>
     )
