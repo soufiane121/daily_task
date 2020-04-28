@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Text, StyleSheet, View, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Button } from 'react-native'
+import { Text, StyleSheet, View, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Button, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { Ionicons, } from "@expo/vector-icons";
 import * as Animatable from 'react-native-animatable';
 import Collapse from './Collapse'
-import * as _ from 'underscore'
+// import * as _ from 'underscore'
 
 let DATA = new Array
 let ANSWER
@@ -13,6 +13,7 @@ let arr2 = []
 
 
 const UsersTasks = (props) => {
+console.log(props);
 
     const [selected, setSelected] = React.useState(new Map());
     const [secondSelected, setSecondSelected] = React.useState(new Map());
@@ -67,12 +68,11 @@ const UsersTasks = (props) => {
 
         //third//
 
-        let obj = { recipe: { task_name: '', ingredients: [], id: '' } }
 
-        if (arr.length > 0 && array?.length > 1  ) {
-            array?.forEach((user, idx) => {
-                arr?.forEach((ele, idx2) => {
-                    // debugger
+        if (arr.length > 0 && array?.length > 1) {
+            arr?.forEach((ele, idx2) => {
+                let obj = { recipe: { task_name: '', ingredients: [], id: '' } }
+                array?.forEach((user, idx) => {
                     if (idx2 !== idx) {
                         obj.recipe.task_name = ele.recipe.task_name
                         obj.recipe.ingredients.push(ele.recipe.ingredients[user.ingredientIdx])
@@ -81,30 +81,28 @@ const UsersTasks = (props) => {
                 })
                 DATA.push(obj)
             })
-        } else if (arr.length > 0 && array?.length === 1 && array?.length !== 0 ) {
-            array?.forEach((user, idx) => {
-                arr?.forEach((ele, idx2) => {
-
-                        obj.recipe.task_name = ele.recipe.task_name
-                        obj.recipe.ingredients.push(ele.recipe.ingredients[user.ingredientIdx])
-                        obj.recipe.id = user.taskId
+        } else if (arr.length > 0 && array?.length === 1 && array?.length !== 0) {
+            arr?.forEach((ele, idx2) => {
+                let obj = { recipe: { task_name: '', ingredients: [], id: '' } }
+                array?.forEach((user, idx) => {
+                    obj.recipe.task_name = ele.recipe.task_name
+                    obj.recipe.ingredients.push(ele.recipe.ingredients[user.ingredientIdx])
+                    obj.recipe.id = user.taskId
                 })
                 DATA.push(obj)
             })
         }
-
 
         //forth
         if (DATA.length > 0) {
             let final;
             final = DATA?.filter((task, index, self) =>
                 index === self.findIndex((t) => (
-                    t.recipe.ingredients.ingredientName === task.recipe.ingredients.ingredientName
-                )),
+                    t.recipe.task_name === task.recipe.task_name && t.recipe.ingredients.ingredientName === task.recipe.ingredients.ingredientName
+                ))
             )
             return final
         }
-
     }
 
 
@@ -132,12 +130,27 @@ const UsersTasks = (props) => {
         )
     }
 
-
+    const EmptyList = () => {
+        return (
+            <>
+                <View style={{ marginTop: '25%', paddingLeft: '16%', flex: 1 }}>
+                    <Image
+                        style={{ width: 250, height: 250, }}
+                        source={require('../assets/decision-making.png')}
+                    />
+                </View>
+                <Text style={{
+                    fontSize: 24, fontWeight: '500', 
+                    paddingHorizontal: 31, paddingVertical: 30, color: '#142850'
+                }}>No Tasks Made For You To Do</Text>
+            </>
+        )
+    }
 
 
     return (
         <View>
-            <View>
+            <View >
                 <FlatList
                     data={uniqueness()}
                     // extraData={}
@@ -153,10 +166,7 @@ const UsersTasks = (props) => {
                         />
                     }
                     keyExtractor={item => item.recipe.task_name.length.toString() + Math.floor(Math.random() * 1000)}
-                    ListEmptyComponent={
-                        <Button title='Refresh' />
-                    }
-                />
+                    ListEmptyComponent={EmptyList()} />
             </View>
         </View >
     )
