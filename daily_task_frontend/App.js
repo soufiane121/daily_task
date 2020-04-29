@@ -121,7 +121,7 @@ const App = (props) => {
         />
         <BottomTap.Screen name='logout' component={LogOut} />
         { store.getState().displayAdmin &&
-          <BottomTap.Screen name='admin' children={Admin}
+          <BottomTap.Screen name='admin' component={Admin}
             options={{ 
               title: 'Admin',
               tabBarIcon: ({ color }) =>

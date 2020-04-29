@@ -26,7 +26,7 @@ const ScrollList = (props) => {
                 quantity: props.ele.quantity,
                 dateTime: props.ele.dateTime,
                 itemId: props.index,
-                owner_id: props.currentUser.user.owner.id
+                owner_id: props.currentUser.owner.id
             })
         })
             .then(resp => resp.json())
