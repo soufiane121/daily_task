@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, StyleSheet, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import { Provider } from 'react-redux'
 
@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native'
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import store from './Redux/store'
 import ImageButtons from './OwnOrUser/ImageButtons'
@@ -22,6 +22,8 @@ import Loading from './Components/Loading';
 import DetailsTasks from './Components/DetailsTasks'
 import Datee from './IngredientTasks/Datee'
 import LogOut from './LogOut/LogOut'
+import Admin from './AdminBoard/Admin'
+
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
@@ -30,6 +32,8 @@ const DismissKeyboard = ({ children }) => (
 
 const Stack = createStackNavigator();
 const BottomTap = createBottomTabNavigator();
+const BottomTapTwo = createBottomTabNavigator();
+
 const Drawer = createDrawerNavigator()
 
 
@@ -39,18 +43,17 @@ const App = (props) => {
 
   // wait couple seconds before call store to avoid showing tab in first render
   const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
-  wait(3000).then(() => store.getState().tabvisible);
+  wait(3000).then(() => store.getState().tabvisible, store.getState().handleDisplayAdmin);
 
   useEffect(() => {
-
   }, [store.getState().tabvisible])
-
   const MainNavigations = () => {
     return (
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
         <Stack.Screen name='alltabs' children={BottomTaps} />
+        <Stack.Screen name='admin' component={BottomTapsTwo} />
       </Stack.Navigator>
     )
   }
@@ -66,12 +69,12 @@ const App = (props) => {
         />
         <Stack.Screen name="Home" component={LandingPg} />
         <Stack.Screen name='Users' component={ParentCompForUsers} />
-        <Stack.Screen name='tasks' component={UserTasks} 
-        options={{ title: "Tasks" }} />
+        <Stack.Screen name='tasks' component={UserTasks}
+          options={{ title: "Tasks" }} />
         <Stack.Screen name='loading' component={Loading} />
-        <Stack.Screen name='details' component={DetailsTasks} 
-        options={{title: 'Add Items'}} />
-        <Stack.Screen  name='datee' component={Datee} options={{title: 'Calendar'}} />
+        <Stack.Screen name='details' component={DetailsTasks}
+          options={{ title: 'Add Items' }} />
+        <Stack.Screen name='datee' component={Datee} options={{ title: 'Calendar' }} />
       </Stack.Navigator>
     )
   }
@@ -104,8 +107,9 @@ const App = (props) => {
           options={{
             title: 'Tasks',
             tabBarIcon: ({ color }) =>
-              <FontAwesome name="tasks" focused={true} size={20} color={color} />
-          }} />
+              <FontAwesome name="tasks" focused={true} size={20} color={color} />,
+          }}
+           />
         <BottomTap.Screen name='feed' component={Feed}
           options={{
             tabBarIcon: ({ color }) =>
@@ -114,12 +118,28 @@ const App = (props) => {
             title: 'Feed',
             // showIcon: false
           }}
-          />
-          <BottomTap.Screen name='logout' component={LogOut}    />
+        />
+        <BottomTap.Screen name='logout' component={LogOut} />
+        { store.getState().displayAdmin &&
+          <BottomTap.Screen name='admin' component={Admin}
+            options={{ 
+              title: 'Admin',
+              tabBarIcon: ({ color }) =>
+              <MaterialCommunityIcons name="monitor-dashboard" focused={true} size={20} color={color} />
+            
+            }} />
+        }
       </BottomTap.Navigator>
     )
   }
 
+  const BottomTapsTwo = (props) => {
+    return (
+      <BottomTapTwo.Navigator screenOptions={{ tabBarVisible: true }}>
+        <BottomTapTwo.Screen name='admin' component={Admin} />
+      </BottomTapTwo.Navigator>
+    )
+  }
 
 
   return (

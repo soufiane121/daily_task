@@ -17,6 +17,7 @@ const ImageButtons=(props)=>{
         let async = await AsyncStorage.getItem('owner_id')
             if (async !== null) {
                 props.handleTabps()
+                props.handleDisplayAdmin()
                 navigation.replace('ParentComp')     
             } else {
                 navigation.replace('ParentComp')
@@ -50,7 +51,6 @@ const ImageButtons=(props)=>{
   
     
     return (
-        
         <>
         <TouchableOpacity style={styles.container} onPress={handleGroupTeamButton}>
         <MaterialCommunityIcons name="account-group" style={styles.groupIcon}/>
@@ -91,7 +91,7 @@ const styles= StyleSheet.create({
 
 const mps=(state)=>{
 return {
-    tabvisible: state.tabvisible
+    tabvisible: state.tabvisible,
 }
 }
 
@@ -111,6 +111,9 @@ const mpss=(dispatch)=>{
           },
           handleshowSwipeButtons:()=>{
               dispatch({type: 'showSwipeButtons'})
+          },
+          handleDisplayAdmin:()=>{
+              dispatch({type: 'displayAdmin'})
           }
     }
 }

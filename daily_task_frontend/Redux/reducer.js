@@ -60,6 +60,8 @@ switch (action.type) {
         return {...state, currentUserObj: action.payload.currentUserObj}
     case 'tasksArray':
         return {...state, tasksArray: action.payload.tasksArray}
+    case 'displayAdmin':
+        return {...state, displayAdmin: !state.displayAdmin}
     default:
         return state
 }
