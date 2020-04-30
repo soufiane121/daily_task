@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native'
-import { Ionicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { SimpleLineIcons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import store from './Redux/store'
 import ImageButtons from './OwnOrUser/ImageButtons'
@@ -63,7 +63,7 @@ const App = (props) => {
       <Stack.Navigator screenOptions={{
         headerShown: store.getState().tabvisible
       }}>
-        <Stack.Screen name={' '} component={ImageButtons} />
+        <Stack.Screen name={'first'} component={ImageButtons} />
         <Stack.Screen name="ParentComp" component={ParentComp}
           options={{ title: 'Registration' }}
         />
@@ -119,7 +119,14 @@ const App = (props) => {
             // showIcon: false
           }}
         />
-        <BottomTap.Screen name='logout' component={LogOut} />
+        <BottomTap.Screen name='logout' component={LogOut} 
+        options={{
+          tabBarIcon: ({ color }) =>
+              <SimpleLineIcons name="logout" focused={true} size={20} color={color} />
+            ,
+            title: 'LogOut',
+        }}
+        />
         { store.getState().displayAdmin &&
           <BottomTap.Screen name='admin' component={Admin}
             options={{ 

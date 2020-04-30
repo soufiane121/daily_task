@@ -17,7 +17,7 @@ const ImageButtons=(props)=>{
         let async = await AsyncStorage.getItem('owner_id')
             if (async !== null) {
                 props.handleTabps()
-                props.handleDisplayAdmin()
+                props.handleDisplayAdmin(true)
                 navigation.replace('ParentComp')     
             } else {
                 navigation.replace('ParentComp')

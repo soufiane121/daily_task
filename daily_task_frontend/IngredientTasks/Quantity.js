@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import QuantitySc from './QuantitySc'
+import {connect} from 'react-redux'
 
 const Quantity = (props) => {
 const [show, setShow] = useState(false)
@@ -12,6 +13,12 @@ const conditionRender=()=>{
             <Text style={styles.quantity}>Quantity</Text>
             </TouchableOpacity>
         ) 
+    } else if (props.currentUser.user) {
+        return (
+            <View>
+            <Text style={styles.quantityExtand}>{props.elementQuantity}</Text>
+            </View>
+        )
     } else {
         return (
             <TouchableOpacity onPress={()=> setShow(true)}>
@@ -62,4 +69,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Quantity;
+const mps=(state)=>{
+    return {
+        currentUser: state.currentUser
+    }
+}
+
+export default connect(mps)(Quantity);
