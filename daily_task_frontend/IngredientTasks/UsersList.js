@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, KeyboardAvoidingView, TextInput, FlatList,View,TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, KeyboardAvoidingView, TextInput, FlatList, View, TouchableOpacity } from 'react-native';
 import { EvilIcons } from "@expo/vector-icons";
 import { Overlay, } from "react-native-elements";
 import { connect } from 'react-redux'
@@ -19,7 +19,7 @@ const UsersList = (props) => {
         DATA = arr
     }
 
-    const assignUserItem=(item)=>{
+    const assignUserItem = (item) => {
         props.setDisplay(false)
         props.setDisIcon(false)
         props.setFLname(item)
@@ -36,19 +36,20 @@ const UsersList = (props) => {
                 overlayBackgroundColor="#f4f3ec"
                 overlayStyle={{ marginTop: 20 }}
             >
-                <TextInput placeholder='User name'
+                <TextInput style={styles.searchField} placeholder='User name'
                     value={searchV}
                     onChangeText={(e) => setSearchV(e)}
+                // placeholderTextColor= 'red'
                 />
-                <FlatList 
-                data={DATA}
-                renderItem={({item})=> 
-                <TouchableOpacity onPress={()=>assignUserItem(item)}>
-                    <Text>{`${item.first_name} ${item.last_name}`}</Text>
-                    
-                </TouchableOpacity>
-            }
-            keyExtractor={item=> item.id.toString()}
+                <FlatList
+                    data={DATA}
+                    renderItem={({ item }) =>
+                        <TouchableOpacity onPress={() => assignUserItem(item)} style={styles.flatlist}>
+                            <Text style={{fontWeight: '600', color: '#900c3f'}}>{`* ${item.first_name} ${item.last_name}`}</Text>
+
+                        </TouchableOpacity>
+                    }
+                    keyExtractor={item => item.id.toString()}
                 />
             </Overlay>
         </KeyboardAvoidingView>
@@ -57,7 +58,17 @@ const UsersList = (props) => {
 
 
 const styles = StyleSheet.create({
-
+    searchField: {
+        height: 40,
+        paddingHorizontal: 10,
+        fontSize: 14,
+        marginBottom: 6,
+        borderBottomWidth: 2,
+        borderBottomColor: 'grey'
+    },
+    flatlist: {
+        paddingVertical: 3
+    }
 });
 
 const mps = (state) => {

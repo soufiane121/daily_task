@@ -50,13 +50,13 @@ class Admin extends React.Component {
         let datta = {
             chartOptions: {
                 // colors: ['yellowgreen', 'red', 'yello'],
-                // plotBackgroundColor: 'red',
                 chart: {
                     plotBackgroundColor: '#f9f9f9',
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
                     marginTop: -60,
+                    
                 },
                 title: {
                     text: 'Users Tasks Progress'

@@ -13,7 +13,7 @@ const Datee = (props) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    // setShow(Platform.OS === 'ios');
+    setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
   
@@ -61,10 +61,10 @@ let strDate = moment(props.elementDate).format("d MMM YYYY")
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
   }
-
+  
   _Toggling = () => {
 
-    if (!toggle && props.elementDate === undefined || props.elementDate === null ) {
+    if (!toggle && props.elementDate === undefined  ) {
       return <Text style={styles.date}>Date</Text>
     } else if (props.elementDate && !toggle) {
       return <Text style={styles.dateExtand}>{strDate + " " + "AT" + " " + formatAMPM(newDate)}</Text>
