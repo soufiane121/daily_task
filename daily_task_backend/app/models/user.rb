@@ -1,5 +1,7 @@
 class User < ApplicationRecord
     belongs_to :owner
+    has_many :messages
+    has_many :chats, through: :messages
     # attribute :variables, :variable_array, default: []
     validates :first_name, :last_name, :email, presence: true
     validates :email, uniqueness: true

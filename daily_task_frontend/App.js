@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { View, TextInput, StyleSheet, Keyboard, TouchableWithoutFeedback, AsyncStorage } from 'react-native';
 import { Provider } from 'react-redux'
 
 // import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native'
-import { SimpleLineIcons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { SimpleLineIcons, FontAwesome, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 import store from './Redux/store'
 import ImageButtons from './OwnOrUser/ImageButtons'
@@ -23,6 +23,9 @@ import DetailsTasks from './Components/DetailsTasks'
 import Datee from './IngredientTasks/Datee'
 import LogOut from './LogOut/LogOut'
 import Admin from './AdminBoard/Admin'
+import ChatRoom from './Chat/ChatRoom'
+
+
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -38,7 +41,6 @@ const Drawer = createDrawerNavigator()
 
 
 
-
 const App = (props) => {
 
   // wait couple seconds before call store to avoid showing tab in first render
@@ -47,6 +49,7 @@ const App = (props) => {
 
   useEffect(() => {
   }, [store.getState().tabvisible])
+
   const MainNavigations = () => {
     return (
       <Stack.Navigator screenOptions={{
@@ -57,6 +60,7 @@ const App = (props) => {
       </Stack.Navigator>
     )
   }
+  
 
   const FullNavigation = ({ navigation }) => {
     return (
@@ -116,7 +120,6 @@ const App = (props) => {
               <FontAwesome name="feed" focused={true} size={20} color={color} />
             ,
             title: 'Feed',
-            // showIcon: false
           }}
         />
         <BottomTap.Screen name='logout' component={LogOut} 
@@ -127,7 +130,16 @@ const App = (props) => {
             title: 'LogOut',
         }}
         />
-        { store.getState().displayAdmin &&
+       
+        { !store.getState().displayAdmin &&
+        <BottomTap.Screen name='chat' component={ChatRoom}
+        options={{ 
+          title: 'Chat',
+          tabBarIcon: ({ color }) =>
+          <Ionicons name="ios-chatboxes" focused={true} size={20} color={color} />
+        }} />
+        }
+         { store.getState().displayAdmin &&
           <BottomTap.Screen name='admin' component={Admin}
             options={{ 
               title: 'Admin',

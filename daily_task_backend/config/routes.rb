@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
   
+  resources :messages
   post "/login", to: "auth#login"
   get "/owner_auto_login", to: "auth#auto_login"
   post '/user_login', to: 'authi#login'
@@ -8,9 +10,10 @@ Rails.application.routes.draw do
   patch '/assigning_user/:id', to: 'items#assigning_user'
   post '/assigning_ids/', to: 'users#assigning_ids'
   patch '/items_update_from_user/:id', to: 'items#items_update_from_user'
-
   resources :items
   resources :feeds
   resources :users
+  resource :chats
+  
   resources :owners
 end

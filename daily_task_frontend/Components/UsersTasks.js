@@ -13,7 +13,6 @@ let arr2 = []
 
 
 const UsersTasks = (props) => {
-console.log(props);
 
     const [selected, setSelected] = React.useState(new Map());
     const [secondSelected, setSecondSelected] = React.useState(new Map());

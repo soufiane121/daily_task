@@ -21,6 +21,8 @@ import Constants from "expo-constants";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { FontAwesome } from "@expo/vector-icons";
 import UpdateOverlay from './UpdateOverlay'
+import { useIsFocused} from '@react-navigation/native';
+
 
 
 let owner = "";
@@ -29,12 +31,13 @@ let DATA = ''
 let UserObject = null
 
 const Feed = props => {
+  // const isFocused = useIsFocused();
   
 
   const handleSendContent = () => {
     props.handleOverlay();
-    let id = props.currentUser.owner.id;
-    let company = props.currentUser.owner.subdomain;
+    let id = props.currentUser?.owner.id;
+    let company = props.currentUser?.owner.subdomain;
     fetch(`http://${company}.lvh.me:3000/feeds`, {
       method: "POST",
       headers: {
