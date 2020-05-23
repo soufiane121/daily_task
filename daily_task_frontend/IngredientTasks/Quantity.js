@@ -34,9 +34,6 @@ const conditionRender=()=>{
             ?
             <QuantitySc setTextInp={props.handleQuantity} setShow={setShow} fetchQuantity={props.fetchQuantity}/>
             :
-            // <TouchableOpacity onPress={()=> setShow(true)}>
-            // <Text style={styles.quantity}>Quantity</Text>
-            // </TouchableOpacity>
             (conditionRender())
              }
         </View>
