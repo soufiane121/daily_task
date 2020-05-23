@@ -24,6 +24,7 @@ import Datee from './IngredientTasks/Datee'
 import LogOut from './LogOut/LogOut'
 import Admin from './AdminBoard/Admin'
 import ChatRoom from './Chat/ChatRoom'
+import AdminParent from './AdminBoard/AdminParent'
 
 
 
@@ -122,14 +123,7 @@ const App = (props) => {
             title: 'Feed',
           }}
         />
-        <BottomTap.Screen name='logout' component={LogOut} 
-        options={{
-          tabBarIcon: ({ color }) =>
-              <SimpleLineIcons name="logout" focused={true} size={20} color={color} />
-            ,
-            title: 'LogOut',
-        }}
-        />
+       
        
         { !store.getState().displayAdmin &&
         <BottomTap.Screen name='chat' component={ChatRoom}
@@ -140,7 +134,7 @@ const App = (props) => {
         }} />
         }
          { store.getState().displayAdmin &&
-          <BottomTap.Screen name='admin' component={Admin}
+          <BottomTap.Screen name='admin' component={AdminParent}
             options={{ 
               title: 'Admin',
               tabBarIcon: ({ color }) =>
@@ -148,6 +142,14 @@ const App = (props) => {
             
             }} />
         }
+         <BottomTap.Screen name='logout' component={LogOut} 
+        options={{
+          tabBarIcon: ({ color }) =>
+              <SimpleLineIcons name="logout" focused={true} size={20} color={color} />
+            ,
+            title: 'LogOut',
+        }}
+        />
       </BottomTap.Navigator>
     )
   }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, FlatList, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform} from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, FlatList, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -80,7 +80,7 @@ const OwnerTask = (props) => {
       })
     })
       .then(resp => resp.json())
-      .then(data =>  props.handleCurrentUser({owner: data}))
+      .then(data => props.handleCurrentUser({ owner: data }))
 
       .catch((errors) => {
         alert(wrong)
@@ -97,38 +97,38 @@ const OwnerTask = (props) => {
     let name = props.currentUser.owner.user_name
     return (
       // <TouchableWithoutFeedback onPress={() => props.navigation.navigate('details', { objPass: fullObj })} onLongPress={handleLongPress}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <KeyboardAvoidingView enabled={Platform.OS == "ios" ? "padding" : "height"}>
-        <TouchableWithoutFeedback onPress={()=> setDisplay(false)}>
-        <View style={selected ? styles.cardContainer : styles.cardContainerExtand}>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.card1}>{fullObj.recipe.task_name.toString()}</Text>
-            <Ionicons name={selected !== true ? 'ios-arrow-down' : 'ios-arrow-up'} style={styles.iconArrow} onPress={() => onSelect(fullObj.id)} />
-          </View>
-          <Collapse selected={selected} fullObj={fullObj} />
-          {!secondSelected &&
-            <TouchableOpacity style={{ marginVertical: 26, paddingHorizontal: 9, }} onPress={() => onSecondSelect(fullObj.id)} opacity={1}>
-              <Text style={{ color: '#0779e4', }}>Add Ingredients</Text>
-            </TouchableOpacity>
-          }
-          {secondSelected &&
-            <View style={selected ? styles.ingredienInputExtand : styles.ingredienInput} >
-                {/* <KeyboardAvoidingView enabled behavior='height'> */}
-              <TextInput style={selected ? styles.inputOfIngredExtand: styles.inputOfIngred} placeholder='Add Ingredients' placeholderTextColor='#0779e4'
-                autoFocus={dispaly}
-                onFocus={() => setDisplay(true)}
-                value={props.addIngredient}
-                onChangeText={props.handleAddIngredient}
-              />
-              {/* </KeyboardAvoidingView> */}
-              <Button title='Add' style={selected ? styles.btnExtand : styles.btn} onPress={() => _handlePostItem(fullObj)} />
+          <TouchableWithoutFeedback onPress={() => setDisplay(false)}>
+            <View style={selected ? styles.cardContainer : styles.cardContainerExtand}>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.card1}>{fullObj.recipe.task_name.toString()}</Text>
+                <Ionicons name={selected !== true ? 'ios-arrow-down' : 'ios-arrow-up'} style={styles.iconArrow} onPress={() => onSelect(fullObj.id)} />
+              </View>
+              <Collapse selected={selected} fullObj={fullObj} />
+              {!secondSelected &&
+                <TouchableOpacity style={{ marginVertical: 26, paddingHorizontal: 9, }} onPress={() => onSecondSelect(fullObj.id)} opacity={1}>
+                  <Text style={{ color: '#0779e4', }}>Add Ingredients</Text>
+                </TouchableOpacity>
+              }
+              {secondSelected &&
+                <View style={selected ? styles.ingredienInputExtand : styles.ingredienInput} >
+                  {/* <KeyboardAvoidingView enabled behavior='height'> */}
+                  <TextInput style={selected ? styles.inputOfIngredExtand : styles.inputOfIngred} placeholder='Add Ingredients' placeholderTextColor='#0779e4'
+                    autoFocus={dispaly}
+                    onFocus={() => setDisplay(true)}
+                    value={props.addIngredient}
+                    onChangeText={props.handleAddIngredient}
+                  />
+                  {/* </KeyboardAvoidingView> */}
+                  <Button title='Add' style={selected ? styles.btnExtand : styles.btn} onPress={() => _handlePostItem(fullObj)} />
+                </View>
+              }
+              <View style={!selected ? styles.createBy : styles.createByExtand}>
+                <Text style={{ marginLeft: 190, fontSize: 15, position: 'relative' }}>Created By {name.charAt(0).toUpperCase() + name.slice(1)}</Text>
+              </View>
             </View>
-          }
-          <View style={!selected ? styles.createBy : styles.createByExtand}>
-            <Text style={{ marginLeft: 190, fontSize: 15, position: 'relative' }}>Created By {name.charAt(0).toUpperCase() + name.slice(1)}</Text>
-          </View>
-        </View>
-        </TouchableWithoutFeedback>
+          </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </View>
     )
@@ -139,10 +139,10 @@ const OwnerTask = (props) => {
     <>
       <View style={styles.container}>
         <View style={{ height: 70, flexDirection: 'row', }}>
-          <TextInput style={focus ? styles.searchExtand : styles.search} 
-          placeholder='Search For Recipe' value={props.searching} 
-          cancelable={false} onChangeText={props.handleSearch} 
-          onFocus={handleCancel} />
+          <TextInput style={focus ? styles.searchExtand : styles.search}
+            placeholder='Search For Recipe' value={props.searching}
+            cancelable={false} onChangeText={props.handleSearch}
+            onFocus={handleCancel} />
           {focus &&
             <TouchableOpacity onPress={handleCancelBack}>
               <Animatable.Text style={styles.cancel}
@@ -153,36 +153,36 @@ const OwnerTask = (props) => {
             </TouchableOpacity>
           }
         </View>
-        
-        <View styles={{flex: 1}}>
-        {!props.loadingPg ?
-          <Loading />
-          :
-          
-          <FlatList
-            data={DATA}
-            scrollEnabled={true}
-            contentContainerStyle={{ flexGrow: 1,paddingBottom: 320}}
-            renderItem={({ item, index }) =>
-              <ItemsList fullObj={item} id={item.id}
-                index={index}
-                selected={!!selected.get(item.id)}
-                onSelect={onSelect}
-                secondSelected={!!secondSelected.get(item.id)}
-                onSecondSelect={onSecondSelect}
-              />
-            }
-            keyExtractor={item => item.id.toString()}
-          />
-        }
+
+        <View styles={{ flex: 1 }}>
+          {!props.loadingPg ?
+            <Loading />
+            :
+
+            <FlatList
+              data={DATA}
+              scrollEnabled={true}
+              contentContainerStyle={{ flexGrow: 1, paddingBottom: 320 }}
+              renderItem={({ item, index }) =>
+                <ItemsList fullObj={item} id={item.id}
+                  index={index}
+                  selected={!!selected.get(item.id)}
+                  onSelect={onSelect}
+                  secondSelected={!!secondSelected.get(item.id)}
+                  onSecondSelect={onSecondSelect}
+                />
+              }
+              keyExtractor={item => item.id.toString()}
+            />
+          }
         </View>
-        <View style={{ height: 71, marginTop: 560, position: 'absolute' }}>
+        <View style={styles.iconButtonAdd}>
           <TouchableOpacity style={styles.touch} onPress={props.handleOverlay} onPressOut={() => setDisplay(false)}>
             <AntDesign name='plus' size={50} style={styles.icon} />
           </TouchableOpacity>
         </View>
         <NvCreateTask />
-      
+
       </View>
     </>
   )
@@ -190,6 +190,13 @@ const OwnerTask = (props) => {
 
 
 const styles = StyleSheet.create({
+  iconButtonAdd: {
+    height: 71, 
+    // marginTop: 160, 
+    // position: 'relative',
+    marginTop: 560,
+    position: 'absolute'
+  },
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
@@ -202,7 +209,6 @@ const styles = StyleSheet.create({
     marginLeft: '80%',
     borderRadius: 80,
     position: 'relative',
-    // borderWidth: 3
   },
   icon: {
     position: 'relative',
@@ -215,19 +221,21 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     width: 273,
     marginBottom: -22,
+    
   },
   iconArrow: {
     fontSize: 25,
     color: '#00bdaa',
     marginLeft: 22,
-    
+
   },
   icconAdd: {
     fontSize: 19,
     margin: 2,
     paddingRight: 5,
     color: '#3a0088',
-    marginRight: 4
+    marginRight: 4,
+    
   },
   search: {
     height: '85%',
@@ -262,6 +270,8 @@ const styles = StyleSheet.create({
     borderLeftWidth: 4,
     marginBottom: 7,
     // height: 300 , //127,
+    // borderWidth: 3
+
   },
   cardContainerExtand: {
     flex: 1,
@@ -271,7 +281,7 @@ const styles = StyleSheet.create({
     borderLeftColor: '#d7385e',
     borderLeftWidth: 4,
     marginBottom: 4,
-    
+
   },
   ingredienInput: {
     marginTop: 26,
@@ -291,7 +301,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: 50,
   },
-  btnExtand:{
+  btnExtand: {
     height: 50,
     borderRadius: 50,
   },
@@ -301,7 +311,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     width: '94%'
   },
-  inputOfIngredExtand:{
+  inputOfIngredExtand: {
     padding: 10,
     fontSize: 15,
     fontWeight: '500',
@@ -314,7 +324,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginRight: 8,
     borderRadius: 9,
-    backgroundColor: '#b2ebf2'
+    backgroundColor: '#b2ebf2',
+    
   },
   createByExtand: {
     // marginTop: 186,
@@ -333,7 +344,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginLeft: 16,
     borderColor: '#22559c',
-    opacity: 0.4
+    opacity: 0.4,
+    
   }
 
 

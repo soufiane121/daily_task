@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 import {Text, StyleSheet,View} from 'react-native'
 import {connect} from 'react-redux'
 import {AsyncStorage} from 'react-native'
+import * as Updates from 'expo-updates';
+
 
 import SignIn from './SignIn'
 import SignUp from './SignUp'
@@ -9,7 +11,7 @@ import SignUp from './SignUp'
 const ParentComp=(props)=>{
 
 // send post request to create new Owner with subdomain
- const handleSignUp=()=>{
+ const handleSignUp= async ()=>{
  fetch(`http://lvh.me:3000/owners`,{
     method: 'POST',
     headers:{
@@ -32,7 +34,9 @@ const ParentComp=(props)=>{
         props.handleTabps()
         props.handleCurrentUserId(data.owner.id)
         saveDataToPhone(data)
-        props.navigation.replace("Home")
+        // props.navigation.replace("Home")
+         Updates.reloadAsync()
+
     } else {
         console.log("After sign up",data);
         alert(data.errors)
@@ -65,7 +69,8 @@ const ParentComp=(props)=>{
             props.handleTabps()
             props.handleCurrentUserId(data.owner.id)
             saveDataToPhone(data)
-          props.navigation.replace("Home")
+        //   props.navigation.replace("Home")
+         Updates.reloadAsync()
         } else {
             alert(data.errors)
         }

@@ -33,7 +33,7 @@ const QuantitySc = (props) => {
                 overlayStyle={{ marginBottom: 18 }}
             >
                 <View style={{ borderBottomWidth: 1, height: 40, marginHorizontal: -6, }}>
-                    <Text style={{ paddingHorizontal: 120, fontSize: 20, color: '#5a3f11' }}>Enter Quantities</Text>
+                    <Text style={{ paddingHorizontal: 100, fontSize: 20, color: '#5a3f11' }}>Enter Quantities </Text>
                 </View>
                 <TextInput style={{ height: 45, marginVertical: 9, paddingHorizontal: 20 }}
                     autoFocus={true}

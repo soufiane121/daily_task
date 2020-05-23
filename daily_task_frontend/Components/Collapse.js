@@ -25,7 +25,7 @@ const [status, setStatus]= useState('')
     return DATA.map((ele, index) => {
       
       return (
-        <View key={ele.ingredientName.length + Math.random()} style={{ flexDirection: 'row' }} >
+        <View key={ele?.ingredientName?.length + Math.random()} style={{ flexDirection: 'row' }} >
           <View style={styles.itembox}>
             <Animatable.Text style={styles.txtitem}
               animation='bounceIn'

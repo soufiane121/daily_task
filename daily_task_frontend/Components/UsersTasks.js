@@ -5,6 +5,8 @@ import { Ionicons, } from "@expo/vector-icons";
 import * as Animatable from 'react-native-animatable';
 import Collapse from './Collapse'
 // import * as _ from 'underscore'
+import { useIsFocused} from '@react-navigation/native';
+
 
 let DATA = new Array
 let ANSWER
@@ -13,10 +15,13 @@ let arr2 = []
 
 
 const UsersTasks = (props) => {
+    const isFocused = useIsFocused();
 
     const [selected, setSelected] = React.useState(new Map());
     const [secondSelected, setSecondSelected] = React.useState(new Map());
     const [refresh, setRefresh] = useState(false)
+    // console.log(props.currentUser?.user?.owner);
+    
 
     const onSelect = React.useCallback(id => {
         Keyboard.dismiss()
@@ -139,13 +144,28 @@ const UsersTasks = (props) => {
                     />
                 </View>
                 <Text style={{
-                    fontSize: 24, fontWeight: '500', 
+                    fontSize: 24, fontWeight: '500',
                     paddingHorizontal: 31, paddingVertical: 30, color: '#142850'
                 }}>No Tasks Made For You To Do</Text>
             </>
         )
     }
 
+    const handleRefreshing = async () => {
+        let subdomain = props.currentUser?.user?.owner.subdomain
+        let id  = props.currentUser?.user?.id
+        setRefresh(true)
+        fetch(`http://${subdomain}.lvh.me:3000/users/${id}`)
+        .then(resp=> resp.json())
+        .then(data=> {
+            // console.log(data.id);
+            props.handleCurrentUser({user:data})
+            uniqueness()
+            setRefresh(false)
+        })
+        
+
+    }
 
     return (
         <View>
@@ -165,7 +185,11 @@ const UsersTasks = (props) => {
                         />
                     }
                     keyExtractor={item => item.recipe.task_name.length.toString() + Math.floor(Math.random() * 1000)}
-                    ListEmptyComponent={EmptyList()} />
+                    ListEmptyComponent={EmptyList()}
+                    refreshing={refresh}
+                    onRefresh={handleRefreshing}
+                />
+
             </View>
         </View >
     )
@@ -339,7 +363,13 @@ const mpss = (dispatch) => {
                 type: 'tasksArray',
                 payload: { tasksArray: e }
             })
-        }
+        },
+        handleCurrentUser: e => {
+            dispatch({
+              type: "current",
+              payload: { currentUser: e }
+            });
+          },
     }
 }
 
