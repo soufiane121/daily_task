@@ -20,7 +20,6 @@ const UsersTasks = (props) => {
     const [selected, setSelected] = React.useState(new Map());
     const [secondSelected, setSecondSelected] = React.useState(new Map());
     const [refresh, setRefresh] = useState(false)
-    // console.log(props.currentUser?.user?.owner);
     
 
     const onSelect = React.useCallback(id => {
@@ -158,7 +157,6 @@ const UsersTasks = (props) => {
         fetch(`http://${subdomain}.lvh.me:3000/users/${id}`)
         .then(resp=> resp.json())
         .then(data=> {
-            // console.log(data.id);
             props.handleCurrentUser({user:data})
             uniqueness()
             setRefresh(false)
