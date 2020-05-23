@@ -199,30 +199,7 @@ const mstd = (dispatch) => {
 
 
 export default connect(mpts, mstd)(Status)
-// export default Status
 
-
-// const styling = () => {
-//     if (props.elementStatus === 'Done') {
-//         return styles.txtDone
-//     } else if (props.elementStatus === 'Stuck') {
-//         return styles.txtStuck
-//     } else {
-//         return styles.txtWork
-//     }
-// }
-
-// const handlSingle = () => {
-//     console.log('Done', done, 'working', working, 'stuck', stucking);
-//     // console.log('props.elementStatus',props.status);
-
-//     if (!stucking && !working && !done) {
-//         return (
-//             props.elementStatus === undefined
-//                 ?
-//                 <Text style={styles.txt}>Status</Text>
-//                 :
-//                 <Text style={styling()}>{props.elementStatus}</Text>
 
 
 //         )
