@@ -5,6 +5,12 @@ class UsersController < ApplicationController
         render json: users, status: 200
     end
 
+
+    def show
+        user = User.find_by(id: params[:id])
+        render json: user, status: 300
+    end
+
     def create
         owner = Owner.all.find {|ele| ele.subdomain == params[:company]}
         @user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], owner_id: owner.id)
@@ -29,6 +35,13 @@ class UsersController < ApplicationController
         else
             render json: {errors: @user.errors.full_messages}, status: 500
         end
+    end
+
+    def destroy
+        # byebug
+        user = User.find_by(id: params[:id])
+        user.destroy
+        render json: user
     end
 
     private
