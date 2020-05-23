@@ -199,14 +199,3 @@ const mstd = (dispatch) => {
 
 
 export default connect(mpts, mstd)(Status)
-
-
-
-//         )
-//     } else if (stucking) {
-//         return <Text style={styles.txtStuck}>Stuck</Text>
-//     } else if (working && !stucking) {
-//         return <Text style={styles.txtWork}>Working on it</Text>
-//     } else if (done && !stucking && !working) {
-//         return <Text style={styles.txtDone}>Done</Text>
-//     }
