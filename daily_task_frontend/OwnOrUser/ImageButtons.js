@@ -44,8 +44,6 @@ const ImageButtons=(props)=>{
                alert('Something went wrong with connection') 
                console.log(error)
             }
-        // props.handleTabps()
-        // navigation.replace('Users')     
     }
 
   
@@ -63,7 +61,6 @@ const ImageButtons=(props)=>{
         </>
     )
 
-    // return <ScrollList />
 }
 
 const styles= StyleSheet.create({
