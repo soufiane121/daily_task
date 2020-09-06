@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Text, View, KeyboardAvoidingView, TextInput, StyleSheet, Button, TouchableOpacity, ScrollView, Platform} from 'react-native'
-import { Logs } from 'expo'
+import {Text, KeyboardAvoidingView, TextInput, StyleSheet, Button, TouchableOpacity, ScrollView, Platform} from 'react-native'
 
 
 const SignUp=(props)=>{

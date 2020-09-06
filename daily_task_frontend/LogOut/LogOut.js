@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, View, SafeAreaView, AsyncStorage, Button } from 'react-native';
+import { SafeAreaView, AsyncStorage, Button } from 'react-native';
 import {connect} from 'react-redux'
-import { State } from 'react-native-gesture-handler/GestureHandler';
 import { useNavigation } from '@react-navigation/native';
 import * as Updates from 'expo-updates';
 
