@@ -8,7 +8,6 @@ class OwnersController < ApplicationController
 
 
     def show
-        # byebug
         @owner = Owner.find(params[:id])
         render json: {owner: OwnerSerializer.new(@owner)}
     end

@@ -25,7 +25,6 @@ class UsersController < ApplicationController
     end
 
     def assigning_ids
-        # byebug
         user = User.find_by(id: params[:id])
         user[:tasksId] << {"taskId"=> params[:taskId], "ingredientIdx"=> params[:ingredientIdx]}
         user[:tasksId].uniq!
@@ -38,7 +37,6 @@ class UsersController < ApplicationController
     end
 
     def destroy
-        # byebug
         user = User.find_by(id: params[:id])
         user.destroy
         render json: user
