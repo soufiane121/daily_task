@@ -24,6 +24,7 @@ class ItemsController < ApplicationController
 
     def updating
         owner_items = Owner.find_by(id: params[:owner_id])
+        # byebug
         item = Item.find_by(id: params[:id])
         item_id = params[:itemId]
         hash_item =item.recipe["ingredients"][item_id]
