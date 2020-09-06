@@ -34,7 +34,6 @@ const ParentComp=(props)=>{
         props.handleTabps()
         props.handleCurrentUserId(data.owner.id)
         saveDataToPhone(data)
-        // props.navigation.replace("Home")
          Updates.reloadAsync()
 
     } else {
@@ -115,7 +114,6 @@ const fetchAutoLogin = async () => {
           props.handleCurrentUserId(data.owner.id)
           props.navigation.replace("Home",{subdomain: data.owner.subdomain})
         })
-    //   props.navigation.replace("Home")
 
       }
     } catch (error) {
