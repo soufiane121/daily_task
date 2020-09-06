@@ -11,7 +11,6 @@ class ItemsController < ApplicationController
         item.recipe['ingredients'] << {ingredientName: params[:ingredientItem]}
         owner_items = Owner.find_by(id: params[:owner_id])
         if item.save
-            # render json: item, status: :ok
             render json: owner_items.to_json(:include => {
                 :users => {:only => [:id, :first_name, :last_name, :email]},
                 :feeds => {:only => [:id, :comment]},
@@ -24,7 +23,6 @@ class ItemsController < ApplicationController
 
     def updating
         owner_items = Owner.find_by(id: params[:owner_id])
-        # byebug
         item = Item.find_by(id: params[:id])
         item_id = params[:itemId]
         hash_item =item.recipe["ingredients"][item_id]
