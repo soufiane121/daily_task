@@ -16,7 +16,6 @@ const QuantitySc = (props) => {
         setInput(e)
     }
     const handleSaveButton = () => {
-        // props.setTextInp(input)
         setShow(false)
         props.fetchQuantity(input)
     }

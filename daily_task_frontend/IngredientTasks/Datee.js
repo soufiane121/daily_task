@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Button, Platform, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {Button, Platform, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Overlay } from "react-native-elements";
 import { connect } from 'react-redux'

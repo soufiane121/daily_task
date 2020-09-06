@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, KeyboardAvoidingView, TextInput, FlatList, View, TouchableOpacity } from 'react-native';
-import { EvilIcons } from "@expo/vector-icons";
 import { Overlay, } from "react-native-elements";
 import { connect } from 'react-redux'
 
@@ -39,7 +38,6 @@ const UsersList = (props) => {
                 <TextInput style={styles.searchField} placeholder='User name'
                     value={searchV}
                     onChangeText={(e) => setSearchV(e)}
-                // placeholderTextColor= 'red'
                 />
                 <FlatList
                     data={DATA}
@@ -76,10 +74,6 @@ const mps = (state) => {
         currentUser: state.currentUser
     }
 }
-const mpss = (dispatch) => {
-    return {
 
-    }
-}
 
 export default connect(mps)(UsersList);

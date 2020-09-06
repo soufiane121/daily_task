@@ -101,12 +101,10 @@ const Status = (props) => {
 const styles = StyleSheet.create({
     container: {
         fontSize: 17,
-        // margin: 1,
         backgroundColor: '#dee3e2',
         width: 99,
         marginLeft: 2,
         marginRight: 1,
-        // borderWidth: 2
     },
     txt: {
         alignSelf: 'center',
