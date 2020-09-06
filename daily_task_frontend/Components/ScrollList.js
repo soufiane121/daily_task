@@ -11,7 +11,7 @@ const ScrollList = (props) => {
 
 
     const fetchStatus = async (value) => {
-        // debugger
+        debugger
         let subdomain;
         if (props.currentUser.hasOwnProperty('owner')) {
             subdomain = props.currentUser.owner.subdomain

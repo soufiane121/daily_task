@@ -190,166 +190,158 @@ const OwnerTask = (props) => {
 
 
 const styles = StyleSheet.create({
-  iconButtonAdd: {
-    height: 71, 
-    // marginTop: 160, 
-    // position: 'relative',
-    marginTop: 560,
-    position: 'absolute'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  touch: {
-    backgroundColor: '#b53389',
-    height: 65,
-    alignSelf: 'center',
-    width: 65,
-    marginLeft: '80%',
-    borderRadius: 80,
-    position: 'relative',
-  },
-  icon: {
-    position: 'relative',
-    alignItems: 'center',
-    padding: 7,
-  },
-  card1: {
-    fontSize: 24,
-    margin: 3,
-    marginLeft: 20,
-    width: 273,
-    marginBottom: -22,
-    
-  },
-  iconArrow: {
-    fontSize: 25,
-    color: '#00bdaa',
-    marginLeft: 22,
-
-  },
-  icconAdd: {
-    fontSize: 19,
-    margin: 2,
-    paddingRight: 5,
-    color: '#3a0088',
-    marginRight: 4,
-    
-  },
-  search: {
-    height: '85%',
-    margin: 6,
-    backgroundColor: '#d4d7dd',
-    borderRadius: 23,
-    width: '94%',
-    padding: 9,
-    fontSize: 17
-  },
-  searchExtand: {
-    width: '74%',
-    margin: 6,
-    borderRadius: 23,
-    backgroundColor: '#d4d7dd',
-    padding: 9,
-    fontSize: 14
-  },
-  cancel: {
-    fontSize: 20,
-    marginTop: 19,
-    marginLeft: 7,
-    color: '#e61c5d',
-    fontWeight: '500'
-  },
-  cardContainer: {
-    flex: 1,
-    backgroundColor: '#eeeeee',
-    margin: 5,
-    borderRadius: 20,
-    borderLeftColor: '#d7385e',
-    borderLeftWidth: 4,
-    marginBottom: 7,
-    // height: 300 , //127,
-    // borderWidth: 3
-
-  },
-  cardContainerExtand: {
-    flex: 1,
-    backgroundColor: '#eeeeee',
-    margin: 5,
-    borderRadius: 20,
-    borderLeftColor: '#d7385e',
-    borderLeftWidth: 4,
-    marginBottom: 4,
-
-  },
-  ingredienInput: {
-    marginTop: 26,
-    flexDirection: "row",
-    width: '87%',
-    marginLeft: 6,
-    height: 44,
-    // borderWidth:4
-  },
-  ingredienInputExtand: {
-    flexDirection: 'row',
-    width: '87%',
-    marginTop: '20%',
-    position: 'relative'
-  },
-  btn: {
-    borderRadius: 50,
-    width: 50,
-  },
-  btnExtand: {
-    height: 50,
-    borderRadius: 50,
-  },
-  inputOfIngred: {
-    fontSize: 15,
-    padding: 10,
-    fontWeight: '500',
-    width: '94%'
-  },
-  inputOfIngredExtand: {
-    padding: 10,
-    fontSize: 15,
-    fontWeight: '500',
-    width: '94%',
-    height: 40
-  },
-  createBy: {
-    marginTop: 10,
-    padding: 7,
-    marginLeft: 8,
-    marginRight: 8,
-    borderRadius: 9,
-    backgroundColor: '#b2ebf2',
-    
-  },
-  createByExtand: {
-    // marginTop: 186,
-    padding: 7,
-    marginLeft: 8,
-    marginRight: 8,
-    borderRadius: 9,
-    backgroundColor: '#b2ebf2',
-    marginTop: 30,
-    marginBottom: 3
-  },
-  line: {
-    borderWidth: 1,
-    marginTop: 8,
-    width: '30%',
-    marginBottom: 16,
-    marginLeft: 16,
-    borderColor: '#22559c',
-    opacity: 0.4,
-    
-  }
-
-
-})
+	iconButtonAdd: {
+		height: 71,
+		// marginTop: 60,
+		// position: 'relative',
+		marginTop: 560,
+		position: "absolute",
+	},
+	container: {
+		flex: 1,
+		backgroundColor: "#f5f5f5",
+	},
+	touch: {
+		backgroundColor: "#b53389",
+		height: 65,
+		alignSelf: "center",
+		width: 65,
+		marginLeft: "80%",
+		borderRadius: 80,
+		position: "relative",
+	},
+	icon: {
+		position: "relative",
+		alignItems: "center",
+		padding: 7,
+	},
+	card1: {
+		fontSize: 24,
+		margin: 3,
+		marginLeft: 20,
+		width: 273,
+		marginBottom: -22,
+	},
+	iconArrow: {
+		fontSize: 25,
+		color: "#00bdaa",
+		marginLeft: 22,
+	},
+	icconAdd: {
+		fontSize: 19,
+		margin: 2,
+		paddingRight: 5,
+		color: "#3a0088",
+		marginRight: 4,
+	},
+	search: {
+		height: "85%",
+		margin: 6,
+		backgroundColor: "#d4d7dd",
+		borderRadius: 23,
+		width: "94%",
+		padding: 9,
+		fontSize: 17,
+	},
+	searchExtand: {
+		width: "74%",
+		margin: 6,
+		borderRadius: 23,
+		backgroundColor: "#d4d7dd",
+		padding: 9,
+		fontSize: 14,
+		// borderWidth: 2,
+	},
+	cancel: {
+		fontSize: 20,
+		marginTop: 19,
+		marginLeft: 7,
+		color: "#e61c5d",
+		fontWeight: "500",
+	},
+	cardContainer: {
+		flex: 1,
+		backgroundColor: "#eeeeee",
+		margin: 5,
+		borderRadius: 20,
+		borderLeftColor: "#d7385e",
+		borderLeftWidth: 4,
+		marginBottom: 7,
+		// height: 300 , //127,
+		// borderWidth: 3
+	},
+	cardContainerExtand: {
+		flex: 1,
+		backgroundColor: "#eeeeee",
+		margin: 5,
+		borderRadius: 20,
+		borderLeftColor: "#d7385e",
+		borderLeftWidth: 4,
+		marginBottom: 4,
+	},
+	ingredienInput: {
+		marginTop: 26,
+		flexDirection: "row",
+		width: "87%",
+		marginLeft: 6,
+		height: 44,
+		// borderWidth:4
+	},
+	ingredienInputExtand: {
+		flexDirection: "row",
+		width: "87%",
+		marginTop: "20%",
+		position: "relative",
+	},
+	btn: {
+		borderRadius: 50,
+		width: 50,
+	},
+	btnExtand: {
+		height: 50,
+		borderRadius: 50,
+	},
+	inputOfIngred: {
+		fontSize: 15,
+		padding: 10,
+		fontWeight: "500",
+		width: "94%",
+	},
+	inputOfIngredExtand: {
+		padding: 10,
+		fontSize: 15,
+		fontWeight: "500",
+		width: "94%",
+		height: 40,
+	},
+	createBy: {
+		marginTop: 10,
+		padding: 7,
+		marginLeft: 8,
+		marginRight: 8,
+		borderRadius: 9,
+		backgroundColor: "#b2ebf2",
+	},
+	createByExtand: {
+		// marginTop: 186,
+		padding: 7,
+		marginLeft: 8,
+		marginRight: 8,
+		borderRadius: 9,
+		backgroundColor: "#b2ebf2",
+		marginTop: 30,
+		marginBottom: 3,
+	},
+	line: {
+		borderWidth: 1,
+		marginTop: 8,
+		width: "30%",
+		marginBottom: 16,
+		marginLeft: 16,
+		borderColor: "#22559c",
+		opacity: 0.4,
+	},
+});
 
 
 const mps = state => {
