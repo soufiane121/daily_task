@@ -29,7 +29,6 @@ class UsersController < ApplicationController
         user[:tasksId] << {"taskId"=> params[:taskId], "ingredientIdx"=> params[:ingredientIdx]}
         user[:tasksId].uniq!
         if user.save
-            # render json: { user: UserSerializer.new(@user)}, status: :ok
             render json: user, status: :ok
         else
             render json: {errors: @user.errors.full_messages}, status: 500
