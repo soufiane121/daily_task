@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { useIsFocused} from '@react-navigation/native';
 import Admin from './Admin'
 

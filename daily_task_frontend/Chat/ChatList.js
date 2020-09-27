@@ -10,7 +10,6 @@ import {
 	TextInput,
 	KeyboardAvoidingView,
 	TouchableOpacity,
-	PickerIOSComponent,
 } from "react-native";
 import { ActionCableConsumer } from "react-actioncable-provider";
 import { connect } from "react-redux";
