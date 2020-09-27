@@ -103,12 +103,10 @@ class Admin extends React.Component {
 
 
     render() {
-        // console.log(this.props.currentUser?.owner?.users);
         console.disableYellowBox = true
 
         let datta = {
             chartOptions: {
-                // colors: ['yellowgreen', 'red', 'yello'],
                 chart: {
                     plotBackgroundColor: '#f9f9f9',
                     plotBorderWidth: null,
