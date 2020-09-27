@@ -81,7 +81,6 @@ class Admin extends React.Component {
     RenderSingleItem = ({ item }) => {
         return (
             <Swipeable renderRightActions={() => this.rightAction(item.id)}
-            // onSwipeableRightOpen={onRightPress}
             >
                 <View style={{ marginVertical: 4, paddingVertical: 20, borderBottomWidth: 0.3, marginHorizontal: 9 }} key={item.id}>
                     <Text style={{ fontWeight: '400', fontSize: 18, marginHorizontal: 9 }}>{`${item.first_name} ${item.last_name}`}</Text>
@@ -96,10 +95,6 @@ class Admin extends React.Component {
                 data={this.props.currentUser?.owner?.users}
                 renderItem={({ item }) =>
                     <this.RenderSingleItem item={item}
-                    // onRightPress={()=>{
-                    //     console.log('you Swiped right');
-
-                    // }}
                     />
                 }
             />
